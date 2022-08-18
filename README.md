@@ -2,20 +2,12 @@
 
 Nix flake for neovim with configuration options
 
-Originally based on Wil Taylor's amazing [neovim-flake](https://github.com/wiltaylor/neovim-flake)
+Originally based on Jordan Isaacs' amazing [neovim-flake](https://github.com/jordanisaacs/neovim-flake)
 
-## Installation
+## Try it out
 
-This config is constantly changing and updating as it is my personal config. It is opinionated and some available options may also be broken which I will try to keep documented in issues. I am sharing it so anyone can use it as inspiration/a starting point for their own config. I recommend cloning the config and running it locally with:
-
-```
-nix run .#
-```
-
-If you want to live life on the edge you can point to this repository directly with:
-
-```
-nix run github:jordanisaacs/neovim-flake.#
+```console
+$ nix run github:gvolpe/neovim-flake#
 ```
 
 ## Options
@@ -32,19 +24,6 @@ A goal of mine is that I shouldn't not be able to break neovim by enabling or di
 
 Most languages use [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) to set up language server. Additionally some languages also (or exclusively) use [null-ls](https://github.com/jose-elias-alvarez/null-ls.nvim) to extend capabilities.
 
-### Rust
-
-**LSP Server**: [rust-analyzer](https://github.com/rust-analyzer/rust-analyzer)
-
-**Formatting**
-
-Rust analyzer provides builtin formatting with [rustfmt](https://github.com/rust-lang/rustfmt)
-
-**Plugins**
-
-- [rust-tools](https://github.com/simrat39/rust-tools.nvim)
-- [crates.nvim](https://github.com/Saecki/crates.nvim)
-
 ### Nix
 
 **LSP Server**: [rnix-lsp](https://github.com/nix-community/rnix-lsp)
@@ -52,6 +31,14 @@ Rust analyzer provides builtin formatting with [rustfmt](https://github.com/rust
 **Formatting**
 
 rnix provides builtin formatting with [nixpkgs-fmt](https://github.com/nix-community/nixpkgs-fmt) but it is disabled and I am instead using null-ls with [alejandra](https://github.com/kamadorueda/alejandra)
+
+### Scala
+
+**LSP Server**: [metals](https://scalameta.org/metals/)
+
+**Formatting**
+
+Metals provides builtin formatting with [scalafmt](https://scalameta.org/scalafmt/).
 
 ### SQL
 
@@ -69,6 +56,19 @@ Using [sqlfluff](https://github.com/sqlfluff/sqlfluff) through null-ls to provid
 
 - [sqls.nvim](https://github.com/nanotee/sqls.nvim) for useful actions that leverage `sqls` LSP
 
+### Rust
+
+**LSP Server**: [rust-analyzer](https://github.com/rust-analyzer/rust-analyzer)
+
+**Formatting**
+
+Rust analyzer provides builtin formatting with [rustfmt](https://github.com/rust-lang/rustfmt)
+
+**Plugins**
+
+- [rust-tools](https://github.com/simrat39/rust-tools.nvim)
+- [crates.nvim](https://github.com/Saecki/crates.nvim)
+
 ### C/C++
 
 **LSP Server**: [ccls](https://github.com/MaskRay/ccls)
@@ -84,8 +84,6 @@ Using [eslint](https://github.com/prettier/prettier) through null-ls.
 **Formatting**
 
 Disabled lsp server formatting, using [prettier](https://github.com/prettier/prettier) through null-ls.
-
-
 
 ### Python
 
