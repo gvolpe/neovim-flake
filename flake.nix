@@ -339,6 +339,9 @@
             lspSignature.enable = true;
             rust.enable = false;
             nix = true;
+            dhall = true;
+            elm = true;
+            haskell = true;
             scala = true;
             sql = true;
             python = false;

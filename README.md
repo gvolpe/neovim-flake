@@ -10,6 +10,8 @@ Originally based on Jordan Isaacs' amazing [neovim-flake](https://github.com/jor
 $ nix run github:gvolpe/neovim-flake#
 ```
 
+By default, Scala, Dhall, Elm, Nix, Haskell, and SQL lsp servers are enabled.
+
 ## Options
 
 The philosophy behind this flake configuration is sensible options. While the default package has almost everything enabled, when building your own config using the overlay everything is disabled. By enabling a plugin or language, it will set up the keybindings and plugin automatically. Additionally each plugin knows when another plugin is enabled allowing for smart configuration of keybindings and automatic setup of things like completion sources and languages.
@@ -32,6 +34,14 @@ Most languages use [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) to
 
 rnix provides builtin formatting with [nixpkgs-fmt](https://github.com/nix-community/nixpkgs-fmt) but it is disabled and I am instead using null-ls with [alejandra](https://github.com/kamadorueda/alejandra)
 
+### Elm
+
+**LSP Server**: [elmls](https://github.com/elm-tooling/elm-language-server)
+
+### Haskell
+
+**LSP Server**: [hls](https://github.com/haskell/haskell-language-server)
+
 ### Scala
 
 **LSP Server**: [metals](https://scalameta.org/metals/)
@@ -39,6 +49,10 @@ rnix provides builtin formatting with [nixpkgs-fmt](https://github.com/nix-commu
 **Formatting**
 
 Metals provides builtin formatting with [scalafmt](https://scalameta.org/scalafmt/).
+
+### Dhall
+
+**LSP Server**: [dhall-lsp-server](https://github.com/dhall-lang/dhall-haskell/tree/master/dhall-lsp-server)
 
 ### SQL
 

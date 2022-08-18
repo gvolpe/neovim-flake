@@ -46,7 +46,7 @@ in
       }
       // (
         if config.vim.lsp.enable
-        then { }
+        then { "K" = "<cmd>lua vim.lsp.buf.hover()<CR>"; }
         else { }
       )
       // (

@@ -11,7 +11,16 @@ in
   options.vim.lsp = {
     enable = mkEnableOption "neovim lsp support";
     formatOnSave = mkEnableOption "Format on save";
+
     nix = mkEnableOption "Nix LSP";
+    dhall = mkEnableOption "Dhall LSP";
+    elm = mkEnableOption "Elm LSP";
+    haskell = mkEnableOption "Haskell LSP (hls)";
+    scala = mkEnableOption "Scala LSP (Metals)";
+
+    sql = mkEnableOption "SQL Language LSP";
+    ts = mkEnableOption "TS language LSP";
+
     rust = {
       enable = mkEnableOption "Rust LSP";
       rustAnalyzerOpts = mkOption {
@@ -28,10 +37,7 @@ in
     };
     python = mkEnableOption "Python LSP";
     clang = mkEnableOption "C language LSP";
-    sql = mkEnableOption "SQL Language LSP";
     go = mkEnableOption "Go language LSP";
-    scala = mkEnableOption "Scala LSP (Metals)";
-    ts = mkEnableOption "TS language LSP";
     hare = mkEnableOption "Hare plugin (not LSP)";
   };
 
@@ -320,6 +326,35 @@ in
             capabilities = capabilities;
             on_attach = default_on_attach;
             cmd = {"${pkgs.gopls}/bin/gopls", "serve"},
+          }
+        ''}
+
+        ${writeIf cfg.dhall ''
+          -- Dhall config
+          lspconfig.dhall_lsp_server.setup {
+            capabilities = capabilities;
+            on_attach = default_on_attach;
+            cmd = { "${pkgs.dhall-lsp-server}/bin/dhall-lsp-server" };
+          }
+        ''}
+
+        ${writeIf cfg.elm ''
+          -- Elm config
+          lspconfig.elmls.setup {
+            capabilities = capabilities;
+            on_attach = default_on_attach;
+            cmd = { "${pkgs.elmPackages.elm-language-server}/bin/elm-language-server" };
+            root_dir = lspconfig.util.root_pattern("elm.json");
+          }
+        ''}
+
+        ${writeIf cfg.haskell ''
+          -- Haskell config
+          lspconfig.hls.setup {
+            capabilities = capabilities;
+            on_attach = default_on_attach;
+            cmd = { "${pkgs.haskell-language-server}/bin/haskell-language-server-wrapper", "--lsp" };
+            root_dir = lspconfig.util.root_pattern("hie.yaml", "stack.yaml", ".cabal", "cabal.project", "package.yaml");
           }
         ''}
 
