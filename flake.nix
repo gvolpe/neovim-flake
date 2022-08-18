@@ -387,6 +387,9 @@
             enable = true;
             whichKey.enable = true;
           };
+          vim.shortcuts = {
+            enable = true;
+          };
           vim.telescope = {
             enable = true;
           };

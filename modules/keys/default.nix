@@ -1,6 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {imports = [./which-key.nix];}
+{ config
+, lib
+, pkgs
+, ...
+}: {
+  imports = [
+    ./shortcuts.nix
+    ./which-key.nix
+  ];
+}
