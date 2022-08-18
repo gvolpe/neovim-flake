@@ -343,6 +343,12 @@ in
           lspconfig.elmls.setup {
             capabilities = capabilities;
             on_attach = default_on_attach;
+            init_options = {
+               elmPath = "${pkgs.elmPackages.elm}/bin/elm",
+               elmFormatPath = "${pkgs.elmPackages.elm-format}/bin/elm-format",
+               elmTestPath = "${pkgs.elmPackages.elm-test}/bin/elm-test",
+               elmAnalyseTrigger = "change"
+            };
             cmd = { "${pkgs.elmPackages.elm-language-server}/bin/elm-language-server" };
             root_dir = lspconfig.util.root_pattern("elm.json");
           }
