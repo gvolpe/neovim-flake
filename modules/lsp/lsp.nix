@@ -1,13 +1,13 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
+{ pkgs
+, config
+, lib
+, ...
 }:
 with lib;
 with builtins; let
   cfg = config.vim.lsp;
-in {
+in
+{
   options.vim.lsp = {
     enable = mkEnableOption "neovim lsp support";
     formatOnSave = mkEnableOption "Format on save";
@@ -30,6 +30,7 @@ in {
     clang = mkEnableOption "C language LSP";
     sql = mkEnableOption "SQL Language LSP";
     go = mkEnableOption "Go language LSP";
+    scala = mkEnableOption "Scala LSP (Metals)";
     ts = mkEnableOption "TS language LSP";
     hare = mkEnableOption "Hare plugin (not LSP)";
   };
@@ -40,7 +41,8 @@ in {
         if cond
         then msg
         else "";
-    in {
+    in
+    {
       vim.startPlugins = with pkgs.neovimPlugins;
         [
           nvim-lspconfig
@@ -67,7 +69,7 @@ in {
               else null
             )
           ]
-          else []
+          else [ ]
         );
 
       vim.configRC = ''
@@ -318,6 +320,24 @@ in {
             capabilities = capabilities;
             on_attach = default_on_attach;
             cmd = {"${pkgs.gopls}/bin/gopls", "serve"},
+          }
+        ''}
+
+        ${writeIf cfg.scala ''
+          -- Scala Metals config
+          lspconfig.metals.setup {
+            cmd = { "${pkgs.metals}/bin/metals" };
+            capabilities = capabilities;
+            on_attach = default_on_attach;
+            init_options = {
+              compilerOptions = {
+                snippetAutoIndent = false
+              },
+              isHttpEnabled = true,
+              statusBarProvider = "show-message"
+            };
+            message_level = 4;
+            root_dir = lspconfig.util.root_pattern("build.sbt", "build.sc", "build.gradle", "pom.xml");
           }
         ''}
 

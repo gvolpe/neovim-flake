@@ -1,13 +1,13 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
+{ pkgs
+, lib
+, config
+, ...
 }:
 with lib;
 with builtins; let
   cfg = config.vim;
-in {
+in
+{
   options.vim = {
     colourTerm = mkOption {
       type = types.bool;
@@ -39,6 +39,11 @@ in {
       description = "Enable syntax highlighting";
     };
 
+    mapClearHighlight = mkOption {
+      type = types.bool;
+      description = "Map the <C-z> key to clear highlight search";
+    };
+
     mapLeaderSpace = mkOption {
       type = types.bool;
       description = "Map the space key to leader key";
@@ -50,12 +55,12 @@ in {
     };
 
     mouseSupport = mkOption {
-      type = with types; enum ["a" "n" "v" "i" "c"];
+      type = with types; enum [ "a" "n" "v" "i" "c" ];
       description = "Set modes for mouse support. a - all, n - normal, v - visual, i - insert, c - command";
     };
 
     lineNumberMode = mkOption {
-      type = with types; enum ["relative" "number" "relNumber" "none"];
+      type = with types; enum [ "relative" "number" "relNumber" "none" ];
       description = "How line numbers are displayed. none, relative, number, relNumber";
     };
 
@@ -90,7 +95,7 @@ in {
     };
 
     bell = mkOption {
-      type = types.enum ["none" "visual" "on"];
+      type = types.enum [ "none" "visual" "on" ];
       description = "Set how bells are handled. Options: on, visual or none";
     };
 
@@ -116,16 +121,18 @@ in {
         if cond
         then msg
         else "";
-    in {
+    in
+    {
       vim.colourTerm = mkDefault true;
-      vim.disableArrows = false;
+      vim.disableArrows = true;
       vim.hideSearchHighlight = mkDefault false;
       vim.scrollOffset = mkDefault 8;
       vim.wordWrap = mkDefault true;
       vim.syntaxHighlighting = mkDefault true;
+      vim.mapClearHighlight = mkDefault true;
       vim.mapLeaderSpace = mkDefault true;
       vim.useSystemClipboard = mkDefault true;
-      vim.mouseSupport = mkDefault "a";
+      vim.mouseSupport = mkDefault "v";
       vim.lineNumberMode = mkDefault "relNumber";
       vim.preventJunkFiles = mkDefault false;
       vim.tabWidth = mkDefault 4;
@@ -138,7 +145,7 @@ in {
       vim.splitBelow = mkDefault true;
       vim.splitRight = mkDefault true;
 
-      vim.startPlugins = with pkgs.neovimPlugins; [plenary-nvim];
+      vim.startPlugins = with pkgs.neovimPlugins; [ plenary-nvim ];
 
       vim.nmap =
         if (cfg.disableArrows)
@@ -148,7 +155,7 @@ in {
           "<left>" = "<nop>";
           "<right>" = "<nop>";
         }
-        else {};
+        else { };
 
       vim.imap =
         if (cfg.disableArrows)
@@ -158,12 +165,14 @@ in {
           "<left>" = "<nop>";
           "<right>" = "<nop>";
         }
-        else {};
+        else { };
 
       vim.nnoremap =
-        if (cfg.mapLeaderSpace)
-        then {"<space>" = "<nop>";}
-        else {};
+        let
+          mls = if (cfg.mapLeaderSpace) then { "<space>" = "<nop>"; } else { };
+          mch = if (cfg.mapClearHighlight) then { "<C-z>" = ":nohlsearch<CR>"; } else { };
+        in
+        mls // mch;
 
       vim.configRC = ''
         " Settings that are set for everything

@@ -274,12 +274,23 @@
 
     pluginOverlay = lib.buildPluginOverlay;
 
+    metalsOverlay = (f: p: {
+      metals = p.metals.overrideAttrs (old: rec {
+        version = "0.11.8";
+        extraJavaOpts = old.extraJavaOpts + " -Dmetals.client=nvim-lsp";
+        deps = old.deps.overrideAttrs (do: {
+          outputHash = "sha256-Zc/0kod3JM58WpyxwXiyQdixBHOJV7UDGg1YZtHJ3hw=";
+        });
+      });
+    });
+
     pkgs = import nixpkgs {
       inherit system;
       config = {allowUnfree = true;};
       overlays = [
         pluginOverlay
-        (final: prev: {
+        metalsOverlay
+        (f: p: {
           rnix-lsp = inputs.rnix-lsp.defaultPackage.${system};
           tree-sitter-hare = jdpkgs.packages.${system}.tree-sitter-hare;
         })
@@ -303,18 +314,18 @@
     };
 
     devShells.${system}.default = pkgs.mkShell {
-      buildInputs = [packages.${system}.neovimJD];
+      buildInputs = [packages.${system}.neovimmer];
     };
 
     overlays.default = final: prev: {
       inherit neovimBuilder;
-      neovimJD = packages.${system}.neovimJD;
+      neovimmer = packages.${system}.neovimmer;
       neovimPlugins = pkgs.neovimPlugins;
     };
 
     packages.${system} = rec {
-      default = neovimJD;
-      neovimJD = neovimBuilder {
+      default = neovimmer;
+      neovimmer = neovimBuilder {
         config = {
           vim.viAlias = false;
           vim.vimAlias = true;
@@ -326,14 +337,15 @@
             nvimCodeActionMenu.enable = true;
             trouble.enable = true;
             lspSignature.enable = true;
-            rust.enable = true;
+            rust.enable = false;
             nix = true;
-            python = true;
-            clang = true;
+            scala = true;
             sql = true;
-            ts = true;
-            go = true;
-            hare = true;
+            python = false;
+            clang = false;
+            ts = false;
+            go = false;
+            hare = false;
           };
           vim.visuals = {
             enable = true;
