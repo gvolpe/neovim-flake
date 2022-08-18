@@ -18,7 +18,7 @@ A goal of mine is that I shouldn't not be able to break neovim by enabling or di
 
 ## Screenshot
 
-![screenshot](./screenshot.png)
+![screenshot](./nvim-lsp.png)
 
 ## Language Support
 
