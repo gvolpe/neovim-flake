@@ -1,16 +1,17 @@
-{ pkgs
-, config
-, lib
-, ...
+{
+  pkgs,
+  config,
+  lib,
+  ...
 }:
 with lib;
 with builtins; let
   cfg = config.vim.lsp;
-in
-{
+in {
   options.vim.lsp = {
     enable = mkEnableOption "neovim lsp support";
     formatOnSave = mkEnableOption "Format on save";
+    comments = mkEnableOption "Kommentary plugin";
 
     nix = mkEnableOption "Nix LSP";
     dhall = mkEnableOption "Dhall LSP";
@@ -47,8 +48,7 @@ in
         if cond
         then msg
         else "";
-    in
-    {
+    in {
       vim.startPlugins = with pkgs.neovimPlugins;
         [
           nvim-lspconfig
@@ -75,7 +75,7 @@ in
               else null
             )
           ]
-          else [ ]
+          else []
         );
 
       vim.configRC = ''

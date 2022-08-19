@@ -223,6 +223,7 @@
   };
 
   outputs = {
+    self,
     nixpkgs,
     jdpkgs,
     flake-utils,
@@ -270,11 +271,12 @@
       "rust-tools"
       "onedark"
       "hare-vim"
+      "kommentary"
     ];
 
     pluginOverlay = lib.buildPluginOverlay;
 
-    metalsOverlay = (f: p: {
+    metalsOverlay = f: p: {
       metals = p.metals.overrideAttrs (old: rec {
         version = "0.11.8";
         extraJavaOpts = old.extraJavaOpts + " -Dmetals.client=nvim-lsp";
@@ -282,25 +284,24 @@
           outputHash = "sha256-Zc/0kod3JM58WpyxwXiyQdixBHOJV7UDGg1YZtHJ3hw=";
         });
       });
-    });
+    };
+
+    overlayComposite = [
+      pluginOverlay
+      metalsOverlay
+      (f: p: {
+        rnix-lsp = inputs.rnix-lsp.defaultPackage.${system};
+        tree-sitter-hare = jdpkgs.packages.${system}.tree-sitter-hare;
+      })
+    ];
 
     pkgs = import nixpkgs {
       inherit system;
       config = {allowUnfree = true;};
-      overlays = [
-        pluginOverlay
-        metalsOverlay
-        (f: p: {
-          rnix-lsp = inputs.rnix-lsp.defaultPackage.${system};
-          tree-sitter-hare = jdpkgs.packages.${system}.tree-sitter-hare;
-        })
-      ];
+      overlays = overlayComposite;
     };
 
-    lib =
-      import
-      ./lib
-      {inherit pkgs inputs plugins;};
+    lib = import ./lib {inherit pkgs inputs plugins;};
 
     neovimBuilder = lib.neovimBuilder;
   in rec {
@@ -314,24 +315,29 @@
     };
 
     devShells.${system}.default = pkgs.mkShell {
-      buildInputs = [packages.${system}.neovimmer];
+      buildInputs = [packages.${system}.neovim-ide];
     };
 
-    overlays.default = final: prev: {
+    overlays.default = f: p: {
       inherit neovimBuilder;
-      neovimmer = packages.${system}.neovimmer;
+      neovim-ide = packages.${system}.neovimmer;
       neovimPlugins = pkgs.neovimPlugins;
     };
 
+    nixosModules.hm = {
+      imports = [./lib/hm.nix];
+    };
+
     packages.${system} = rec {
-      default = neovimmer;
-      neovimmer = neovimBuilder {
+      default = neovim-ide;
+      neovim-ide = neovimBuilder {
         config = {
           vim.viAlias = false;
           vim.vimAlias = true;
           vim.lsp = {
             enable = true;
             formatOnSave = true;
+            comments = true;
             lightbulb.enable = true;
             lspsaga.enable = false;
             nvimCodeActionMenu.enable = true;
