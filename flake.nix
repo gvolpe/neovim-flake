@@ -290,7 +290,7 @@
       pluginOverlay
       metalsOverlay
       (f: p: {
-        rnix-lsp = inputs.rnix-lsp.defaultPackage.${system};
+        #rnix-lsp = inputs.rnix-lsp.defaultPackage.${system};
         tree-sitter-hare = jdpkgs.packages.${system}.tree-sitter-hare;
       })
     ];
@@ -320,7 +320,7 @@
 
     overlays.default = f: p: {
       inherit neovimBuilder;
-      neovim-ide = packages.${system}.neovimmer;
+      neovim-ide = packages.${system}.neovim-ide;
       neovimPlugins = pkgs.neovimPlugins;
     };
 
@@ -395,6 +395,9 @@
           vim.keys = {
             enable = true;
             whichKey.enable = true;
+          };
+          vim.comments = {
+            enable = true;
           };
           vim.shortcuts = {
             enable = true;

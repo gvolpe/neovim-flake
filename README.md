@@ -32,7 +32,7 @@ Most languages use [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) to
 
 **Formatting**
 
-rnix provides builtin formatting with [nixpkgs-fmt](https://github.com/nix-community/nixpkgs-fmt) but it is disabled and I am instead using null-ls with [alejandra](https://github.com/kamadorueda/alejandra)
+rnix provides builtin formatting with [nixpkgs-fmt](https://github.com/nix-community/nixpkgs-fmt). 
 
 ### Elm
 

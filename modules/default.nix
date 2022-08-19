@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./completion
+    ./comments
     ./theme
     ./core
     ./basic

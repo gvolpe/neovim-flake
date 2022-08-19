@@ -1,13 +1,12 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}:
+{ pkgs, config, lib, ... }:
+
 with lib;
-with builtins; let
+with builtins;
+
+let
   cfg = config.vim.lsp;
-in {
+in
+{
   options.vim.lsp = {
     enable = mkEnableOption "neovim lsp support";
     formatOnSave = mkEnableOption "Format on save";
@@ -48,7 +47,8 @@ in {
         if cond
         then msg
         else "";
-    in {
+    in
+    {
       vim.startPlugins = with pkgs.neovimPlugins;
         [
           nvim-lspconfig
@@ -75,7 +75,7 @@ in {
               else null
             )
           ]
-          else []
+          else [ ]
         );
 
       vim.configRC = ''
@@ -135,6 +135,7 @@ in {
           vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ls', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ln', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+          vim.api.nvim_buf_set_keymap(bufnr, 'n', 'F', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
         end
 
         local null_ls = require("null-ls")
@@ -173,12 +174,6 @@ in {
             null_ls.builtins.diagnostics.sqlfluff.with({
               command = "${pkgs.sqlfluff}/bin/sqlfluff",
               extra_args = {"--dialect", "postgres"}
-            }),
-          ''}
-          ${writeIf cfg.nix
-          ''
-            null_ls.builtins.formatting.alejandra.with({
-              command = "${pkgs.alejandra}/bin/alejandra"
             }),
           ''}
 
@@ -380,6 +375,14 @@ in {
             message_level = 4;
             root_dir = lspconfig.util.root_pattern("build.sbt", "build.sc", "build.gradle", "pom.xml");
           }
+        ''}
+
+        ${writeIf cfg.nix
+        ''
+          -- Nix formatter
+          null_ls.builtins.formatting.alejandra.with({
+            command = "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt";
+          });
         ''}
 
         ${writeIf cfg.ts ''
