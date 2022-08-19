@@ -135,7 +135,7 @@ in
       vim.mouseSupport = mkDefault "v";
       vim.lineNumberMode = mkDefault "relNumber";
       vim.preventJunkFiles = mkDefault false;
-      vim.tabWidth = mkDefault 4;
+      vim.tabWidth = mkDefault 2;
       vim.autoIndent = mkDefault true;
       vim.cmdHeight = mkDefault 1;
       vim.updateTime = mkDefault 300;

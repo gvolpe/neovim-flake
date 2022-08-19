@@ -12,6 +12,56 @@ $ nix run github:gvolpe/neovim-flake#
 
 By default, Scala, Dhall, Elm, Nix, Haskell, and SQL lsp servers are enabled.
 
+## Home Manager 
+
+To use it with Home Manager, we need to add both the overlays and the HM module. First of all, we add the input flake.
+
+```nix
+{
+  neovim-flake = {
+    url = github:gvolpe/neovim-flake;
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+}
+```
+
+Then we add the overlay.
+
+```nix
+{
+  pkgs = import nixpkgs {
+    overlays = [ neovim-flake.overlays.default ];
+  };
+}
+```
+
+Followed by importing the module.
+
+```nix
+{
+  imports = [ neovim-flake.nixosModules.hm ];
+}
+```
+
+Then we should be able to use the given module. E.g.
+
+```nix
+{
+  programs.neovim-ide = {
+    enable = true;
+    settings = {
+      vim.viAlias = false;
+      vim.vimAlias = true;
+      vim.lsp = {
+        enable = true;
+      };
+    };
+  };
+}
+```
+
+Have a look at my [nix-config](https://github.com/gvolpe/nix-config) for a full example.
+
 ## Options
 
 The philosophy behind this flake configuration is sensible options. While the default package has almost everything enabled, when building your own config using the overlay everything is disabled. By enabling a plugin or language, it will set up the keybindings and plugin automatically. Additionally each plugin knows when another plugin is enabled allowing for smart configuration of keybindings and automatic setup of things like completion sources and languages.
