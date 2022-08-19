@@ -222,199 +222,206 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    jdpkgs,
-    flake-utils,
-    ...
-  } @ inputs: let
-    system = "x86_64-linux";
+  outputs =
+    { self
+    , nixpkgs
+    , jdpkgs
+    , flake-utils
+    , ...
+    } @ inputs:
+    let
+      system = "x86_64-linux";
 
-    # Plugin must be same as input name
-    plugins = [
-      "nvim-treesitter-context"
-      "gitsigns-nvim"
-      "plenary-nvim"
-      "nvim-lspconfig"
-      "nvim-treesitter"
-      "lspsaga"
-      "lspkind"
-      "nvim-lightbulb"
-      "lsp-signature"
-      "nvim-tree-lua"
-      "nvim-bufferline-lua"
-      "lualine"
-      "nvim-compe"
-      "nvim-autopairs"
-      "nvim-ts-autotag"
-      "nvim-web-devicons"
-      "tokyonight"
-      "bufdelete-nvim"
-      "nvim-cmp"
-      "cmp-nvim-lsp"
-      "cmp-buffer"
-      "cmp-vsnip"
-      "cmp-path"
-      "cmp-treesitter"
-      "crates-nvim"
-      "vim-vsnip"
-      "nvim-code-action-menu"
-      "trouble"
-      "null-ls"
-      "which-key"
-      "indent-blankline"
-      "nvim-cursorline"
-      "sqls-nvim"
-      "glow-nvim"
-      "telescope"
-      "rust-tools"
-      "onedark"
-      "hare-vim"
-      "kommentary"
-    ];
+      # Plugin must be same as input name
+      plugins = [
+        "nvim-treesitter-context"
+        "gitsigns-nvim"
+        "plenary-nvim"
+        "nvim-lspconfig"
+        "nvim-treesitter"
+        "lspsaga"
+        "lspkind"
+        "nvim-lightbulb"
+        "lsp-signature"
+        "nvim-tree-lua"
+        "nvim-bufferline-lua"
+        "lualine"
+        "nvim-compe"
+        "nvim-autopairs"
+        "nvim-ts-autotag"
+        "nvim-web-devicons"
+        "tokyonight"
+        "bufdelete-nvim"
+        "nvim-cmp"
+        "cmp-nvim-lsp"
+        "cmp-buffer"
+        "cmp-vsnip"
+        "cmp-path"
+        "cmp-treesitter"
+        "crates-nvim"
+        "vim-vsnip"
+        "nvim-code-action-menu"
+        "trouble"
+        "null-ls"
+        "which-key"
+        "indent-blankline"
+        "nvim-cursorline"
+        "sqls-nvim"
+        "glow-nvim"
+        "telescope"
+        "rust-tools"
+        "onedark"
+        "hare-vim"
+        "kommentary"
+      ];
 
-    pluginOverlay = lib.buildPluginOverlay;
+      pluginOverlay = lib.buildPluginOverlay;
 
-    metalsOverlay = f: p: {
-      metals = p.metals.overrideAttrs (old: rec {
-        version = "0.11.8";
-        extraJavaOpts = old.extraJavaOpts + " -Dmetals.client=nvim-lsp";
-        deps = old.deps.overrideAttrs (do: {
-          outputHash = "sha256-Zc/0kod3JM58WpyxwXiyQdixBHOJV7UDGg1YZtHJ3hw=";
+      metalsOverlay = f: p: {
+        metals = p.metals.overrideAttrs (old: rec {
+          version = "0.11.8";
+          extraJavaOpts = old.extraJavaOpts + " -Dmetals.client=nvim-lsp";
+          deps = old.deps.overrideAttrs (do: {
+            outputHash = "sha256-Zc/0kod3JM58WpyxwXiyQdixBHOJV7UDGg1YZtHJ3hw=";
+          });
         });
-      });
-    };
-
-    overlayComposite = [
-      pluginOverlay
-      metalsOverlay
-      (f: p: {
-        #rnix-lsp = inputs.rnix-lsp.defaultPackage.${system};
-        tree-sitter-hare = jdpkgs.packages.${system}.tree-sitter-hare;
-      })
-    ];
-
-    pkgs = import nixpkgs {
-      inherit system;
-      config = {allowUnfree = true;};
-      overlays = overlayComposite;
-    };
-
-    lib = import ./lib {inherit pkgs inputs plugins;};
-
-    neovimBuilder = lib.neovimBuilder;
-  in rec {
-    apps.${system} = rec {
-      nvim = {
-        type = "app";
-        program = "${packages.${system}.default}/bin/nvim";
       };
 
-      default = nvim;
-    };
+      overlayComposite = [
+        pluginOverlay
+        metalsOverlay
+        (f: p: {
+          #rnix-lsp = inputs.rnix-lsp.defaultPackage.${system};
+          tree-sitter-hare = jdpkgs.packages.${system}.tree-sitter-hare;
+        })
+      ];
 
-    devShells.${system}.default = pkgs.mkShell {
-      buildInputs = [packages.${system}.neovim-ide];
-    };
+      pkgs = import nixpkgs {
+        inherit system;
+        config = { allowUnfree = true; };
+        overlays = overlayComposite;
+      };
 
-    overlays.default = f: p: {
-      inherit neovimBuilder;
-      neovim-ide = packages.${system}.neovim-ide;
-      neovimPlugins = pkgs.neovimPlugins;
-    };
+      lib = import ./lib { inherit pkgs inputs plugins; };
 
-    nixosModules.hm = {
-      imports = [./lib/hm.nix];
-    };
+      neovimBuilder = lib.neovimBuilder;
+    in
+    rec {
+      apps.${system} = rec {
+        nvim = {
+          type = "app";
+          program = "${packages.${system}.default}/bin/nvim";
+        };
 
-    packages.${system} = rec {
-      default = neovim-ide;
-      neovim-ide = neovimBuilder {
-        config = {
-          vim.viAlias = false;
-          vim.vimAlias = true;
-          vim.lsp = {
-            enable = true;
-            formatOnSave = true;
-            comments = true;
-            lightbulb.enable = true;
-            lspsaga.enable = false;
-            nvimCodeActionMenu.enable = true;
-            trouble.enable = true;
-            lspSignature.enable = true;
-            rust.enable = false;
-            nix = true;
-            dhall = true;
-            elm = true;
-            haskell = true;
-            scala = true;
-            sql = true;
-            python = false;
-            clang = false;
-            ts = false;
-            go = false;
-            hare = false;
-          };
-          vim.visuals = {
-            enable = true;
-            nvimWebDevicons.enable = true;
-            lspkind.enable = true;
-            indentBlankline = {
+        default = nvim;
+      };
+
+      devShells.${system}.default = pkgs.mkShell {
+        buildInputs = [ packages.${system}.neovim-ide ];
+      };
+
+      overlays.default = f: p: {
+        inherit neovimBuilder;
+        neovim-ide = packages.${system}.neovim-ide;
+        neovimPlugins = pkgs.neovimPlugins;
+      };
+
+      nixosModules.hm = {
+        imports = [ ./lib/hm.nix ];
+      };
+
+      packages.${system} = rec {
+        default = neovim-ide;
+        neovim-ide = neovimBuilder {
+          config = {
+            vim.viAlias = false;
+            vim.vimAlias = true;
+            vim.customPlugins = with pkgs.vimPlugins; [
+              multiple-cursors
+              vim-repeat
+              vim-surround
+            ];
+            vim.lsp = {
               enable = true;
-              fillChar = "";
-              eolChar = "";
-              showCurrContext = true;
+              formatOnSave = true;
+              comments = true;
+              lightbulb.enable = true;
+              lspsaga.enable = false;
+              nvimCodeActionMenu.enable = true;
+              trouble.enable = true;
+              lspSignature.enable = true;
+              rust.enable = false;
+              nix = true;
+              dhall = true;
+              elm = true;
+              haskell = true;
+              scala = true;
+              sql = true;
+              python = false;
+              clang = false;
+              ts = false;
+              go = false;
+              hare = false;
             };
-            cursorWordline = {
+            vim.visuals = {
               enable = true;
-              lineTimeout = 0;
+              nvimWebDevicons.enable = true;
+              lspkind.enable = true;
+              indentBlankline = {
+                enable = true;
+                fillChar = "";
+                eolChar = "";
+                showCurrContext = true;
+              };
+              cursorWordline = {
+                enable = true;
+                lineTimeout = 0;
+              };
             };
-          };
-          vim.statusline.lualine = {
-            enable = true;
-            theme = "onedark";
-          };
-          vim.theme = {
-            enable = true;
-            name = "onedark";
-            style = "darker";
-          };
-          vim.autopairs.enable = true;
-          vim.autocomplete = {
-            enable = true;
-            type = "nvim-cmp";
-          };
-          vim.filetree.nvimTreeLua.enable = true;
-          vim.tabline.nvimBufferline.enable = true;
-          vim.treesitter = {
-            enable = true;
-            autotagHtml = true;
-            context.enable = true;
-          };
-          vim.keys = {
-            enable = true;
-            whichKey.enable = true;
-          };
-          vim.comments = {
-            enable = true;
-          };
-          vim.shortcuts = {
-            enable = true;
-          };
-          vim.telescope = {
-            enable = true;
-          };
-          vim.markdown = {
-            enable = true;
-            glow.enable = true;
-          };
-          vim.git = {
-            enable = true;
-            gitsigns.enable = true;
+            vim.statusline.lualine = {
+              enable = true;
+              theme = "onedark";
+            };
+            vim.theme = {
+              enable = true;
+              name = "onedark";
+              style = "darker";
+            };
+            vim.autopairs.enable = true;
+            vim.autocomplete = {
+              enable = true;
+              type = "nvim-cmp";
+            };
+            vim.filetree.nvimTreeLua.enable = true;
+            vim.tabline.nvimBufferline.enable = true;
+            vim.treesitter = {
+              enable = true;
+              autotagHtml = true;
+              context.enable = true;
+            };
+            vim.keys = {
+              enable = true;
+              whichKey.enable = true;
+            };
+            vim.comments = {
+              enable = true;
+            };
+            vim.shortcuts = {
+              enable = true;
+            };
+            vim.telescope = {
+              enable = true;
+            };
+            vim.markdown = {
+              enable = true;
+              glow.enable = true;
+            };
+            vim.git = {
+              enable = true;
+              gitsigns.enable = true;
+            };
           };
         };
       };
     };
-  };
 }

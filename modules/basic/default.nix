@@ -113,6 +113,12 @@ in
       type = types.bool;
       description = "New splits will open to the right";
     };
+
+    customPlugins = mkOption {
+      type = types.listOf types.package;
+      default = [ ];
+      description = "List of custom scripts";
+    };
   };
 
   config = (
@@ -145,7 +151,7 @@ in
       vim.splitBelow = mkDefault true;
       vim.splitRight = mkDefault true;
 
-      vim.startPlugins = with pkgs.neovimPlugins; [ plenary-nvim ];
+      vim.startPlugins = [ pkgs.neovimPlugins.plenary-nvim ] ++ cfg.customPlugins;
 
       vim.nmap =
         if (cfg.disableArrows)
