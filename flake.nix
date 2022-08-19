@@ -386,6 +386,7 @@
               enable = true;
               name = "onedark";
               style = "darker";
+              transparency = true;
             };
             vim.autopairs.enable = true;
             vim.autocomplete = {
