@@ -3,6 +3,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     jdpkgs = {
       url = "github:jordanisaacs/jdpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -227,9 +232,7 @@
     jdpkgs,
     flake-utils,
     ...
-  } @ inputs: let
-    system = "x86_64-linux";
-
+  } @ inputs: flake-utils.lib.eachDefaultSystem (system: let
     # Plugin must be same as input name
     plugins = [
       "nvim-treesitter-context"
@@ -284,15 +287,29 @@
       });
     });
 
+    macIntelOverlay = (self: super:
+      if super.stdenv.isDarwin && super.stdenv.isAarch64 then
+        let intelPkgs = nixpkgs.legacyPackages.x86_64-darwin;
+        in {
+          inherit
+            (intelPkgs)
+            llvmPackages_6
+            llvmPackages_7
+            llvmPackages_8
+            llvmPackages_9
+            llvmPackages_10;
+        } else {});
+
     pkgs = import nixpkgs {
       inherit system;
       config = {allowUnfree = true;};
       overlays = [
+        macIntelOverlay
         pluginOverlay
         metalsOverlay
         (f: p: {
           rnix-lsp = inputs.rnix-lsp.defaultPackage.${system};
-          tree-sitter-hare = jdpkgs.packages.${system}.tree-sitter-hare;
+          # tree-sitter-hare = jdpkgs.packages.${system}.tree-sitter-hare;
         })
       ];
     };
@@ -304,26 +321,26 @@
 
     neovimBuilder = lib.neovimBuilder;
   in rec {
-    apps.${system} = rec {
+    apps = rec {
       nvim = {
         type = "app";
-        program = "${packages.${system}.default}/bin/nvim";
+        program = "${packages.default}/bin/nvim";
       };
 
       default = nvim;
     };
 
-    devShells.${system}.default = pkgs.mkShell {
-      buildInputs = [packages.${system}.neovimmer];
+    devShells.default = pkgs.mkShell {
+      buildInputs = [packages.neovimmer];
     };
 
     overlays.default = final: prev: {
       inherit neovimBuilder;
-      neovimmer = packages.${system}.neovimmer;
+      neovimmer = packages.neovimmer;
       neovimPlugins = pkgs.neovimPlugins;
     };
 
-    packages.${system} = rec {
+    packages = rec {
       default = neovimmer;
       neovimmer = neovimBuilder {
         config = {
@@ -339,9 +356,9 @@
             lspSignature.enable = true;
             rust.enable = false;
             nix = true;
-            dhall = true;
-            elm = true;
-            haskell = true;
+            dhall = false;
+            elm = false;
+            haskell = false;
             scala = true;
             sql = true;
             python = false;
@@ -407,5 +424,5 @@
         };
       };
     };
-  };
+  });
 }
