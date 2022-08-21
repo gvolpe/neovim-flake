@@ -15,6 +15,7 @@
     ./filetree
     ./visuals
     ./lsp
+    ./scala
     ./treesitter
     ./autopairs
     ./snippets

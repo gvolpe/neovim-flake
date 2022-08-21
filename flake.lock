@@ -698,6 +698,7 @@
         "tokyonight": "tokyonight",
         "tree-sitter-hare": "tree-sitter-hare",
         "trouble": "trouble",
+        "vim-scala": "vim-scala",
         "vim-vsnip": "vim-vsnip",
         "which-key": "which-key"
       }
@@ -826,6 +827,22 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "vim-scala": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1641291049,
+        "narHash": "sha256-lUj+6DGyCvWyu/fIz15saQoIWkG/w6HAmjCG7VmVOvk=",
+        "owner": "gvolpe",
+        "repo": "vim-scala",
+        "rev": "7379894b48df6b677788a75b8f04632e717102a8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gvolpe",
+        "repo": "vim-scala",
         "type": "github"
       }
     },

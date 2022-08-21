@@ -1,17 +1,19 @@
-{
-  pkgs,
-  inputs,
-  plugins,
-  ...
-}: final: prev: let
+{ pkgs, inputs, plugins, lib ? pkgs.lib, ... }:
+
+final: prev:
+
+with lib;
+with builtins;
+
+let
   inherit (prev.vimUtils) buildVimPluginFrom2Nix;
 
-  treesitterGrammars = prev.tree-sitter.withPlugins (p: [
+  treesitterGrammars = final.tree-sitter.withPlugins (p: [
     p.tree-sitter-c
+    p.tree-sitter-scala
     p.tree-sitter-nix
     p.tree-sitter-elm
     p.tree-sitter-haskell
-    p.tree-sitter-scala
     p.tree-sitter-python
     p.tree-sitter-rust
     p.tree-sitter-markdown
@@ -42,12 +44,8 @@
         ''
         else "";
     };
-in {
+in
+{
   neovimPlugins =
-    builtins.listToAttrs
-    (map (name: {
-        inherit name;
-        value = buildPlug name;
-      })
-      plugins);
+    listToAttrs (map (n: nameValuePair n (buildPlug n)) plugins);
 }
