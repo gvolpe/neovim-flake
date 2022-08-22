@@ -1,13 +1,12 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}:
+{ pkgs, config, lib, ... }:
+
 with lib;
-with builtins; let
+with builtins;
+
+let
   cfg = config.vim.visuals;
-in {
+in
+{
   options.vim.visuals = {
     enable = mkOption {
       type = types.bool;
@@ -64,56 +63,31 @@ in {
     };
   };
 
-  config =
-    mkIf cfg.enable
+  config = mkIf cfg.enable
     {
-      vim.startPlugins = with pkgs.neovimPlugins; [
-        (
-          if cfg.nvimWebDevicons.enable
-          then nvim-web-devicons
-          else null
-        )
-        (
-          if cfg.lspkind.enable
-          then pkgs.neovimPlugins.lspkind
-          else null
-        )
-        (
-          if cfg.cursorWordline.enable
-          then nvim-cursorline
-          else null
-        )
-        (
-          if cfg.indentBlankline.enable
-          then indent-blankline
-          else null
-        )
-      ];
+      vim.startPlugins = with pkgs.neovimPlugins; (
+        (withPlugins cfg.nvimWebDevicons.enable [ nvim-web-devicons ]) ++
+        (withPlugins cfg.lspkind.enable [ lspkind ]) ++
+        (withPlugins cfg.cursorWordline.enable [ nvim-cursorline ]) ++
+        (withPlugins cfg.indentBlankline.enable [ indent-blankline ])
+      );
 
       vim.luaConfigRC = ''
-        ${
-          if cfg.lspkind.enable
-          then "require'lspkind'.init()"
-          else ""
-        }
-        ${
-          if cfg.indentBlankline.enable
-          then ''
+        ${writeIf cfg.lspkind.enable "require'lspkind'.init()"}
+
+        ${writeIf cfg.indentBlankline.enable ''
             -- highlight error: https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
             vim.wo.colorcolumn = "99999"
             vim.opt.list = true
 
-
-            ${
-              if cfg.indentBlankline.eolChar == ""
-              then ""
-              else ''vim.opt.listchars:append({ eol = "${cfg.indentBlankline.eolChar}" })''
+            ${writeIf (cfg.indentBlankline.eolChar != "") ''
+                vim.opt.listchars:append({ eol = "${cfg.indentBlankline.eolChar}" })
+              ''
             }
 
-            ${
-              if cfg.indentBlankline.fillChar == ""
-              then ""
-              else ''vim.opt.listchars:append({ space = "${cfg.indentBlankline.fillChar}"})''
+            ${writeIf (cfg.indentBlankline.fillChar != "") ''
+                vim.opt.listchars:append({ space = "${cfg.indentBlankline.fillChar}"})
+              ''
             }
 
             require("indent_blankline").setup {
@@ -122,13 +96,11 @@ in {
               show_end_of_line = true,
             }
           ''
-          else ""
         }
 
-        ${
-          if cfg.cursorWordline.enable
-          then "vim.g.cursorline_timeout = ${toString cfg.cursorWordline.lineTimeout}"
-          else ""
+        ${writeIf cfg.cursorWordline.enable ''
+            vim.g.cursorline_timeout = ${toString cfg.cursorWordline.lineTimeout}
+          ''
         }
       '';
     };

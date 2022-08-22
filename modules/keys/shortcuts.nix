@@ -1,8 +1,5 @@
-{ pkgs
-, config
-, lib
-, ...
-}:
+{ pkgs, config, lib, ... }:
+
 with lib;
 
 let
@@ -43,16 +40,10 @@ in
         "<M-<>" = "<C-w><";
         "<M->>" = "<C-w>>";
       }
-      // (
-        if config.vim.lsp.enable
-        then { "K" = "<cmd>lua vim.lsp.buf.hover()<CR>"; }
-        else { }
-      )
-      // (
-        if config.vim.treesitter.enable
-        then { }
-        else { }
-      );
+      // (withAttrSet config.vim.lsp.enable {
+        "K" = "<cmd>lua vim.lsp.buf.hover()<CR>";
+      })
+      // (withAttrSet config.vim.treesitter.enable { });
   };
 }
 

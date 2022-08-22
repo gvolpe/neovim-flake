@@ -1,10 +1,8 @@
+{ pkgs, config, lib, ... }:
+
+with lib;
+
 {
-  pkgs,
-  config,
-  lib,
-  ...
-}:
-with lib; {
   config = {
     vim.autopairs = {
       enable = mkDefault false;

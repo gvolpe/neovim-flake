@@ -1,13 +1,12 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
+{ pkgs, lib, config, ... }:
+
 with lib;
-with builtins; let
+with builtins;
+
+let
   cfg = config.vim.autocomplete;
-in {
+in
+{
   options.vim = {
     autocomplete = {
       enable = mkOption {
@@ -19,34 +18,24 @@ in {
       type = mkOption {
         default = "nvim-cmp";
         description = "Set the autocomplete plugin. Options: [nvim-cmp] nvim-compe";
-        type = types.enum ["nvim-compe" "nvim-cmp"];
+        type = types.enum [ "nvim-compe" "nvim-cmp" ];
       };
     };
   };
 
   config = mkIf (cfg.enable) (
-    let
-      writeIf = cond: msg:
-        if cond
-        then msg
-        else "";
-    in {
+    {
       vim.startPlugins = with pkgs.neovimPlugins;
         (
-          if cfg.type == "nvim-compe"
-          then [nvim-compe]
-          else []
-        )
-        ++ (
-          if cfg.type == "nvim-cmp"
-          then [
+          withPlugins (cfg.type == "nvim-compe") [ nvim-compe ]
+        ) ++ (
+          withPlugins (cfg.type == "nvim-cmp") [
             nvim-cmp
             cmp-buffer
             cmp-vsnip
             cmp-path
             cmp-treesitter
           ]
-          else []
         );
 
       vim.inoremap = mkIf (cfg.type == "nvim-compe") (
@@ -57,11 +46,9 @@ in {
           "<silent><expr><C-d>" = "compe#scroll({ 'delta': -4 })";
         }
         // (
-          if (config.vim.autopairs.enable == false)
-          then {
+          withAttrSet (!config.vim.autopairs.enable) {
             "<silent><expr><CR>" = "compe#confirm('CR')";
           }
-          else {}
         )
       );
 

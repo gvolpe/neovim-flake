@@ -257,6 +257,8 @@
         "kommentary"
       ];
 
+      lib = import ./lib { inherit pkgs inputs plugins; };
+
       pluginOverlay = lib.buildPluginOverlay;
 
       metalsOverlay = f: p: {
@@ -269,13 +271,17 @@
         });
       };
 
+      libOverlay = f: p: {
+        lib = p.lib.extend (_: _: {
+          inherit (lib) mkVimBool withAttrSet withPlugins writeIf;
+        });
+      };
+
       pkgs = import nixpkgs {
         inherit system;
         config = { allowUnfree = true; };
-        overlays = [ pluginOverlay metalsOverlay ];
+        overlays = [ libOverlay pluginOverlay metalsOverlay ];
       };
-
-      lib = import ./lib { inherit pkgs inputs plugins; };
 
       neovimBuilder = lib.neovimBuilder;
     in

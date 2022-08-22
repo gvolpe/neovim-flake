@@ -1,18 +1,17 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}:
+{ pkgs, config, lib, ... }:
+
 with lib;
-with builtins; let
+with builtins;
+
+let
   cfg = config.vim.snippets.vsnip;
-in {
+in
+{
   options.vim.snippets.vsnip = {
     enable = mkEnableOption "Enable vim-vsnip";
   };
 
   config = mkIf cfg.enable {
-    vim.startPlugins = with pkgs.neovimPlugins; [vim-vsnip];
+    vim.startPlugins = with pkgs.neovimPlugins; [ vim-vsnip ];
   };
 }

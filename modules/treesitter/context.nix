@@ -1,25 +1,19 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}:
+{ pkgs, config, lib, ... }:
+
 with lib;
-with builtins; let
+with builtins;
+
+let
   cfg = config.vim.treesitter;
-in {
+in
+{
   options.vim.treesitter.context.enable = mkOption {
     type = types.bool;
     description = "enable function context [nvim-treesitter-context]";
   };
 
   config = mkIf (cfg.enable && cfg.context.enable) (
-    let
-      writeIf = cond: msg:
-        if cond
-        then msg
-        else "";
-    in {
+    {
       vim.startPlugins = with pkgs.neovimPlugins; [
         nvim-treesitter-context
       ];

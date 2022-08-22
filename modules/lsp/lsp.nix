@@ -41,38 +41,15 @@ in
   };
 
   config = mkIf cfg.enable (
-    let
-      writeIf = cond: msg:
-        if cond
-        then msg
-        else "";
-    in
     {
       vim.startPlugins = with pkgs.neovimPlugins;
-        [
-          nvim-lspconfig
-          null-ls
-          (
-            if (config.vim.autocomplete.enable && (config.vim.autocomplete.type == "nvim-cmp"))
-            then cmp-nvim-lsp
-            else null
-          )
-          (
-            if cfg.sql
-            then sqls-nvim
-            else null
-          )
-        ]
-        ++ (
-          if cfg.rust.enable
-          then [ crates-nvim rust-tools ]
-          else [ ]
-        );
+        [ nvim-lspconfig null-ls ] ++
+        (withPlugins (config.vim.autocomplete.enable && (config.vim.autocomplete.type == "nvim-cmp")) [ cmp-nvim-lsp ]) ++
+        (withPlugins cfg.sql [ sqls-nvim ]) ++
+        (withPlugins cfg.rust.enable [ crates-nvim rust-tools ]);
 
       vim.configRC = ''
-        ${
-          if cfg.rust.enable
-          then ''
+        ${writeIf cfg.rust.enable ''
             function! MapRustTools()
               nnoremap <silent><leader>ri <cmd>lua require('rust-tools.inlay_hints').toggle_inlay_hints()<CR>
               nnoremap <silent><leader>rr <cmd>lua require('rust-tools.runnables').runnables()<CR>
@@ -87,29 +64,22 @@ in
             autocmd filetype rust nnoremap <silent><leader>rc <cmd>lua require('rust-tools.open_cargo_toml').open_cargo_toml()<CR>
             autocmd filetype rust nnoremap <silent><leader>rg <cmd>lua require('rust-tools.crate_graph').view_crate_graph('x11', nil)<CR>
           ''
-          else ""
         }
 
-        ${
-          if cfg.nix
-          then ''
+        ${writeIf cfg.nix ''
             autocmd filetype nix setlocal tabstop=2 shiftwidth=2 softtabstop=2
           ''
-          else ""
         }
 
-        ${
-          if cfg.clang
-          then ''
+        ${writeIf cfg.clang ''
             " c syntax for header (otherwise breaks treesitter highlighting)
             " https://www.reddit.com/r/neovim/comments/orfpcd/question_does_the_c_parser_from_nvimtreesitter/
             let g:c_syntax_for_h = 1
           ''
-          else ""
         }
       '';
-      vim.luaConfigRC = ''
 
+      vim.luaConfigRC = ''
         local attach_keymaps = function(client, bufnr)
           local opts = { noremap=true, silent=true }
 

@@ -1,9 +1,6 @@
+{ pkgs, config, lib, ... }:
+
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
   imports = [
     ./treesitter.nix
     ./context.nix

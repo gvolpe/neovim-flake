@@ -1,13 +1,12 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}:
+{ pkgs, config, lib, ... }:
+
 with lib;
-with builtins; let
+with builtins;
+
+let
   cfg = config.vim.filetree.nvimTreeLua;
-in {
+in
+{
   options.vim.filetree.nvimTreeLua = {
     enable = mkOption {
       type = types.bool;
@@ -18,7 +17,7 @@ in {
     treeSide = mkOption {
       default = "left";
       description = "Side the tree will appear on left or right";
-      type = types.enum ["left" "right"];
+      type = types.enum [ "left" "right" ];
     };
 
     treeWidth = mkOption {
@@ -28,7 +27,7 @@ in {
     };
 
     hideFiles = mkOption {
-      default = [".git" "node_modules" ".cache"];
+      default = [ ".git" "node_modules" ".cache" ];
       description = "Files to hide in the file view by default.";
       type = with types; listOf str;
     };
@@ -52,7 +51,7 @@ in {
     };
 
     ignoreFileTypes = mkOption {
-      default = [];
+      default = [ ];
       description = "Ignore file types";
       type = with types; listOf str;
     };
@@ -119,12 +118,7 @@ in {
   };
 
   config = mkIf cfg.enable (
-    let
-      mkVimBool = val:
-        if val
-        then 1
-        else 0;
-    in {
+    {
       vim.startPlugins = with pkgs.neovimPlugins; [
         nvim-tree-lua
       ];

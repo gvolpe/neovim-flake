@@ -1,13 +1,12 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}:
+{ pkgs, config, lib, ... }:
+
 with lib;
-with builtins; let
+with builtins;
+
+let
   cfg = config.vim.keys;
-in {
+in
+{
   options.vim.keys = {
     enable = mkEnableOption "key binding plugins";
 

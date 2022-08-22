@@ -1,13 +1,12 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}:
+{ pkgs, config, lib, ... }:
+
 with lib;
-with builtins; let
+with builtins;
+
+let
   cfg = config.vim.telescope;
-in {
+in
+{
   options.vim.telescope = {
     enable = mkEnableOption "enable telescope";
   };
@@ -32,8 +31,7 @@ in {
         "<leader>fvx" = "<cmd> Telescope git_stash<CR>";
       }
       // (
-        if config.vim.lsp.enable
-        then {
+        withAttrSet config.vim.lsp.enable {
           "<leader>flsb" = "<cmd> Telescope lsp_document_symbols<CR>";
           "<leader>flsw" = "<cmd> Telescope lsp_workspace_symbols<CR>";
 
@@ -43,14 +41,10 @@ in {
           "<leader>flt" = "<cmd> Telescope lsp_type_definitions<CR>";
           "<leader>fld" = "<cmd> Telescope diagnostics<CR>";
         }
-        else {}
-      )
-      // (
-        if config.vim.treesitter.enable
-        then {
+      ) // (
+        withAttrSet config.vim.treesitter.enable {
           "<leader>fs" = "<cmd> Telescope treesitter<CR>";
         }
-        else {}
       );
 
     vim.luaConfigRC = ''

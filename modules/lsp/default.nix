@@ -1,9 +1,6 @@
+{ config, lib, pkgs, ... }:
+
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
   imports = [
     ./lsp.nix
     ./lspsaga.nix

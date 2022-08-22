@@ -1,9 +1,6 @@
+{ pkgs, config, lib, ... }:
+
 {
-  pkgs,
-  lib,
-  config,
-  ...
-}: {
   imports = [
     ./nvim-bufferline.nix
   ];

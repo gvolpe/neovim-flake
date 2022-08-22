@@ -21,14 +21,8 @@ in
   };
 
   config = mkIf cfg.enable (
-    let
-      writeIf = cond: msg: if cond then msg else "";
-    in
     {
       vim.startPlugins = [ pkgs.neovimPlugins.${cfg.type} ];
-        /* if (cfg.type == "kommentary")
-        then [ pkgs.neovimPlugins.${cfg.type} ]
-        else [ pkgs.vimPlugins.${cfg.type} ]; */
 
       vim.luaConfigRC = ''
         ${writeIf (cfg.type == "kommentary") ''

@@ -26,25 +26,15 @@ in
 
   config = mkIf cfg.enable (
     let
-      writeIf = cond: msg:
-        if cond
-        then msg
-        else "";
-
       disabledLanguages =
         if (config.vim.scala.highlightMode == "regex")
         then ''{ "scala" }''
         else "{}";
     in
     {
-      vim.startPlugins = with pkgs.neovimPlugins; [
-        nvim-treesitter
-        (
-          if cfg.autotagHtml
-          then nvim-ts-autotag
-          else null
-        )
-      ];
+      vim.startPlugins = with pkgs.neovimPlugins; (
+        [ nvim-treesitter ] ++ (withPlugins cfg.autotagHtml [ nvim-ts-autotag ])
+      );
 
       vim.configRC = writeIf cfg.fold ''
         " Tree-sitter based folding

@@ -1,13 +1,12 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}:
+{ pkgs, config, lib, ... }:
+
 with lib;
-with builtins; let
+with builtins;
+
+let
   cfg = config.vim.markdown;
-in {
+in
+{
   options.vim.markdown = {
     enable = mkEnableOption "markdown tools and plugins";
 
@@ -19,20 +18,13 @@ in {
   };
 
   config = mkIf (cfg.enable) {
-    vim.startPlugins = with pkgs.neovimPlugins; [
-      (
-        if cfg.glow.enable
-        then glow-nvim
-        else null
-      )
-    ];
+    vim.startPlugins =
+      withPlugins cfg.glow.enable [ pkgs.neovimPlugins.glow-nvim ];
 
     vim.configRC =
-      if cfg.glow.enable
-      then ''
+      writeIf cfg.glow.enable ''
         autocmd FileType markdown noremap <leader>p :Glow<CR>
         let g:glow_binary_path = "${pkgs.glow}/bin"
-      ''
-      else "";
+      '';
   };
 }

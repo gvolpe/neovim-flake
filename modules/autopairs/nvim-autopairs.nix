@@ -1,13 +1,12 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
+{ pkgs, lib, config, ... }:
+
 with lib;
-with builtins; let
+with builtins;
+
+let
   cfg = config.vim.autopairs;
-in {
+in
+{
   options.vim = {
     autopairs = {
       enable = mkOption {
@@ -16,7 +15,7 @@ in {
       };
 
       type = mkOption {
-        type = types.enum ["nvim-autopairs"];
+        type = types.enum [ "nvim-autopairs" ];
         description = "Set the autopairs type. Options: nvim-autopairs [nvim-autopairs]";
       };
 
@@ -27,37 +26,30 @@ in {
     };
   };
 
-  config =
-    mkIf cfg.enable
-    (
-      let
-        writeIf = cond: msg:
-          if cond
-          then msg
-          else "";
-      in {
-        vim.startPlugins = with pkgs.neovimPlugins; [
-          (
-            if (cfg.type == "nvim-autopairs")
-            then nvim-autopairs
-            else null
-          )
-        ];
+  config = mkIf cfg.enable (
+    {
+      vim.startPlugins = with pkgs.neovimPlugins; [
+        (
+          if (cfg.type == "nvim-autopairs")
+          then nvim-autopairs
+          else null
+        )
+      ];
 
-        vim.luaConfigRC = ''
-          ${writeIf (cfg.type == "nvim-autopairs") ''
-            ${writeIf cfg.enable ''
-              require("nvim-autopairs").setup{}
-              ${writeIf (config.vim.autocomplete.type == "nvim-compe") ''
-                require('nvim-autopairs.completion.compe').setup({
-                  map_cr = true,
-                  map_complete = true,
-                  auto_select = false,
-                })
-              ''}
+      vim.luaConfigRC = ''
+        ${writeIf (cfg.type == "nvim-autopairs") ''
+          ${writeIf cfg.enable ''
+            require("nvim-autopairs").setup{}
+            ${writeIf (config.vim.autocomplete.type == "nvim-compe") ''
+              require('nvim-autopairs.completion.compe').setup({
+                map_cr = true,
+                map_complete = true,
+                auto_select = false,
+              })
             ''}
           ''}
-        '';
-      }
-    );
+        ''}
+      '';
+    }
+  );
 }

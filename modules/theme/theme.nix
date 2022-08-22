@@ -33,35 +33,27 @@ in
     };
   };
 
-  config =
-    mkIf cfg.enable
-      (
-        let
-          mkVimBool = val:
-            if val
-            then "1"
-            else "0";
-        in
-        {
-          vim.configRC = mkIf (cfg.name == "tokyonight") ''
-            " need to set style before colorscheme to apply
-            let g:${cfg.name}_style = "${cfg.style}"
-            colorscheme ${cfg.name}
-          '';
+  config = mkIf cfg.enable (
+    {
+      vim.configRC = mkIf (cfg.name == "tokyonight") ''
+        " need to set style before colorscheme to apply
+        let g:${cfg.name}_style = "${cfg.style}"
+        colorscheme ${cfg.name}
+      '';
 
-          vim.startPlugins = with pkgs.neovimPlugins;
-            if (cfg.name == "tokyonight")
-            then [ tokyonight ]
-            else [ onedark ];
+      vim.startPlugins = with pkgs.neovimPlugins;
+        if (cfg.name == "tokyonight")
+        then [ tokyonight ]
+        else [ onedark ];
 
-          vim.luaConfigRC = mkIf (cfg.name == "onedark") ''
-            -- OneDark theme
-            require('onedark').setup {
-              style = "${cfg.style}",
-              transparent = "${builtins.toString cfg.transparency}",
-            }
-            require('onedark').load()
-          '';
+      vim.luaConfigRC = mkIf (cfg.name == "onedark") ''
+        -- OneDark theme
+        require('onedark').setup {
+          style = "${cfg.style}",
+          transparent = "${builtins.toString cfg.transparency}",
         }
-      );
+        require('onedark').load()
+      '';
+    }
+  );
 }

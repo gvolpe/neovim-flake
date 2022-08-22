@@ -1,10 +1,9 @@
-{ pkgs
-, lib
-, config
-, ...
-}:
+{ pkgs, lib, config, ... }:
+
 with lib;
-with builtins; let
+with builtins;
+
+let
   cfg = config.vim;
 in
 {
@@ -122,12 +121,6 @@ in
   };
 
   config = (
-    let
-      writeIf = cond: msg:
-        if cond
-        then msg
-        else "";
-    in
     {
       vim.colourTerm = mkDefault true;
       vim.disableArrows = true;

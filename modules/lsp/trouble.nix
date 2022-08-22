@@ -1,13 +1,12 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}:
+{ pkgs, config, lib, ... }:
+
 with lib;
-with builtins; let
+with builtins;
+
+let
   cfg = config.vim.lsp;
-in {
+in
+{
   options.vim.lsp = {
     trouble = {
       enable = mkEnableOption "trouble diagnostics viewer";
@@ -15,7 +14,7 @@ in {
   };
 
   config = mkIf (cfg.enable && cfg.trouble.enable) {
-    vim.startPlugins = with pkgs.neovimPlugins; [trouble];
+    vim.startPlugins = with pkgs.neovimPlugins; [ trouble ];
 
     vim.nnoremap = {
       "<leader>xx" = "<cmd>TroubleToggle<CR>";
