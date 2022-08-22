@@ -26,7 +26,6 @@ let
     p.tree-sitter-css
     p.tree-sitter-graphql
     p.tree-sitter-json
-    pkgs.tree-sitter-hare
   ]);
 
   buildPlug = name:
@@ -39,8 +38,6 @@ let
         then ''
           rm -r parser
           ln -s ${treesitterGrammars} parser
-          mkdir queries/hare
-          ln -s ${pkgs.tree-sitter-hare}/queries/* queries/hare
         ''
         else "";
     };

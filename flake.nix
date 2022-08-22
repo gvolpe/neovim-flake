@@ -1,12 +1,8 @@
 {
-  description = "Jordan's Neovim Configuration";
+  description = "gvolpe's Neovim Configuration";
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-
-    jdpkgs = {
-      url = "github:jordanisaacs/jdpkgs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # LSP plugins
     nvim-lspconfig = {
@@ -74,9 +70,6 @@
       url = "github:nvim-telescope/telescope.nvim";
       flake = false;
     };
-
-    # Langauge server (use master instead of nixpkgs)
-    rnix-lsp.url = "github:nix-community/rnix-lsp";
 
     # Filetrees
     nvim-tree-lua = {
@@ -211,16 +204,6 @@
       flake = false;
     };
 
-    hare-vim = {
-      url = "git+https://git.sr.ht/~sircmpwn/hare.vim";
-      flake = false;
-    };
-
-    tree-sitter-hare = {
-      url = "git+https://git.sr.ht/~ecmma/tree-sitter-hare";
-      flake = false;
-    };
-
     # Scala 3 highlights (treesitter doesn't yet support it)
     vim-scala = {
       url = github:gvolpe/vim-scala;
@@ -228,13 +211,7 @@
     };
   };
 
-  outputs =
-    { self
-    , nixpkgs
-    , jdpkgs
-    , flake-utils
-    , ...
-    } @ inputs:
+  outputs = inputs @ { self, nixpkgs, flake-utils, ... }:
     let
       system = "x86_64-linux";
 
@@ -277,7 +254,6 @@
         "telescope"
         "rust-tools"
         "onedark"
-        "hare-vim"
         "kommentary"
       ];
 
@@ -293,19 +269,10 @@
         });
       };
 
-      overlayComposite = [
-        pluginOverlay
-        metalsOverlay
-        (f: p: {
-          #rnix-lsp = inputs.rnix-lsp.defaultPackage.${system};
-          tree-sitter-hare = jdpkgs.packages.${system}.tree-sitter-hare;
-        })
-      ];
-
       pkgs = import nixpkgs {
         inherit system;
         config = { allowUnfree = true; };
-        overlays = overlayComposite;
+        overlays = [ pluginOverlay metalsOverlay ];
       };
 
       lib = import ./lib { inherit pkgs inputs plugins; };
@@ -366,7 +333,6 @@
               clang = false;
               ts = false;
               go = false;
-              hare = false;
             };
             vim.visuals = {
               enable = true;

@@ -89,15 +89,6 @@ in
             },
           ''}
           }
-
-          local parser_config = require'nvim-treesitter.parsers'.get_parser_configs()
-          parser_config.hare = {
-            install_info = {
-              url = "",
-              files = { "" }
-            },
-            filetype = "ha",
-          }
         '';
     }
   );

@@ -38,7 +38,6 @@ in
     python = mkEnableOption "Python LSP";
     clang = mkEnableOption "C language LSP";
     go = mkEnableOption "Go language LSP";
-    hare = mkEnableOption "Hare plugin (not LSP)";
   };
 
   config = mkIf cfg.enable (
@@ -66,15 +65,7 @@ in
         ]
         ++ (
           if cfg.rust.enable
-          then [
-            crates-nvim
-            rust-tools
-            (
-              if cfg.hare
-              then hare-vim
-              else null
-            )
-          ]
+          then [ crates-nvim rust-tools ]
           else [ ]
         );
 
