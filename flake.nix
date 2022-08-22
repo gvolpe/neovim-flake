@@ -293,17 +293,9 @@
         });
       };
 
-      vimScalaOverlay = f: p: {
-        vim-scala3 = pkgs.vimUtils.buildVimPlugin {
-          name = "vim-scala3";
-          src = inputs.vim-scala;
-        };
-      };
-
       overlayComposite = [
         pluginOverlay
         metalsOverlay
-        vimScalaOverlay
         (f: p: {
           #rnix-lsp = inputs.rnix-lsp.defaultPackage.${system};
           tree-sitter-hare = jdpkgs.packages.${system}.tree-sitter-hare;
@@ -336,7 +328,6 @@
 
       overlays.default = f: p: {
         inherit neovimBuilder;
-        # neovim-ide = packages.${system}.neovim-ide;
         neovimPlugins = pkgs.neovimPlugins;
       };
 
@@ -423,6 +414,7 @@
             };
             vim.comments = {
               enable = true;
+              type = "nerdcommenter";
             };
             vim.shortcuts = {
               enable = true;

@@ -16,9 +16,8 @@ in
   config = mkIf cfg.enable {
     vim.nnoremap =
       {
+        # Alias for <leader>ff
         "<C-p>" = "<cmd> Telescope find_files<CR>";
-        "<C-s>" = "<cmd> NvimTreeFindFile<CR>";
-        "<C-F>" = "<cmd> NvimTreeToggle<CR>";
 
         # Disable the annoying and useless ex-mode
         "gQ" = "<nop>";

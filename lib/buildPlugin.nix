@@ -44,8 +44,21 @@ let
         ''
         else "";
     };
+
+  vim-scala3 = prev.vimUtils.buildVimPlugin {
+    name = "vim-scala3";
+    src = inputs.vim-scala;
+  };
+
+  vimPlugins = {
+    inherit (pkgs.vimPlugins) nerdcommenter;
+    inherit vim-scala3;
+  };
 in
 {
   neovimPlugins =
-    listToAttrs (map (n: nameValuePair n (buildPlug n)) plugins);
+    let
+      xs = listToAttrs (map (n: nameValuePair n (buildPlug n)) plugins);
+    in
+    xs // vimPlugins;
 }

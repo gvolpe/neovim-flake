@@ -16,6 +16,9 @@ in
   };
 
   config = {
-    vim.startPlugins = if (cfg.highlightMode == "regex") then [ pkgs.vim-scala3 ] else [ ];
+    vim.startPlugins =
+      if (cfg.highlightMode == "regex")
+      then [ pkgs.neovimPlugins.vim-scala3 ]
+      else [ ];
   };
 }

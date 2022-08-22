@@ -130,9 +130,9 @@ in {
       ];
 
       vim.nnoremap = {
-        "<C-n>" = ":NvimTreeToggle<CR>";
+        "<C-F>" = ":NvimTreeToggle<CR>";
+        "<C-s>" = ":NvimTreeFindFile<CR>";
         "<leader>tr" = ":NvimTreeRefresh<CR>";
-        "<leader>tf" = ":NvimTreeFindFile<CR>";
       };
 
       vim.globals = {

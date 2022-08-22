@@ -57,6 +57,11 @@ in
         ''
           -- Treesitter config
           require'nvim-treesitter.configs'.setup {
+            autotag = {
+              enable = true,
+              disable = ${disabledLanguages},
+            },
+
             highlight = {
               enable = true,
               disable = ${disabledLanguages},
@@ -64,12 +69,18 @@ in
 
             incremental_selection = {
               enable = true,
+              disable = ${disabledLanguages},
               keymaps = {
                 init_selection = "gnn",
                 node_incremental = "grn",
                 scope_incremental = "grc",
                 node_decremental = "grm",
               },
+            },
+
+            indent = {
+              enable = false,
+              disable = ${disabledLanguages},
             },
 
             ${writeIf cfg.autotagHtml ''
