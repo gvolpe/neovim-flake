@@ -34,10 +34,15 @@ in
   };
 
   config = mkIf cfg.enable (
+    let
+      transparency = builtins.toString cfg.transparency;
+    in
     {
       vim.configRC = mkIf (cfg.name == "tokyonight") ''
         " need to set style before colorscheme to apply
         let g:${cfg.name}_style = "${cfg.style}"
+        let g:${cfg.name}_transparent = "${transparency}"
+        let g:${cfg.name}_transparent_sidebar = "${transparency}"
         colorscheme ${cfg.name}
       '';
 
@@ -50,7 +55,7 @@ in
         -- OneDark theme
         require('onedark').setup {
           style = "${cfg.style}",
-          transparent = "${builtins.toString cfg.transparency}",
+          transparent = "${transparency}",
         }
         require('onedark').load()
       '';
