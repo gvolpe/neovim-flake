@@ -12,6 +12,10 @@ $ nix run github:gvolpe/neovim-flake#
 
 By default, Scala, Dhall, Elm, Nix, Haskell, and SQL lsp servers are enabled.
 
+## Screenshot
+
+![screenshot](./screenshot.png)
+
 ## Home Manager 
 
 To use it with Home Manager, we need to add both the overlays and the HM module. First of all, we add the input flake.
@@ -67,10 +71,6 @@ Have a look at my [nix-config](https://github.com/gvolpe/nix-config) for a full 
 The philosophy behind this flake configuration is sensible options. While the default package has almost everything enabled, when building your own config using the overlay everything is disabled. By enabling a plugin or language, it will set up the keybindings and plugin automatically. Additionally each plugin knows when another plugin is enabled allowing for smart configuration of keybindings and automatic setup of things like completion sources and languages.
 
 A goal of mine is that I shouldn't not be able to break neovim by enabling or disabling an option. For example you can't have two completion plugins enabled as the option is an enum.
-
-## Screenshot
-
-![screenshot](./nvim-lsp.png)
 
 ## Language Support
 
