@@ -162,7 +162,7 @@ Using [black](https://github.com/psf/black) through null-ls
 
 **Plugins**
 
-- [glow.nvim](https://github.com/ellisonleao/glow.nvim) for preview directly in neovim buffer (broken, waiting on [issue](https://github.com/ellisonleao/glow.nvim/issues/44))
+- [glow.nvim](https://github.com/ellisonleao/glow.nvim) for preview directly in neovim buffer
 
 ### HTML
 
@@ -188,6 +188,11 @@ A list of all plugins that can be enabled
 
 - [nvim-bufferline-lua](https://github.com/akinsho/bufferline.nvim) a buffer line with tab integration
 - [bufdelete-nvim](https://github.com/famiu/bufdelete.nvim) delete buffers without losing window layout
+
+### Comments
+
+- [kommentary](https://github.com/b3nj5m1n/kommentary) comment text in and out, written in lua
+- [nerdcommenter](https://github.com/preservim/nerdcommenter) comment functions so powerful—no comment necessary
 
 ### Statuslines
 
