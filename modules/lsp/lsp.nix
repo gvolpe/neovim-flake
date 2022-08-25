@@ -10,7 +10,6 @@ in
   options.vim.lsp = {
     enable = mkEnableOption "neovim lsp support";
     formatOnSave = mkEnableOption "Format on save";
-    comments = mkEnableOption "Kommentary plugin";
 
     nix = mkEnableOption "Nix LSP";
     dhall = mkEnableOption "Dhall LSP";

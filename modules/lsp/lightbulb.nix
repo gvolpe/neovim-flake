@@ -7,11 +7,8 @@ let
   cfg = config.vim.lsp;
 in
 {
-  options.vim.lsp = {
-    lightbulb = {
-      enable = mkEnableOption "lightbulb for code actions. Requires emoji font";
-    };
-  };
+  options.vim.lsp.lightbulb.enable =
+    mkEnableOption "lightbulb for code actions. Requires emoji font";
 
   config = mkIf (cfg.enable && cfg.lightbulb.enable) {
     vim.startPlugins = with pkgs.neovimPlugins; [ nvim-lightbulb ];

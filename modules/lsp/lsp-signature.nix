@@ -7,11 +7,7 @@ let
   cfg = config.vim.lsp;
 in
 {
-  options.vim.lsp = {
-    lspSignature = {
-      enable = mkEnableOption "lsp signature viewer";
-    };
-  };
+  options.vim.lsp.lspSignature.enable = mkEnableOption "lsp signature viewer";
 
   config = mkIf (cfg.enable && cfg.lspSignature.enable) {
     vim.startPlugins = with pkgs.neovimPlugins; [ lsp-signature ];

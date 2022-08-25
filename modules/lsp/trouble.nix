@@ -7,11 +7,7 @@ let
   cfg = config.vim.lsp;
 in
 {
-  options.vim.lsp = {
-    trouble = {
-      enable = mkEnableOption "trouble diagnostics viewer";
-    };
-  };
+  options.vim.lsp.trouble.enable = mkEnableOption "trouble diagnostics viewer";
 
   config = mkIf (cfg.enable && cfg.trouble.enable) {
     vim.startPlugins = with pkgs.neovimPlugins; [ trouble ];

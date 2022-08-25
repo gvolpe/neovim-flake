@@ -7,11 +7,7 @@ let
   cfg = config.vim.lsp;
 in
 {
-  options.vim.lsp = {
-    nvimCodeActionMenu = {
-      enable = mkEnableOption "nvim code action menu";
-    };
-  };
+  options.vim.lsp.nvimCodeActionMenu.enable = mkEnableOption "nvim code action menu";
 
   config = mkIf (cfg.enable && cfg.nvimCodeActionMenu.enable) {
     vim.startPlugins = with pkgs.neovimPlugins; [
