@@ -14,15 +14,21 @@ in
     };
 
     name = mkOption {
-      type = types.enum [ "onedark" "tokyonight" ];
-      description = ''Name of theme to use: "onedark" "tokyonight"'';
+      type = types.enum [ "nightfox" "onedark" "tokyonight" ];
+      description = ''Name of theme to use: "nightfox" "onedark" "tokyonight"'';
     };
 
     style = mkOption {
       type = with types; (
         if (cfg.name == "tokyonight")
         then (enum [ "day" "night" "storm" ])
-        else (enum [ "dark" "darker" "cool" "deep" "warm" "warmer" ])
+        else
+          (
+            if (cfg.name == "onedark")
+            then (enum [ "dark" "darker" "cool" "deep" "warm" "warmer" ])
+            else (enum [ "nightfox" "carbonfox" "duskfox" "terafox" "nordfox" ])
+          )
+
       );
       description = ''Theme style: "storm", darker variant "night", and "day"'';
     };
@@ -46,18 +52,35 @@ in
         colorscheme ${cfg.name}
       '';
 
-      vim.startPlugins = with pkgs.neovimPlugins;
-        if (cfg.name == "tokyonight")
-        then [ tokyonight ]
-        else [ onedark ];
+      vim.startPlugins = with pkgs.neovimPlugins; (
+        (withPlugins (cfg.name == "nightfox") [ nightfox ]) ++
+        (withPlugins (cfg.name == "onedark") [ onedark ]) ++
+        (withPlugins (cfg.name == "tokyonight") [ tokyonight ])
+      );
 
-      vim.luaConfigRC = mkIf (cfg.name == "onedark") ''
-        -- OneDark theme
-        require('onedark').setup {
-          style = "${cfg.style}",
-          transparent = "${transparency}",
+      vim.luaConfigRC = ''
+        ${writeIf (cfg.name == "nightfox") ''
+          -- nightfox theme
+          require('nightfox').setup {
+            options = {
+              style = "${cfg.style}",
+              transparent = "${transparency}",
+            }
+          }
+          
+          vim.cmd("colorscheme ${cfg.style}")
+        ''
         }
-        require('onedark').load()
+
+        ${writeIf (cfg.name == "onedark") ''
+          -- OneDark theme
+          require('onedark').setup {
+            style = "${cfg.style}",
+            transparent = "${transparency}",
+          }
+          require('onedark').load()
+        ''
+        }
       '';
     }
   );
