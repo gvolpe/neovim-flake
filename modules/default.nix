@@ -20,5 +20,6 @@
     ./markdown
     ./telescope
     ./git
+    ./hop
   ];
 }

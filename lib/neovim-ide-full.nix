@@ -96,5 +96,6 @@ neovimBuilder {
       enable = true;
       gitsigns.enable = true;
     };
+    vim.hop.enable = true;
   };
 }

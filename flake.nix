@@ -119,7 +119,7 @@
       flake = false;
     };
 
-    # snippets
+    # Snippets
     vim-vsnip = {
       url = github:hrsh7th/vim-vsnip;
       flake = false;
@@ -148,6 +148,11 @@
     # Buffer tools
     bufdelete-nvim = {
       url = github:famiu/bufdelete.nvim;
+      flake = false;
+    };
+
+    hop = {
+      url = github:phaazon/hop.nvim;
       flake = false;
     };
 
@@ -261,6 +266,7 @@
         "rust-tools"
         "onedark"
         "kommentary"
+        "hop"
       ];
 
       lib = import ./lib { inherit pkgs inputs plugins; };
