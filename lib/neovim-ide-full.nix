@@ -72,7 +72,7 @@ neovimBuilder {
       context.enable = true;
     };
     vim.scala = {
-      highlightMode = "regex";
+      highlightMode = "treesitter";
     };
     vim.keys = {
       enable = true;
