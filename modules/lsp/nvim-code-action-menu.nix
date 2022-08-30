@@ -15,7 +15,7 @@ in
     ];
 
     vim.nnoremap = {
-      "<silent><leader>ca" = ":CodeActionMenu<CR>";
+      "<silent><leader>ac" = ":CodeActionMenu<CR>";
     };
   };
 }
