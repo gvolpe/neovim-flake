@@ -9,9 +9,11 @@
 
   withAttrSet = cond: attrSet: if (cond) then attrSet else { };
 
+  metalsBuilder = import ./metalsBuilder.nix { inherit pkgs; };
+
   neovimBuilder = import ./neovimBuilder.nix { inherit pkgs; };
 
   buildPluginOverlay = import ./buildPlugin.nix { inherit pkgs inputs plugins; };
 
-  metalsOverlay = import ./metals.nix;
+  metalsOverlay = import ./metalsOverlay.nix {};
 }

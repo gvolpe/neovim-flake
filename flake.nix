@@ -272,7 +272,6 @@
       lib = import ./lib { inherit pkgs inputs plugins; };
 
       pluginOverlay = lib.buildPluginOverlay;
-
       metalsOverlay = lib.metalsOverlay;
 
       libOverlay = f: p: {
@@ -287,6 +286,7 @@
         overlays = [ libOverlay pluginOverlay metalsOverlay ];
       };
 
+      metalsBuilder = lib.metalsBuilder;
       neovimBuilder = lib.neovimBuilder;
 
       neovim-ide-full = import ./lib/neovim-ide-full.nix {
@@ -308,7 +308,7 @@
       };
 
       overlays.default = f: p: {
-        inherit neovimBuilder neovim-ide-full;
+        inherit metalsBuilder neovimBuilder neovim-ide-full;
         neovimPlugins = pkgs.neovimPlugins;
       };
 
