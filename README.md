@@ -29,16 +29,6 @@ To use it with Home Manager, we need to add both the overlays and the HM module.
 }
 ```
 
-Then we add the overlay.
-
-```nix
-{
-  pkgs = import nixpkgs {
-    overlays = [ neovim-flake.overlays.default ];
-  };
-}
-```
-
 Followed by importing the module.
 
 ```nix
@@ -58,6 +48,23 @@ Then we should be able to use the given module. E.g.
       vim.vimAlias = true;
       vim.lsp = {
         enable = true;
+      };
+    };
+  };
+}
+```
+
+For the Scala module, the `metals` binary can be easily overridden with the provided builder. E.g.
+
+```nix 
+{
+  vim.lsp = {
+    enable = true;
+    scala = {
+      enable = true;
+      metals = pkgs.metalsBuilder {
+        version = "0.11.8+76-22425a8b-SNAPSHOT";
+        outputHash = "[Insert hash (try nix build .#)]";
       };
     };
   };
