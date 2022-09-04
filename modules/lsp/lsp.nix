@@ -15,7 +15,15 @@ in
     dhall = mkEnableOption "Dhall LSP";
     elm = mkEnableOption "Elm LSP";
     haskell = mkEnableOption "Haskell LSP (hls)";
-    scala = mkEnableOption "Scala LSP (Metals)";
+
+    scala = {
+      enable = mkEnableOption "Scala LSP (Metals)";
+      metals = mkOption {
+        type = types.package;
+        default = pkgs.metals;
+        description = "The Metals package to use. Default pkgs.metals.";
+      };
+    };
 
     sql = mkEnableOption "SQL Language LSP";
     ts = mkEnableOption "TS language LSP";
@@ -319,10 +327,10 @@ in
           }
         ''}
 
-        ${writeIf cfg.scala ''
+        ${writeIf cfg.scala.enable ''
           -- Scala Metals config
           lspconfig.metals.setup {
-            cmd = { "${pkgs.metals}/bin/metals" };
+            cmd = { "${cfg.scala.metals}/bin/metals" };
             capabilities = capabilities;
             on_attach = default_on_attach;
             init_options = {
