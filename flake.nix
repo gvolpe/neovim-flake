@@ -273,15 +273,7 @@
 
       pluginOverlay = lib.buildPluginOverlay;
 
-      metalsOverlay = f: p: {
-        metals = p.metals.overrideAttrs (old: rec {
-          version = "0.11.8+49-626b2a65-SNAPSHOT";
-          extraJavaOpts = old.extraJavaOpts + " -Dmetals.client=nvim-lsp";
-          deps = old.deps.overrideAttrs (do: {
-            outputHash = "sha256-Zc/0kod3JM58WpyxwXiyQdixBHOJV7UDGg1YZtHJ3hw=";
-          });
-        });
-      };
+      metalsOverlay = lib.metalsOverlay;
 
       libOverlay = f: p: {
         lib = p.lib.extend (_: _: {
@@ -321,11 +313,15 @@
       };
 
       nixosModules.hm = {
-        imports = [ ./lib/hm.nix ];
+        imports = [
+          ./lib/hm.nix
+          { nixpkgs.overlays = [ self.overlays.default ]; }
+        ];
       };
 
       packages.${system} = rec {
         default = neovim-ide;
+        metals = pkgs.metals;
         neovim-ide = neovim-ide-full;
       };
     };
