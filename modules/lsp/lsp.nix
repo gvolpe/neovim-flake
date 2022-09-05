@@ -23,6 +23,11 @@ in
         default = pkgs.metals;
         description = "The Metals package to use. Default pkgs.metals.";
       };
+      type = mkOption {
+        type = types.enum [ "nvim-lspconfig" "nvim-metals" ];
+        default = "nvim-lspconfig";
+        description = "Whether to use `nvim-lspconfig` or the more featureful `nvim-metals`";
+      };
     };
 
     sql = mkEnableOption "SQL Language LSP";
@@ -53,6 +58,7 @@ in
         [ nvim-lspconfig null-ls ] ++
         (withPlugins (config.vim.autocomplete.enable && (config.vim.autocomplete.type == "nvim-cmp")) [ cmp-nvim-lsp ]) ++
         (withPlugins cfg.sql [ sqls-nvim ]) ++
+        (withPlugins (cfg.scala.enable && cfg.scala.type == "nvim-metals") [ nvim-metals ]) ++
         (withPlugins cfg.rust.enable [ crates-nvim rust-tools ]);
 
       vim.configRC = ''
@@ -82,6 +88,13 @@ in
             " c syntax for header (otherwise breaks treesitter highlighting)
             " https://www.reddit.com/r/neovim/comments/orfpcd/question_does_the_c_parser_from_nvimtreesitter/
             let g:c_syntax_for_h = 1
+          ''
+        }
+
+        ${writeIf (cfg.scala.enable && cfg.scala.type == "nvim-metals") ''
+            " Scala nvim-metals config
+            nnoremap <silent> <leader>ws  <cmd>lua require'metals'.worksheet_hover()<CR>
+            nnoremap <silent> <leader>a   <cmd>lua require'metals'.open_all_diagnostics()<CR>
           ''
         }
       '';
@@ -327,7 +340,7 @@ in
           }
         ''}
 
-        ${writeIf cfg.scala.enable ''
+        ${writeIf (cfg.scala.enable && cfg.scala.type == "nvim-lspconfig")''
           -- Scala Metals config
           lspconfig.metals.setup {
             cmd = { "${cfg.scala.metals}/bin/metals" };
@@ -343,6 +356,38 @@ in
             message_level = 4;
             root_dir = lspconfig.util.root_pattern("build.sbt", "build.sc", "build.gradle", "pom.xml");
           }
+        ''}
+
+        ${writeIf (cfg.scala.enable && cfg.scala.type == "nvim-metals") ''
+          -- Scala nvim-metals config
+          metals_config = require('metals').bare_config()
+          metals_config.capabilities = capabilities
+          metals_config.on_attach = default_on_attach
+
+          metals_config.settings = {
+             metalsBinaryPath = "${cfg.scala.metals}/bin/metals",
+             showImplicitArguments = true,
+             excludedPackages = {
+               "akka.actor.typed.javadsl",
+               "com.github.swagger.akka.javadsl"
+             }
+          }
+
+          metals_config.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+            vim.lsp.diagnostic.on_publish_diagnostics, {
+              virtual_text = {
+                prefix = '',
+              }
+            }
+          )
+
+          -- without doing this, autocommands that deal with filetypes prohibit messages from being shown
+          vim.opt_global.shortmess:remove("F")
+
+          vim.cmd([[augroup lsp]])
+          vim.cmd([[autocmd!]])
+          vim.cmd([[autocmd FileType java,scala,sbt lua require('metals').initialize_or_attach(metals_config)]])
+          vim.cmd([[augroup end]])
         ''}
 
         ${writeIf cfg.nix

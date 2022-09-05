@@ -18,7 +18,11 @@ neovimBuilder {
       nvimCodeActionMenu.enable = true;
       trouble.enable = true;
       lspSignature.enable = true;
-      scala.enable = true;
+      scala = {
+        enable = true;
+        metals = pkgs.metals;
+        type = "nvim-metals";
+      };
       rust.enable = false;
       nix = true;
       dhall = true;
