@@ -54,6 +54,10 @@
       url = github:simrat39/rust-tools.nvim;
       flake = false;
     };
+    nvim-metals = {
+      url = github:scalameta/nvim-metals;
+      flake = false;
+    };
 
     # Copying/Registers
     registers = {
@@ -267,6 +271,7 @@
         "onedark"
         "kommentary"
         "hop"
+        "nvim-metals"
       ];
 
       lib = import ./lib { inherit pkgs inputs plugins; };
