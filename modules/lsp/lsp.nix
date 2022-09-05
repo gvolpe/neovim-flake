@@ -340,7 +340,7 @@ in
           }
         ''}
 
-        ${writeIf (cfg.scala.enable && cfg.scala.type == "nvim-lspconfig")''
+        ${writeIf (cfg.scala.enable && cfg.scala.type == "nvim-lspconfig") ''
           -- Scala Metals config
           lspconfig.metals.setup {
             cmd = { "${cfg.scala.metals}/bin/metals" };
