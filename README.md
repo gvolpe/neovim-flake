@@ -66,10 +66,13 @@ For the Scala module, the `metals` binary can be easily overridden with the prov
         version = "0.11.8+76-22425a8b-SNAPSHOT";
         outputHash = "[Insert hash (try nix build .#)]";
       };
+      type = "nvim-metals"; # or nvim-lspconfig
     };
   };
 }
 ```
+
+We can also choose to use the minimal configuration via `nvim-lspconfig` or use the more featureful [nvim-metals](https://github.com/scalameta/nvim-metals).
 
 Have a look at my [nix-config](https://github.com/gvolpe/nix-config) for a full example.
 
