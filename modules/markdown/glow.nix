@@ -24,7 +24,7 @@ in
     vim.configRC =
       writeIf cfg.glow.enable ''
         autocmd FileType markdown noremap <leader>p :Glow<CR>
-        let g:glow_binary_path = "${pkgs.glow}/bin"
+        let g:glow_binary_path = "${pkgs.glow}/bin/glow"
       '';
   };
 }
