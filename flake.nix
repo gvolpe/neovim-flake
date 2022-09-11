@@ -272,6 +272,7 @@
         "kommentary"
         "hop"
         "nvim-metals"
+        "todo-comments"
       ];
 
       lib = import ./lib { inherit pkgs inputs plugins; };

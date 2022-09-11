@@ -21,5 +21,6 @@
     ./telescope
     ./git
     ./hop
+    ./todo
   ];
 }
