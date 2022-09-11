@@ -15,6 +15,7 @@ neovimBuilder {
       ];
       lsp = {
         enable = true;
+        folds = true;
         formatOnSave = false;
         lightbulb.enable = true;
         lspsaga.enable = false;

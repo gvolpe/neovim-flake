@@ -9,6 +9,7 @@ in
 {
   options.vim.lsp = {
     enable = mkEnableOption "neovim lsp support";
+    folds = mkEnableOption "Folds via nvim-ufo";
     formatOnSave = mkEnableOption "Format on save";
 
     nix = mkEnableOption "Nix LSP";
@@ -59,6 +60,7 @@ in
         (withPlugins (config.vim.autocomplete.enable && (config.vim.autocomplete.type == "nvim-cmp")) [ cmp-nvim-lsp ]) ++
         (withPlugins cfg.sql [ sqls-nvim ]) ++
         (withPlugins (cfg.scala.enable && cfg.scala.type == "nvim-metals") [ nvim-metals ]) ++
+        (withPlugins cfg.folds [ promise-async nvim-ufo ]) ++ 
         (withPlugins cfg.rust.enable [ crates-nvim rust-tools ]);
 
       vim.configRC = ''
@@ -203,6 +205,57 @@ in
         local lspconfig = require('lspconfig')
 
         local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+        ${writeIf cfg.folds ''
+          capabilities.textDocument.foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true
+          }
+
+          -- Display number of folded lines
+          local ufo_handler = function(virtText, lnum, endLnum, width, truncate)
+            local newVirtText = {}
+            local suffix = ('  %d '):format(endLnum - lnum)
+            local sufWidth = vim.fn.strdisplaywidth(suffix)
+            local targetWidth = width - sufWidth
+            local curWidth = 0
+            for _, chunk in ipairs(virtText) do
+              local chunkText = chunk[1]
+              local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+              if targetWidth > curWidth + chunkWidth then
+                table.insert(newVirtText, chunk)
+              else
+                  chunkText = truncate(chunkText, targetWidth - curWidth)
+                  local hlGroup = chunk[2]
+                  table.insert(newVirtText, {chunkText, hlGroup})
+                  chunkWidth = vim.fn.strdisplaywidth(chunkText)
+                  -- str width returned from truncate() may less than 2nd argument, need padding
+                  if curWidth + chunkWidth < targetWidth then
+                    suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
+                  end
+                  break
+              end
+              curWidth = curWidth + chunkWidth
+            end
+            table.insert(newVirtText, {suffix, 'MoreMsg'})
+            return newVirtText
+          end
+
+          require('ufo').setup({
+             fold_virt_text_handler = ufo_handler
+          })
+
+          -- Using ufo provider needs a large value
+          vim.o.foldlevel = 99 
+          vim.o.foldlevelstart = 99
+          vim.o.foldenable = true
+
+          -- Using ufo provider need remap `zR` and `zM`
+          vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+          vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+          vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds)
+          vim.keymap.set('n', 'zm', require('ufo').closeFoldsWith)
+        ''}
 
         ${let
           cfg = config.vim.autocomplete;

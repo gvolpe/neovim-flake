@@ -69,6 +69,17 @@
       flake = false;
     };
 
+    # Folds 
+    nvim-ufo = {
+      url = github:kevinhwang91/nvim-ufo;
+      flake = false;
+    };
+
+    promise-async = {
+      url = github:kevinhwang91/promise-async; # required by nvim-ufo
+      flake = false;
+    };
+
     # Telescope
     telescope = {
       url = github:nvim-telescope/telescope.nvim;
@@ -273,6 +284,8 @@
         "hop"
         "nvim-metals"
         "todo-comments"
+        "nvim-ufo"
+        "promise-async"
       ];
 
       lib = import ./lib { inherit pkgs inputs plugins; };

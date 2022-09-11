@@ -36,11 +36,10 @@ in
         [ nvim-treesitter ] ++ (withPlugins cfg.autotagHtml [ nvim-ts-autotag ])
       );
 
-      vim.configRC = writeIf cfg.fold ''
+      vim.configRC = writeIf (cfg.fold && !config.vim.lsp.folds) ''
         " Tree-sitter based folding
         set foldmethod=expr
         set foldexpr=nvim_treesitter#foldexpr()
-        set nofoldenable
       '';
 
       vim.luaConfigRC =
