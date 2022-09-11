@@ -18,7 +18,7 @@ By default, Scala, Dhall, Elm, Nix, Haskell, and SQL lsp servers are enabled.
 
 ## Home Manager 
 
-To use it with Home Manager, we need to add both the overlays and the HM module. First of all, we add the input flake.
+First of all, we add the input flake.
 
 ```nix
 {
@@ -29,7 +29,7 @@ To use it with Home Manager, we need to add both the overlays and the HM module.
 }
 ```
 
-Followed by importing the module.
+Followed by importing the HM module.
 
 ```nix
 {
@@ -72,7 +72,7 @@ For the Scala module, the `metals` binary can be easily overridden with the prov
 }
 ```
 
-We can also choose to use the minimal configuration via `nvim-lspconfig` or use the more featureful [nvim-metals](https://github.com/scalameta/nvim-metals).
+We can also choose to use the minimal configuration via `nvim-lspconfig` or use the more featureful [nvim-metals](https://github.com/scalameta/nvim-metals) (default and recommended).
 
 Have a look at my [nix-config](https://github.com/gvolpe/nix-config) for a full example.
 
@@ -109,6 +109,10 @@ rnix provides builtin formatting with [nixpkgs-fmt](https://github.com/nix-commu
 **Formatting**
 
 Metals provides builtin formatting with [scalafmt](https://scalameta.org/scalafmt/).
+
+**Plugins**
+
+- [nvim-metals](https://github.com/scalameta/nvim-metals) enhances the metals experience.
 
 ### Dhall
 
@@ -203,6 +207,7 @@ A list of all plugins that can be enabled
 
 - [kommentary](https://github.com/b3nj5m1n/kommentary) comment text in and out, written in lua
 - [nerdcommenter](https://github.com/preservim/nerdcommenter) comment functions so powerful—no comment necessary
+- [todo-comments](https://github.com/folke/todo-comments.nvim) highlight, list and search todo comments
 
 ### Statuslines
 
@@ -258,8 +263,14 @@ A list of all plugins that can be enabled
 ### Themes
 
 - [onedark](https://github.com/navarasu/onedark.nvim) a dark colorscheme with multiple options
+- [nightfox](https://github.com/EdenEast/nightfox.nvim) a highly customizable theme with treesitter support
 - [tokyonight-nvim](https://github.com/folke/tokyonight.nvim) a neovim theme with multiple color options
+
+### Folds 
+
+- [nvim-ufo](https://github.com/kevinhwang91/nvim-ufo) enhance "ultra fold" experience for neovim
 
 ### Dependencies
 
 - [plenary](https://github.com/nvim-lua/plenary.nvim) which is a dependency of some plugins, installed automatically if needed
+- [promise-async](https://github.com/kevinhwang91/promise-async) a dependency of nvim-ufo
