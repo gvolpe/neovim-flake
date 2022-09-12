@@ -26,7 +26,7 @@ in
       };
       type = mkOption {
         type = types.enum [ "nvim-lspconfig" "nvim-metals" ];
-        default = "nvim-lspconfig";
+        default = "nvim-metals";
         description = "Whether to use `nvim-lspconfig` or the more featureful `nvim-metals`";
       };
     };
