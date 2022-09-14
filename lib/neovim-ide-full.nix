@@ -55,13 +55,13 @@ neovimBuilder {
       };
       statusline.lualine = {
         enable = true;
-        theme = "onedark";
+        theme = "catppuccin";
       };
       theme = {
         enable = true;
-        name = "onedark";
-        style = "darker";
-        transparency = true;
+        name = "catppuccin";
+        style = "macchiato";
+        transparency = false;
       };
       autopairs.enable = true;
       autocomplete = {

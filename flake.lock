@@ -16,6 +16,22 @@
         "type": "github"
       }
     },
+    "catppuccin": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1663126663,
+        "narHash": "sha256-qOVdhOBYbbYPD0w5mR3E1wIOs2ZW800wIJRXZ18pL+U=",
+        "owner": "catppuccin",
+        "repo": "nvim",
+        "rev": "5c0cc567fe5d08347399019cd67051de54e92221",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "nvim",
+        "type": "github"
+      }
+    },
     "cmp-buffer": {
       "flake": false,
       "locked": {
@@ -643,6 +659,7 @@
     "root": {
       "inputs": {
         "bufdelete-nvim": "bufdelete-nvim",
+        "catppuccin": "catppuccin",
         "cmp-buffer": "cmp-buffer",
         "cmp-nvim-lsp": "cmp-nvim-lsp",
         "cmp-path": "cmp-path",

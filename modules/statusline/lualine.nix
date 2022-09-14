@@ -53,12 +53,10 @@ in
           "solarized_dark"
           "tomorrow"
           "wombat"
+          "catppuccin"
+          "tokyonight"
+          "nightfox"
         ]
-        ++ (
-          if config.vim.theme.name == "tokyonight"
-          then [ "tokyonight" ]
-          else [ "onedark" ]
-        )
       );
       description = "Theme for lualine";
     };
@@ -152,49 +150,40 @@ in
     };
   };
 
-  config =
-    mkIf cfg.enable
-      {
-        #assertions = [
-        #  ({
-        #    assertion = if cfg.icons then (config.vim.visuals.enable && config.vim.visuals.nvimWebDevicons.enable) else true;
-        #    message = "Must enable config.vim.visual.nvimWebDevicons if using config.vim.visuals.lualine.icons";
-        #  })
-        #];
-
-        vim.startPlugins = with pkgs.neovimPlugins; [ lualine ];
-        vim.luaConfigRC = ''
-          require'lualine'.setup {
-            options = {
-              icons_enabled = ${builtins.toString cfg.icons},
-              theme = "${cfg.theme}",
-              component_separators = {"${cfg.componentSeparator.left}","${cfg.componentSeparator.right}"},
-              section_separators = {"${cfg.sectionSeparator.left}","${cfg.sectionSeparator.right}"},
-              disabled_filetypes = {},
-            },
-            sections = {
-              lualine_a = ${cfg.activeSection.a},
-              lualine_b = ${cfg.activeSection.b},
-              lualine_c = ${cfg.activeSection.c},
-              lualine_x = ${cfg.activeSection.x},
-              lualine_y = ${cfg.activeSection.y},
-              lualine_z = ${cfg.activeSection.z},
-            },
-            inactive_sections = {
-              lualine_a = ${cfg.inactiveSection.a},
-              lualine_b = ${cfg.inactiveSection.b},
-              lualine_c = ${cfg.inactiveSection.c},
-              lualine_x = ${cfg.inactiveSection.x},
-              lualine_y = ${cfg.inactiveSection.y},
-              lualine_z = ${cfg.inactiveSection.z},
-            },
-            tabline = {},
-            extensions = {${
-            if config.vim.filetree.nvimTreeLua.enable
-            then "\"nvim-tree\""
-            else ""
-          }},
-          }
-        '';
-      };
+  config = mkIf cfg.enable {
+    vim.startPlugins = with pkgs.neovimPlugins; [ lualine ];
+    vim.luaConfigRC = ''
+      require'lualine'.setup {
+        options = {
+          icons_enabled = ${builtins.toString cfg.icons},
+          theme = "${cfg.theme}",
+          component_separators = {"${cfg.componentSeparator.left}","${cfg.componentSeparator.right}"},
+          section_separators = {"${cfg.sectionSeparator.left}","${cfg.sectionSeparator.right}"},
+          disabled_filetypes = {},
+        },
+        sections = {
+          lualine_a = ${cfg.activeSection.a},
+          lualine_b = ${cfg.activeSection.b},
+          lualine_c = ${cfg.activeSection.c},
+          lualine_x = ${cfg.activeSection.x},
+          lualine_y = ${cfg.activeSection.y},
+          lualine_z = ${cfg.activeSection.z},
+        },
+        inactive_sections = {
+          lualine_a = ${cfg.inactiveSection.a},
+          lualine_b = ${cfg.inactiveSection.b},
+          lualine_c = ${cfg.inactiveSection.c},
+          lualine_x = ${cfg.inactiveSection.x},
+          lualine_y = ${cfg.inactiveSection.y},
+          lualine_z = ${cfg.inactiveSection.z},
+        },
+        tabline = {},
+        extensions = {${
+        if config.vim.filetree.nvimTreeLua.enable
+        then "\"nvim-tree\""
+        else ""
+      }},
+      }
+    '';
+  };
 }

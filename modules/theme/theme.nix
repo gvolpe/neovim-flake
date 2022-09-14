@@ -5,6 +5,9 @@ with builtins;
 
 let
   cfg = config.vim.theme;
+
+  enum' = name: flavors: other:
+    if (cfg.name == name) then types.enum flavors else other;
 in
 {
   options.vim.theme = {
@@ -14,22 +17,19 @@ in
     };
 
     name = mkOption {
-      type = types.enum [ "nightfox" "onedark" "tokyonight" ];
-      description = ''Name of theme to use: "nightfox" "onedark" "tokyonight"'';
+      type = types.enum [ "catppuccin" "nightfox" "onedark" "tokyonight" ];
+      description = ''Name of theme to use: "catppuccin" "nightfox" "onedark" "tokyonight"'';
     };
 
     style = mkOption {
-      type = with types; (
-        if (cfg.name == "tokyonight")
-        then (enum [ "day" "night" "storm" ])
-        else
-          (
-            if (cfg.name == "onedark")
-            then (enum [ "dark" "darker" "cool" "deep" "warm" "warmer" ])
-            else (enum [ "nightfox" "carbonfox" "duskfox" "terafox" "nordfox" ])
-          )
-
-      );
+      type =
+        let
+          tn = enum' "tokyonight" [ "day" "night" "storm" ];
+          od = enum' "onedark" [ "dark" "darker" "cool" "deep" "warm" "warmer" ];
+          nf = enum' "nightfox" [ "nightfox" "carbonfox" "duskfox" "terafox" "nordfox" ];
+          cp = types.enum [ "frappe" "latte" "macchiato" "mocha" ];
+        in
+        tn (od (nf cp));
       description = ''Theme style: "storm", darker variant "night", and "day"'';
     };
 
@@ -55,7 +55,8 @@ in
       vim.startPlugins = with pkgs.neovimPlugins; (
         (withPlugins (cfg.name == "nightfox") [ nightfox ]) ++
         (withPlugins (cfg.name == "onedark") [ onedark ]) ++
-        (withPlugins (cfg.name == "tokyonight") [ tokyonight ])
+        (withPlugins (cfg.name == "tokyonight") [ tokyonight ]) ++
+        (withPlugins (cfg.name == "catppuccin") [ catppuccin ])
       );
 
       vim.luaConfigRC = ''
@@ -79,6 +80,15 @@ in
             transparent = "${transparency}",
           }
           require('onedark').load()
+        ''
+        }
+
+        ${writeIf (cfg.name == "catppuccin") ''
+          vim.g.catppuccin_flavour = "${cfg.style}"
+          require("catppuccin").setup({
+            transparent_background = ${if cfg.transparency then "true" else "false"},
+          })
+          vim.cmd [[colorscheme catppuccin]]
         ''
         }
       '';

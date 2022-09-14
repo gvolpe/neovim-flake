@@ -172,6 +172,11 @@
     };
 
     # Themes
+    catppuccin = {
+      url = github:catppuccin/nvim;
+      flake = false;
+    };
+
     nightfox = {
       url = github:EdenEast/nightfox.nvim;
       flake = false;
@@ -260,6 +265,7 @@
         "nvim-web-devicons"
         "tokyonight"
         "nightfox"
+        "catppuccin"
         "bufdelete-nvim"
         "nvim-cmp"
         "cmp-nvim-lsp"
