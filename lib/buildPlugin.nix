@@ -57,5 +57,5 @@ in
     let
       xs = listToAttrs (map (n: nameValuePair n (buildPlug n)) plugins);
     in
-    xs // vimPlugins;
+    vimPlugins // xs;
 }
