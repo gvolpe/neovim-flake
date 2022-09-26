@@ -7,6 +7,7 @@ Originally based on Jordan Isaacs' amazing [neovim-flake](https://github.com/jor
 ## Try it out
 
 ```console
+$ cachix use gvolpe-nixos # Optional: this will save you CPU resources
 $ nix run github:gvolpe/neovim-flake#
 ```
 
