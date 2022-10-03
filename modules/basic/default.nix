@@ -113,6 +113,13 @@ in
       description = "New splits will open to the right";
     };
 
+    spellCheck = {
+      markdown = mkOption {
+        type = types.bool;
+        description = "Enables spell-checker on markdown files";
+      };
+    };
+
     customPlugins = mkOption {
       type = types.listOf types.package;
       default = [ ];
@@ -143,6 +150,7 @@ in
       vim.mapTimeout = mkDefault 500;
       vim.splitBelow = mkDefault true;
       vim.splitRight = mkDefault true;
+      vim.spellCheck.markdown = mkDefault true;
 
       vim.startPlugins = [ pkgs.neovimPlugins.plenary-nvim ] ++ cfg.customPlugins;
 
@@ -243,6 +251,10 @@ in
         ${writeIf cfg.colourTerm ''
           set termguicolors
           set t_Co=256
+        ''}
+        ${writeIf cfg.spellCheck.markdown ''
+          " Spell check for markdown files
+          au BufNewFile,BufRead *.md set spell
         ''}
       '';
     }
