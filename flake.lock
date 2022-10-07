@@ -386,11 +386,11 @@
     "nvim-code-action-menu": {
       "flake": false,
       "locked": {
-        "lastModified": 1653835393,
-        "narHash": "sha256-nG6lasCs7VeJfj5eV/oH9OfJbSaEaAOOM98R72xudCY=",
+        "lastModified": 1665127936,
+        "narHash": "sha256-QvSP4ADZV0bCJTv3lwUNcVN/wr5XZ04d1/KIzKfLbqM=",
         "owner": "weilbith",
         "repo": "nvim-code-action-menu",
-        "rev": "ee599409ed6ab31f6d7115e9c5c4550336470c14",
+        "rev": "58e12501ea028ff1171f8f06ea53891f7c6e1c3f",
         "type": "github"
       },
       "original": {
