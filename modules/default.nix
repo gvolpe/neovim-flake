@@ -22,5 +22,6 @@
     ./git
     ./hop
     ./todo
+    ./mind
   ];
 }

@@ -105,6 +105,7 @@ neovimBuilder {
         gitsigns.enable = true;
       };
       hop.enable = true;
+      mind.enable = true;
       todo.enable = true;
     };
   };

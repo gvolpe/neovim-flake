@@ -228,6 +228,13 @@
       flake = false;
     };
 
+    # Organized notes in trees
+    mind-nvim = {
+      url = github:gvolpe/mind.nvim;
+      #url = github:phaazon/mind.nvim;
+      flake = false;
+    };
+
     # Plenary (required by crates-nvim)
     plenary-nvim = {
       url = github:nvim-lua/plenary.nvim;
@@ -292,6 +299,7 @@
         "todo-comments"
         "nvim-ufo"
         "promise-async"
+        "mind-nvim"
       ];
 
       lib = import ./lib { inherit pkgs inputs plugins; };
