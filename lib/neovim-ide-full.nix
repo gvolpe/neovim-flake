@@ -104,8 +104,14 @@ neovimBuilder {
         enable = true;
         gitsigns.enable = true;
       };
+      mind = {
+        enable = false;
+        persistence = {
+          dataDir = "~/.local/share/mind.nvim/data";
+          statePath = "~/.local/share/mind.nvim/mind.json";
+        };
+      };
       hop.enable = true;
-      mind.enable = true;
       todo.enable = true;
     };
   };

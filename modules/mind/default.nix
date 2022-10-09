@@ -13,6 +13,20 @@ in
       default = false;
       description = "Enable Mind plugin";
     };
+
+    persistence = {
+      dataDir = mkOption {
+        default = "~/.local/share/mind.nvim/data";
+        description = "Directory for the Mind data files created by the user";
+        type = types.str;
+      };
+
+      statePath = mkOption {
+        default = "~/.local/share/mind.nvim/mind.json";
+        description = "Application state file: mind.json";
+        type = types.str;
+      };
+    };
   };
 
   config = mkIf cfg.enable ({
@@ -26,8 +40,8 @@ in
     vim.luaConfigRC = ''
       require('mind').setup({
         persistence = {
-          state_path = "~/.local/share/mind.nvim/mind.json",
-          data_dir = "~/.local/share/mind.nvim/data"
+          state_path = "${cfg.persistence.statePath}",
+          data_dir = "${cfg.persistence.dataDir}"
         },
         tree = {
           automatic_creation = true,
@@ -35,7 +49,7 @@ in
         },
         ui = {
           url_open = "${pkgs.xdg-utils}/bin/xdg-open",
-          width = 30
+          width = 40
         }
       })
     '';
