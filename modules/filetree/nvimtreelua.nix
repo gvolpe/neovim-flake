@@ -62,6 +62,12 @@ in
       type = types.bool;
     };
 
+    resizeOnFileOpen = mkOption {
+      default = false;
+      description = "Resize the tree window when a file is opened";
+      type = types.bool;
+    };
+
     followBufferFile = mkOption {
       default = true;
       description = "Follow file that is in current buffer on tree";
@@ -152,6 +158,7 @@ in
           actions = {
             open_file = {
               quit_on_open = ${boolToString cfg.closeOnFileOpen},
+              resize_window = ${boolToString cfg.resizeOnFileOpen}
             },
           },
           git = {
