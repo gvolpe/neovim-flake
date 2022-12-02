@@ -246,6 +246,11 @@
       url = github:gvolpe/vim-scala;
       flake = false;
     };
+
+    vim-smithy = {
+      url = github:jasdel/vim-smithy;
+      flake = false;
+    };
   };
 
   outputs = inputs @ { self, nixpkgs, flake-utils, ... }:
@@ -300,6 +305,7 @@
         "nvim-ufo"
         "promise-async"
         "mind-nvim"
+        "vim-smithy"
       ];
 
       lib = import ./lib { inherit pkgs inputs plugins; };

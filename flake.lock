@@ -723,6 +723,7 @@
         "tokyonight": "tokyonight",
         "trouble": "trouble",
         "vim-scala": "vim-scala",
+        "vim-smithy": "vim-smithy",
         "vim-vsnip": "vim-vsnip",
         "which-key": "which-key"
       }
@@ -836,6 +837,22 @@
       "original": {
         "owner": "gvolpe",
         "repo": "vim-scala",
+        "type": "github"
+      }
+    },
+    "vim-smithy": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1594233509,
+        "narHash": "sha256-fm6J2hSg8Tgw/iTXET4MCylCF4ALxNRYqAKnBsew/k4=",
+        "owner": "jasdel",
+        "repo": "vim-smithy",
+        "rev": "eee0652aaf1deff05d562b064a2e51dd04359aaf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jasdel",
+        "repo": "vim-smithy",
         "type": "github"
       }
     },

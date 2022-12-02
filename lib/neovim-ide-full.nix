@@ -59,9 +59,9 @@ neovimBuilder {
       };
       theme = {
         enable = true;
-        name = "catppuccin";
-        style = "macchiato";
-        transparency = false;
+        name = "onedark";
+        style = "darker";
+        transparency = true;
       };
       autopairs.enable = true;
       autocomplete = {
@@ -111,6 +111,7 @@ neovimBuilder {
           statePath = "~/.local/share/mind.nvim/mind.json";
         };
       };
+      smithy.enable = true;
       hop.enable = true;
       todo.enable = true;
     };
