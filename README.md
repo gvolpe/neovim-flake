@@ -7,17 +7,17 @@ Originally based on Jordan Isaacs' amazing [neovim-flake](https://github.com/jor
 ## Try it out
 
 ```console
-$ cachix use gvolpe-nixos # Optional: this will save you CPU resources
-$ nix run github:gvolpe/neovim-flake#
+$ cachix use gvolpe-nixos # Optional: it'll save you CPU resources and time
+$ nix run github:gvolpe/neovim-flake
 ```
 
-By default, Scala, Dhall, Elm, Nix, Haskell, and SQL lsp servers are enabled.
+By default, LSP support is enabled for Scala, Dhall, Elm, Nix, Haskell, and Smithy.
 
 ## Screenshot
 
 ![screenshot](./screenshot.png)
 
-## Home Manager 
+## Home Manager
 
 First of all, we add the input flake.
 
@@ -57,7 +57,7 @@ Then we should be able to use the given module. E.g.
 
 For the Scala module, the `metals` binary can be easily overridden with the provided builder. E.g.
 
-```nix 
+```nix
 {
   vim.lsp = {
     enable = true;
@@ -74,6 +74,17 @@ For the Scala module, the `metals` binary can be easily overridden with the prov
 ```
 
 We can also choose to use the minimal configuration via `nvim-lspconfig` or use the more featureful [nvim-metals](https://github.com/scalameta/nvim-metals) (default and recommended).
+
+NOTE: To use `metalsBuilder`, you need to add the following overlay.
+
+```nix
+{
+  pkgs = import nixpkgs {
+    inherit system;
+    overlays = [ neovim-flake.overlays.default ];
+  };
+}
+```
 
 Have a look at my [nix-config](https://github.com/gvolpe/nix-config) for a full example.
 
@@ -172,7 +183,6 @@ Disabled lsp server formatting, using [prettier](https://github.com/prettier/pre
 
 Using [black](https://github.com/psf/black) through null-ls
 
-
 ### Markdown
 
 **Plugins**
@@ -184,6 +194,12 @@ Using [black](https://github.com/psf/black) through null-ls
 **Plugins**
 
 - [nvim-ts-autotag](https://github.com/ellisonleao/glow.nvim/issues/44) for autoclosing and renaming html tags. Works with html, tsx, vue, svelte, and php
+
+### Smithy
+
+**LSP Server**: [smithy-language-server](https://github.com/disneystreaming/smithy-language-server)
+
+**Treesitter grammar**: [tree-sitter-smithy](https://github.com/indoorvivants/tree-sitter-smithy)
 
 ## All Plugins
 
