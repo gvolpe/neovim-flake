@@ -366,20 +366,19 @@
         "type": "github"
       }
     },
-    "nvim-bufferline-lua": {
+    "nvim-bufferline": {
       "flake": false,
       "locked": {
-        "lastModified": 1650105928,
-        "narHash": "sha256-RhAaRFGDoHZAr8SLgbtLtuQ2J9z5hbvMH14FDhHOLXU=",
+        "lastModified": 1668632062,
+        "narHash": "sha256-qGl1jwBaMFWsrth7F20KrfJpyVENF8GEOJsVBBcSTVA=",
         "owner": "akinsho",
-        "repo": "nvim-bufferline.lua",
-        "rev": "0a83c615a8ab49718d9b4cdc60127003307829b2",
+        "repo": "bufferline.nvim",
+        "rev": "4ecfa81e470a589e74adcde3d5bb1727dd407363",
         "type": "github"
       },
       "original": {
         "owner": "akinsho",
-        "ref": "v1.2.0",
-        "repo": "nvim-bufferline.lua",
+        "repo": "bufferline.nvim",
         "type": "github"
       }
     },
@@ -697,7 +696,7 @@
         "nixpkgs": "nixpkgs",
         "null-ls": "null-ls",
         "nvim-autopairs": "nvim-autopairs",
-        "nvim-bufferline-lua": "nvim-bufferline-lua",
+        "nvim-bufferline": "nvim-bufferline",
         "nvim-cmp": "nvim-cmp",
         "nvim-code-action-menu": "nvim-code-action-menu",
         "nvim-compe": "nvim-compe",

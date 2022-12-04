@@ -93,8 +93,8 @@
     };
 
     # Tablines
-    nvim-bufferline-lua = {
-      url = github:akinsho/nvim-bufferline.lua?ref=v1.2.0;
+    nvim-bufferline = {
+      url = github:akinsho/bufferline.nvim;
       flake = false;
     };
 
@@ -264,7 +264,7 @@
         "nvim-lightbulb"
         "lsp-signature"
         "nvim-tree-lua"
-        "nvim-bufferline-lua"
+        "nvim-bufferline"
         "lualine"
         "nvim-compe"
         "nvim-autopairs"

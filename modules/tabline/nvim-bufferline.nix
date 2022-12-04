@@ -8,7 +8,7 @@ let
 in
 {
   options.vim.tabline.nvimBufferline = {
-    enable = mkEnableOption "nvim-bufferline-lua";
+    enable = mkEnableOption "bufferline.nvim";
   };
 
   config = mkIf cfg.enable (
@@ -24,7 +24,7 @@ in
     in
     {
       vim.startPlugins = with pkgs.neovimPlugins; [
-        (assert config.vim.visuals.nvimWebDevicons.enable == true; nvim-bufferline-lua)
+        (assert config.vim.visuals.nvimWebDevicons.enable == true; nvim-bufferline)
         bufdelete-nvim
       ];
 

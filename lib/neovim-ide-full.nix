@@ -61,7 +61,7 @@ neovimBuilder {
       theme = {
         enable = true;
         name = "onedark";
-        style = "darker";
+        style = "deep";
         transparency = true;
       };
       autopairs.enable = true;
@@ -74,7 +74,7 @@ neovimBuilder {
         hideDotFiles = false;
         hideFiles = [ "node_modules" ".cache" ];
       };
-      tabline.nvimBufferline.enable = false; # TODO: address deprecations and re-enable
+      tabline.nvimBufferline.enable = true;
       treesitter = {
         enable = true;
         autotagHtml = true;
