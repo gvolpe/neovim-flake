@@ -5,6 +5,13 @@ with builtins;
 
 let
   cfg = config.vim.lsp;
+
+  # Smithy packages
+  cs = "${pkgs.coursier}/bin/cs";
+  sls = {
+    name = "com.disneystreaming.smithy:smithy-language-server";
+    version = "0.0.20";
+  };
 in
 {
   options.vim.lsp = {
@@ -31,6 +38,7 @@ in
       };
     };
 
+    smithy = mkEnableOption "Smithy Language LSP";
     sql = mkEnableOption "SQL Language LSP";
     ts = mkEnableOption "TS language LSP";
 
@@ -60,7 +68,7 @@ in
         (withPlugins (config.vim.autocomplete.enable && (config.vim.autocomplete.type == "nvim-cmp")) [ cmp-nvim-lsp ]) ++
         (withPlugins cfg.sql [ sqls-nvim ]) ++
         (withPlugins (cfg.scala.enable && cfg.scala.type == "nvim-metals") [ nvim-metals ]) ++
-        (withPlugins cfg.folds [ promise-async nvim-ufo ]) ++ 
+        (withPlugins cfg.folds [ promise-async nvim-ufo ]) ++
         (withPlugins cfg.rust.enable [ crates-nvim rust-tools ]);
 
       vim.configRC = ''
@@ -452,6 +460,20 @@ in
           null_ls.builtins.formatting.alejandra.with({
             command = "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt";
           });
+        ''}
+
+        ${writeIf cfg.smithy ''
+          -- Smithy config
+          vim.cmd([[au BufRead,BufNewFile *.smithy setfiletype smithy]])
+
+          lspconfig.smithy.setup {
+            capabilities = capabilities;
+            on_attach = function(client, bufnr)
+              attach_keymaps(client, bufnr)
+            end,
+            cmd = { '${cs}', 'launch', '${sls.name}:${sls.version}', '--' , '0' },
+            root_dir = lspconfig.util.root_pattern("smithy-build.json")
+          }
         ''}
 
         ${writeIf cfg.ts ''

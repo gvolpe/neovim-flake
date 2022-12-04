@@ -28,14 +28,15 @@ neovimBuilder {
           type = "nvim-metals";
         };
         rust.enable = false;
+        ts = true;
+        smithy = true;
         nix = true;
         dhall = true;
         elm = true;
         haskell = true;
-        sql = true;
+        sql = false;
         python = false;
         clang = false;
-        ts = false;
         go = false;
       };
       visuals = {
@@ -55,7 +56,7 @@ neovimBuilder {
       };
       statusline.lualine = {
         enable = true;
-        theme = "catppuccin";
+        theme = "onedark";
       };
       theme = {
         enable = true;
@@ -73,7 +74,7 @@ neovimBuilder {
         hideDotFiles = false;
         hideFiles = [ "node_modules" ".cache" ];
       };
-      tabline.nvimBufferline.enable = true;
+      tabline.nvimBufferline.enable = false; # TODO: address deprecations and re-enable
       treesitter = {
         enable = true;
         autotagHtml = true;
@@ -111,7 +112,6 @@ neovimBuilder {
           statePath = "~/.local/share/mind.nvim/mind.json";
         };
       };
-      smithy.enable = true;
       hop.enable = true;
       todo.enable = true;
     };

@@ -23,6 +23,5 @@
     ./hop
     ./todo
     ./mind
-    ./smithy
   ];
 }

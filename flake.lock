@@ -320,11 +320,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1662934689,
-        "narHash": "sha256-mXi8hmhiunOVTeHiuouWXb0vTqjzp9v9kshMmI561Us=",
+        "lastModified": 1670058159,
+        "narHash": "sha256-ERiP2JWanLuGV1PDyHTbcigFCfIi9oco5LFdMJHjREE=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a0b7e70db7a55088d3de0cc370a59f9fbcc906c3",
+        "rev": "49b8ad618e64d9fe9ab686817bfebe047860dcae",
         "type": "github"
       },
       "original": {
@@ -723,7 +723,6 @@
         "tokyonight": "tokyonight",
         "trouble": "trouble",
         "vim-scala": "vim-scala",
-        "vim-smithy": "vim-smithy",
         "vim-vsnip": "vim-vsnip",
         "which-key": "which-key"
       }
@@ -837,22 +836,6 @@
       "original": {
         "owner": "gvolpe",
         "repo": "vim-scala",
-        "type": "github"
-      }
-    },
-    "vim-smithy": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1594233509,
-        "narHash": "sha256-fm6J2hSg8Tgw/iTXET4MCylCF4ALxNRYqAKnBsew/k4=",
-        "owner": "jasdel",
-        "repo": "vim-smithy",
-        "rev": "eee0652aaf1deff05d562b064a2e51dd04359aaf",
-        "type": "github"
-      },
-      "original": {
-        "owner": "jasdel",
-        "repo": "vim-smithy",
         "type": "github"
       }
     },

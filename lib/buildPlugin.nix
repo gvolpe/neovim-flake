@@ -8,7 +8,9 @@ with builtins;
 let
   inherit (prev.vimUtils) buildVimPluginFrom2Nix;
 
-  treesitterGrammars = final.tree-sitter.withPlugins (p: [
+  ts = final.tree-sitter;
+
+  treesitterGrammars = ts.withPlugins (p: [
     p.tree-sitter-c
     p.tree-sitter-scala
     p.tree-sitter-nix
@@ -26,20 +28,55 @@ let
     p.tree-sitter-css
     p.tree-sitter-graphql
     p.tree-sitter-json
+    p.tree-sitter-smithy
   ]);
+
+  smithy-lsp = pkgs.callPackage ./smithy-lspconfig.nix { };
+
+  smithyLspHook = ''
+    cat >> $out/lua/lspconfig/server_configurations/smithy.lua <<EOL
+    ${smithy-lsp.lua}
+    EOL
+  '';
+
+  # without adding `list.smithy`, highlights are ignored
+  smithyParserHook = ''
+    substituteInPlace $out/lua/nvim-treesitter/parsers.lua \
+      --replace 'list.agda = {' '
+        list.smithy = {
+          install_info = {
+            url = "https://github.com/indoorvivants/tree-sitter-smithy",
+            branch = "main",
+            files = { "src/parser.c" },
+            generate_requires_npm = true,
+          },
+          filetype = "smithy",
+          maintainers = { "@gvolpe" },
+        }
+
+        list.agda = {
+      '
+  '';
+
+  nvimTreesitterHook = ''
+    rm -r parser
+    ln -s ${treesitterGrammars} parser
+    mkdir -p $out/queries/smithy
+    cp ${ts.builtGrammars.tree-sitter-smithy}/queries/highlights.scm $out/queries/smithy/highlights.scm
+  '';
 
   buildPlug = name:
     buildVimPluginFrom2Nix {
       pname = name;
       version = "master";
       src = builtins.getAttr name inputs;
-      postPatch =
-        if (name == "nvim-treesitter")
-        then ''
-          rm -r parser
-          ln -s ${treesitterGrammars} parser
-        ''
-        else "";
+      preFixup = ''
+        ${writeIf (name == "nvim-lspconfig") smithyLspHook}
+        ${writeIf (name == "nvim-treesitter") smithyParserHook}
+      '';
+      postPatch = ''
+        ${writeIf (name == "nvim-treesitter") nvimTreesitterHook}
+      '';
     };
 
   vim-scala3 = prev.vimUtils.buildVimPlugin {
