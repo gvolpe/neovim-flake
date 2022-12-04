@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixpkgs-unstable;
+    flake-utils.url = github:numtide/flake-utils;
 
     # LSP plugins
     nvim-lspconfig = {
@@ -249,113 +250,113 @@
   };
 
   outputs = inputs @ { self, nixpkgs, flake-utils, ... }:
-    let
-      system = "x86_64-linux";
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        # Plugin must be same as input name
+        plugins = [
+          "nvim-treesitter-context"
+          "gitsigns-nvim"
+          "plenary-nvim"
+          "nvim-lspconfig"
+          "nvim-treesitter"
+          "lspsaga"
+          "lspkind"
+          "nvim-lightbulb"
+          "lsp-signature"
+          "nvim-tree-lua"
+          "nvim-bufferline"
+          "lualine"
+          "nvim-compe"
+          "nvim-autopairs"
+          "nvim-ts-autotag"
+          "nvim-web-devicons"
+          "tokyonight"
+          "nightfox"
+          "catppuccin"
+          "bufdelete-nvim"
+          "nvim-cmp"
+          "cmp-nvim-lsp"
+          "cmp-buffer"
+          "cmp-vsnip"
+          "cmp-path"
+          "cmp-treesitter"
+          "crates-nvim"
+          "vim-vsnip"
+          "nvim-code-action-menu"
+          "trouble"
+          "null-ls"
+          "which-key"
+          "indent-blankline"
+          "nvim-cursorline"
+          "sqls-nvim"
+          "glow-nvim"
+          "telescope"
+          "rust-tools"
+          "onedark"
+          "kommentary"
+          "hop"
+          "nvim-metals"
+          "todo-comments"
+          "nvim-ufo"
+          "promise-async"
+          "mind-nvim"
+        ];
 
-      # Plugin must be same as input name
-      plugins = [
-        "nvim-treesitter-context"
-        "gitsigns-nvim"
-        "plenary-nvim"
-        "nvim-lspconfig"
-        "nvim-treesitter"
-        "lspsaga"
-        "lspkind"
-        "nvim-lightbulb"
-        "lsp-signature"
-        "nvim-tree-lua"
-        "nvim-bufferline"
-        "lualine"
-        "nvim-compe"
-        "nvim-autopairs"
-        "nvim-ts-autotag"
-        "nvim-web-devicons"
-        "tokyonight"
-        "nightfox"
-        "catppuccin"
-        "bufdelete-nvim"
-        "nvim-cmp"
-        "cmp-nvim-lsp"
-        "cmp-buffer"
-        "cmp-vsnip"
-        "cmp-path"
-        "cmp-treesitter"
-        "crates-nvim"
-        "vim-vsnip"
-        "nvim-code-action-menu"
-        "trouble"
-        "null-ls"
-        "which-key"
-        "indent-blankline"
-        "nvim-cursorline"
-        "sqls-nvim"
-        "glow-nvim"
-        "telescope"
-        "rust-tools"
-        "onedark"
-        "kommentary"
-        "hop"
-        "nvim-metals"
-        "todo-comments"
-        "nvim-ufo"
-        "promise-async"
-        "mind-nvim"
-      ];
+        lib = import ./lib { inherit pkgs inputs plugins; };
 
-      lib = import ./lib { inherit pkgs inputs plugins; };
+        pluginOverlay = lib.buildPluginOverlay;
+        metalsOverlay = lib.metalsOverlay;
 
-      pluginOverlay = lib.buildPluginOverlay;
-      metalsOverlay = lib.metalsOverlay;
-
-      libOverlay = f: p: {
-        lib = p.lib.extend (_: _: {
-          inherit (lib) mkVimBool withAttrSet withPlugins writeIf;
-        });
-      };
-
-      pkgs = import nixpkgs {
-        inherit system;
-        config = { allowUnfree = true; };
-        overlays = [ libOverlay pluginOverlay metalsOverlay ];
-      };
-
-      metalsBuilder = lib.metalsBuilder;
-      neovimBuilder = lib.neovimBuilder;
-
-      neovim-ide-full = import ./lib/neovim-ide-full.nix {
-        inherit pkgs neovimBuilder;
-      };
-    in
-    rec {
-      apps.${system} = rec {
-        nvim = {
-          type = "app";
-          program = "${packages.${system}.default}/bin/nvim";
+        libOverlay = f: p: {
+          lib = p.lib.extend (_: _: {
+            inherit (lib) mkVimBool withAttrSet withPlugins writeIf;
+          });
         };
 
-        default = nvim;
-      };
+        pkgs = import nixpkgs {
+          inherit system;
+          config = { allowUnfree = true; };
+          overlays = [ libOverlay pluginOverlay metalsOverlay ];
+        };
 
-      devShells.${system}.default = pkgs.mkShell {
-        buildInputs = [ packages.${system}.neovim-ide ];
-      };
+        metalsBuilder = lib.metalsBuilder;
+        neovimBuilder = lib.neovimBuilder;
 
-      overlays.default = f: p: {
-        inherit metalsBuilder neovimBuilder neovim-ide-full;
-        neovimPlugins = pkgs.neovimPlugins;
-      };
+        neovim-ide-full = import ./lib/neovim-ide-full.nix {
+          inherit pkgs neovimBuilder;
+        };
+      in
+      rec {
+        apps = rec {
+          nvim = {
+            type = "app";
+            program = "${packages.default}/bin/nvim";
+          };
 
-      nixosModules.hm = {
-        imports = [
-          ./lib/hm.nix
-          { nixpkgs.overlays = [ self.overlays.default ]; }
-        ];
-      };
+          default = nvim;
+        };
 
-      packages.${system} = rec {
-        default = neovim-ide;
-        metals = pkgs.metals;
-        neovim-ide = neovim-ide-full;
-      };
-    };
+        devShells.default = pkgs.mkShell {
+          buildInputs = [ packages.neovim-ide ];
+        };
+
+        overlays.default = f: p: {
+          inherit metalsBuilder neovimBuilder neovim-ide-full;
+          neovimPlugins = pkgs.neovimPlugins;
+        };
+
+        nixosModules.hm = {
+          imports = [
+            ./lib/hm.nix
+            { nixpkgs.overlays = [ self.overlays.default ]; }
+          ];
+        };
+
+        packages = rec {
+          default = neovim-ide;
+          metals = pkgs.metals;
+          neovim-ide = neovim-ide-full;
+        };
+      }
+    );
 }
