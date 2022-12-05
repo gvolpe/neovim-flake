@@ -348,7 +348,7 @@
         nixosModules.hm = {
           imports = [
             ./lib/hm.nix
-            { nixpkgs.overlays = [ self.overlays.default ]; }
+            { nixpkgs.overlays = [ overlays.default ]; }
           ];
         };
 
