@@ -39,6 +39,7 @@ neovimBuilder {
         clang = false;
         go = false;
       };
+      plantuml.enable = false;
       visuals = {
         enable = true;
         nvimWebDevicons.enable = true;

@@ -722,6 +722,7 @@
         "todo-comments": "todo-comments",
         "tokyonight": "tokyonight",
         "trouble": "trouble",
+        "vim-plantuml": "vim-plantuml",
         "vim-scala": "vim-scala",
         "vim-vsnip": "vim-vsnip",
         "which-key": "which-key"
@@ -820,6 +821,22 @@
       "original": {
         "owner": "folke",
         "repo": "trouble.nvim",
+        "type": "github"
+      }
+    },
+    "vim-plantuml": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1661550240,
+        "narHash": "sha256-LowGc66T47vOL4oAihrArNqGUZ+CCbyVXEROO83OTjQ=",
+        "owner": "aklt",
+        "repo": "plantuml-syntax",
+        "rev": "845abb56dcd3f12afa6eb47684ef5ba3055802b8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aklt",
+        "repo": "plantuml-syntax",
         "type": "github"
       }
     },

@@ -247,6 +247,12 @@
       url = github:gvolpe/vim-scala;
       flake = false;
     };
+
+    # Plant UML syntax highlights
+    vim-plantuml = {
+      url = github:aklt/plantuml-syntax;
+      flake = false;
+    };
   };
 
   outputs = inputs @ { self, nixpkgs, flake-utils, ... }:
@@ -300,6 +306,7 @@
           "nvim-ufo"
           "promise-async"
           "mind-nvim"
+          "vim-plantuml"
         ];
 
         lib = import ./lib { inherit pkgs inputs plugins; };

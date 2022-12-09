@@ -23,5 +23,6 @@
     ./hop
     ./todo
     ./mind
+    ./plantuml
   ];
 }
