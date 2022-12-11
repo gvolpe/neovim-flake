@@ -27,10 +27,13 @@ neovimBuilder {
           metals = pkgs.metals;
           type = "nvim-metals";
         };
+        nix = {
+          enable = true;
+          type = "nil";
+        };
         rust.enable = false;
         ts = true;
         smithy = true;
-        nix = true;
         dhall = true;
         elm = true;
         haskell = true;

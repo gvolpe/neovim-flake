@@ -19,7 +19,15 @@ in
     folds = mkEnableOption "Folds via nvim-ufo";
     formatOnSave = mkEnableOption "Format on save";
 
-    nix = mkEnableOption "Nix LSP";
+    nix = {
+      enable = mkEnableOption "Nix LSP";
+      type = mkOption {
+        type = types.enum [ "nil" "rnix-lsp" ];
+        default = "rnix-lsp";
+        description = "Whether to use `nil` or `rnix-lsp`";
+      };
+    };
+
     dhall = mkEnableOption "Dhall LSP";
     elm = mkEnableOption "Elm LSP";
     haskell = mkEnableOption "Haskell LSP (hls)";
@@ -89,7 +97,7 @@ in
           ''
         }
 
-        ${writeIf cfg.nix ''
+        ${writeIf cfg.nix.enable ''
             autocmd filetype nix setlocal tabstop=2 shiftwidth=2 softtabstop=2
           ''
         }
@@ -328,7 +336,26 @@ in
           }
         ''}
 
-        ${writeIf cfg.nix ''
+        ${writeIf (cfg.nix.enable && cfg.nix.type == "nil") ''
+          -- Nix config
+          lspconfig.nil_ls.setup{
+            capabilities = capabilities;
+            on_attach = function(client, bufnr)
+              attach_keymaps(client, bufnr)
+            end,
+            settings = {
+              ['nil'] = {
+                diagnostics = {
+                  ignored = { "uri_literal" },
+                  excludedFiles = { }
+                }
+              }
+            };
+            cmd = {"${pkgs.nil}/bin/nil"}
+          }
+        ''}
+
+        ${writeIf (cfg.nix.enable && cfg.nix.type == "rnix-lsp") ''
           -- Nix config
           lspconfig.rnix.setup{
             capabilities = capabilities;
@@ -454,7 +481,7 @@ in
           vim.cmd([[augroup end]])
         ''}
 
-        ${writeIf cfg.nix
+        ${writeIf cfg.nix.enable
         ''
           -- Nix formatter
           null_ls.builtins.formatting.alejandra.with({

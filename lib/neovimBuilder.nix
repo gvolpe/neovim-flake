@@ -3,8 +3,6 @@
 { config }:
 
 let
-  neovimPlugins = pkgs.neovimPlugins;
-
   myNeovimUnwrapped = pkgs.neovim-unwrapped;
 
   vimOptions = lib.evalModules {
@@ -24,7 +22,7 @@ pkgs.wrapNeovim myNeovimUnwrapped {
   configure = {
     customRC = vim.configRC;
 
-    packages.myVimPackage = with neovimPlugins; {
+    packages.myVimPackage = {
       start = builtins.filter (f: f != null) vim.startPlugins;
       opt = vim.optPlugins;
     };
