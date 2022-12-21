@@ -253,6 +253,14 @@
       url = github:aklt/plantuml-syntax;
       flake = false;
     };
+
+    # custom tree-sitter grammar
+    ts-build.url = github:pta2002/build-ts-grammar.nix;
+
+    tree-sitter-scala = {
+      url = github:eed3si9n/tree-sitter-scala/fork-integration;
+      flake = false;
+    };
   };
 
   outputs = inputs @ { self, nixpkgs, flake-utils, ... }:

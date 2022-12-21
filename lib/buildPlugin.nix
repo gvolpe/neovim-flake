@@ -8,11 +8,19 @@ with builtins;
 let
   inherit (prev.vimUtils) buildVimPluginFrom2Nix;
 
-  ts = final.tree-sitter;
+  tree-sitter-scala3 = inputs.ts-build.lib.buildGrammar pkgs {
+    language = "scala";
+    version = "eed3si9n-fork";
+    source = inputs.tree-sitter-scala;
+  };
+
+  ts = prev.tree-sitter.override {
+    extraGrammars = { inherit tree-sitter-scala3; };
+  };
 
   treesitterGrammars = ts.withPlugins (p: [
     p.tree-sitter-c
-    p.tree-sitter-scala
+    p.tree-sitter-scala3
     p.tree-sitter-nix
     p.tree-sitter-elm
     p.tree-sitter-haskell
