@@ -1,0 +1,84 @@
+[[ch-hm-module]]
+== Home Manager
+
+:nvim-metals: https://github.com/scalameta/nvim-metals
+:nix-config: https://github.com/gvolpe/nix-config
+
+The Home Manager module allows us to customize the different `vim` options. To use it, we first add the input flake.
+
+[source,nix]
+----
+{
+  neovim-flake = {
+    url = github:gvolpe/neovim-flake;
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+}
+----
+
+Followed by importing the HM module.
+
+[source,nix]
+----
+{
+  imports = [ neovim-flake.nixosModules.hm ];
+}
+----
+
+Then we should be able to use the given module. E.g.
+
+[source,nix]
+----
+{
+  programs.neovim-ide = {
+    enable = true;
+    settings = {
+      vim.viAlias = false;
+      vim.vimAlias = true;
+      vim.lsp = {
+        enable = true;
+      };
+    };
+  };
+}
+----
+
+All the settings are documented in <<ch-options>>.
+
+For the Scala module, the `metals` binary can be easily overridden with the provided builder. E.g.
+
+[source,nix]
+----
+{
+  vim.lsp = {
+    enable = true;
+    scala = {
+      enable = true;
+      metals = pkgs.metalsBuilder {
+        version = "0.11.8+76-22425a8b-SNAPSHOT";
+        outputHash = "[Insert hash (try nix build .#)]";
+      };
+      type = "nvim-metals"; # or nvim-lspconfig
+    };
+  };
+}
+----
+
+We can also choose to use the minimal configuration via `nvim-lspconfig` or use the more featureful {nvim-metals}[nvim-metals] (default and recommended).
+
+[NOTE]
+====
+To use `metalsBuilder`, you need to add the following overlay.
+====
+
+[source,nix]
+----
+{
+  pkgs = import nixpkgs {
+    inherit system;
+    overlays = [ neovim-flake.overlays.default ];
+  };
+}
+----
+
+Have a look at my {nix-config}[nix-config] for a full example.

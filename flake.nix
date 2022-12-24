@@ -7,7 +7,7 @@
 
     # Nix module docs generator
     nmd = {
-      url = github:nix-prefab/nmd;
+      url = gitlab:rycee/nmd;
       flake = false;
     };
 

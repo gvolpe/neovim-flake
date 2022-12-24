@@ -3,11 +3,13 @@
       xmlns:xi="http://www.w3.org/2001/XInclude"
       version="5.0"
       xml:id="book-neovim-flake-manual">
- <info>
-  <title>Neovim Flake by Gabriel Volpe</title>
- </info>
- <appendix xml:id="ch-options">
-  <title>Configuration Options</title>
-  <xi:include href="./nmd-result/neovim-flake-options.xml" />
- </appendix>
+  <info>
+    <title>Neovim Flake by Gabriel Volpe</title>
+  </info>
+  <xi:include href="try-it-out.xml" />
+  <xi:include href="hm-module.xml" />
+  <appendix xml:id="ch-options">
+    <title>Configuration Options</title>
+    <xi:include href="./nmd-result/neovim-flake-options.xml" />
+  </appendix>
 </book>

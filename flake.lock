@@ -366,17 +366,17 @@
     "nmd": {
       "flake": false,
       "locked": {
-        "lastModified": 1661175901,
-        "narHash": "sha256-/LPQVzuZj6OoqITjjEBCgiUjsOIC47YRcvEDgFXqrag=",
-        "owner": "nix-prefab",
+        "lastModified": 1666190571,
+        "narHash": "sha256-Z1hc7M9X6L+H83o9vOprijpzhTfOBjd0KmUTnpHAVjA=",
+        "owner": "rycee",
         "repo": "nmd",
-        "rev": "e423a04a0995a1d834da3109ee76fd1054b540b1",
-        "type": "github"
+        "rev": "b75d312b4f33bd3294cd8ae5c2ca8c6da2afc169",
+        "type": "gitlab"
       },
       "original": {
-        "owner": "nix-prefab",
+        "owner": "rycee",
         "repo": "nmd",
-        "type": "github"
+        "type": "gitlab"
       }
     },
     "null-ls": {

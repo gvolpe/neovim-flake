@@ -1,0 +1,10 @@
+[[ch-try-it-out]]
+== Try it out
+
+[source,console]
+----
+$ cachix use gvolpe-nixos # Optional: it'll save you CPU resources and time
+$ nix run github:gvolpe/neovim-flake
+----
+
+By default, LSP support is enabled for Scala, Dhall, Elm, Nix, Haskell, and Smithy.
