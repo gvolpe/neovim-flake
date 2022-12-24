@@ -1,2 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Neovim Flake by Gabriel Volpe</title><link rel="stylesheet" type="text/css" href="style.css" /><link rel="stylesheet" type="text/css" href="overrides.css" /><link rel="stylesheet" type="text/css" href="mono-blue.css" /><script src="highlight.pack.js" type="text/javascript"></script><script src="highlight.load.js" type="text/javascript"></script><meta name="generator" content="DocBook XSL Stylesheets V1.79.2" /><link rel="home" href="index.html" title="Neovim Flake by Gabriel Volpe" /><link rel="next" href="options.html" title="Appendix A. Configuration Options" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Neovim Flake by Gabriel Volpe</th></tr><tr><td width="20%" align="left"> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="options.html">Next</a></td></tr></table><hr /></div><div class="book"><div class="titlepage"><div><div><h1 class="title"><a id="book-neovim-flake-manual"></a>Neovim Flake by Gabriel Volpe</h1></div></div><hr /></div><div class="toc"><dl class="toc"><dt><span class="appendix"><a href="options.html">A. Configuration Options</a></span></dt></dl></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="options.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"> </td><td width="40%" align="right" valign="top"> Appendix A. Configuration Options</td></tr></table></div></body></html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Neovim Flake by Gabriel Volpe</title><link rel="stylesheet" type="text/css" href="style.css" /><link rel="stylesheet" type="text/css" href="overrides.css" /><link rel="stylesheet" type="text/css" href="mono-blue.css" /><script src="highlight.pack.js" type="text/javascript"></script><script src="highlight.load.js" type="text/javascript"></script><meta name="generator" content="DocBook XSL Stylesheets V1.79.2" /><link rel="home" href="index.html" title="Neovim Flake by Gabriel Volpe" /><link rel="next" href="options.html" title="Appendix A. Configuration Options" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Neovim Flake by Gabriel Volpe</th></tr><tr><td width="20%" align="left"> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="options.html">Next</a></td></tr></table><hr /></div><div class="book"><div class="titlepage"><div><div><h1 class="title"><a id="book-neovim-flake-manual"></a>Neovim Flake by Gabriel Volpe</h1></div></div><hr /></div><div class="toc"><dl class="toc"><dt><span class="chapter"><a href="index.html#ch-try-it-out">1. Try it out</a></span></dt><dt><span class="chapter"><a href="index.html#ch-hm-module">2. Home Manager</a></span></dt><dt><span class="appendix"><a href="options.html">A. Configuration Options</a></span></dt></dl></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a id="ch-try-it-out"></a>Chapter 1. Try it out</h1></div></div></div><pre class="programlisting console">$ cachix use gvolpe-nixos # Optional: it'll save you CPU resources and time
+$ nix run github:gvolpe/neovim-flake</pre><p>By default, LSP support is enabled for Scala, Dhall, Elm, Nix, Haskell, and Smithy.</p></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a id="ch-hm-module"></a>Chapter 2. Home Manager</h1></div></div></div><p>The Home Manager module allows us to customize the different <code class="literal">vim</code> options. To use it, we first add the input flake.</p><pre class="programlisting nix">{
+  neovim-flake = {
+    url = github:gvolpe/neovim-flake;
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+}</pre><p>Followed by importing the HM module.</p><pre class="programlisting nix">{
+  imports = [ neovim-flake.nixosModules.hm ];
+}</pre><p>Then we should be able to use the given module. E.g.</p><pre class="programlisting nix">{
+  programs.neovim-ide = {
+    enable = true;
+    settings = {
+      vim.viAlias = false;
+      vim.vimAlias = true;
+      vim.lsp = {
+        enable = true;
+      };
+    };
+  };
+}</pre><p>All the settings are documented in <a class="xref" href="options.html" title="Appendix A. Configuration Options">Appendix A, <em>Configuration Options</em></a>.</p><p>For the Scala module, the <code class="literal">metals</code> binary can be easily overridden with the provided builder. E.g.</p><pre class="programlisting nix">{
+  vim.lsp = {
+    enable = true;
+    scala = {
+      enable = true;
+      metals = pkgs.metalsBuilder {
+        version = "0.11.8+76-22425a8b-SNAPSHOT";
+        outputHash = "[Insert hash (try nix build .#)]";
+      };
+      type = "nvim-metals"; # or nvim-lspconfig
+    };
+  };
+}</pre><p>We can also choose to use the minimal configuration via <code class="literal">nvim-lspconfig</code> or use the more featureful <a class="link" href="https://github.com/scalameta/nvim-metals" target="_top">nvim-metals</a> (default and recommended).</p><div class="note"><h3 class="title">Note</h3><p>To use <code class="literal">metalsBuilder</code>, you need to add the following overlay.</p></div><pre class="programlisting nix">{
+  pkgs = import nixpkgs {
+    inherit system;
+    overlays = [ neovim-flake.overlays.default ];
+  };
+}</pre><p>Have a look at my <a class="link" href="https://github.com/gvolpe/nix-config" target="_top">nix-config</a> for a full example.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="options.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"> </td><td width="40%" align="right" valign="top"> Appendix A. Configuration Options</td></tr></table></div></body></html>
