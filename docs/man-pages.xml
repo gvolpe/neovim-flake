@@ -1,0 +1,11 @@
+<reference xmlns="http://docbook.org/ns/docbook"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xi="http://www.w3.org/2001/XInclude">
+ <title>Neovim Flake by Gabriel Volpe - Reference Pages</title>
+ <info>
+  <author><personname>Gabriel Volpe</personname></author>
+  <copyright><year>2022–2023</year><holder>Gabriel Volpe</holder>
+  </copyright>
+ </info>
+ <xi:include href="man-configuration.xml" />
+</reference>

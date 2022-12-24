@@ -1,9 +1,15 @@
 {
-  description = "gvolpe's Neovim Configuration";
+  description = "Neovim Flake by Gabriel Volpe";
 
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixpkgs-unstable;
     flake-utils.url = github:numtide/flake-utils;
+
+    # Nix module docs generator
+    nmd = {
+      url = github:nix-prefab/nmd;
+      flake = false;
+    };
 
     # LSP plugins
     nvim-lspconfig = {
@@ -340,6 +346,13 @@
         neovim-ide-full = import ./lib/neovim-ide-full.nix {
           inherit pkgs neovimBuilder;
         };
+
+        docs = with import ./docs { inherit pkgs; lib = pkgs.lib; nmdSrc = inputs.nmd; }; {
+          html = manual.html;
+          manPages = manPages;
+          json = options.json;
+          jsonModuleMaintainers = jsonModuleMaintainers;
+        };
       in
       rec {
         apps = rec {
@@ -368,6 +381,7 @@
         };
 
         packages = rec {
+          inherit docs;
           default = neovim-ide;
           metals = pkgs.metals;
           neovim-ide = neovim-ide-full;

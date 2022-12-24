@@ -1,0 +1,20 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xi="http://www.w3.org/2001/XInclude">
+ <refmeta>
+  <refentrytitle><filename>neovim-flake.nix</filename></refentrytitle>
+  <manvolnum>5</manvolnum>
+  <refmiscinfo class="source">Neovim Flake by Gabriel Volpe</refmiscinfo>
+ </refmeta>
+ <refnamediv>
+  <refname><filename>neovim-flake.nix</filename></refname>
+  <refpurpose>Neovim Flake by Gabriel Volpe - Configuration specification</refpurpose>
+ </refnamediv>
+ <refsection>
+  <title>Options</title>
+  <para>
+   You can use the following options in the `programs.neovim-ide` module:
+  </para>
+  <xi:include href="./nmd-result/neovim-flake-options.xml" />
+ </refsection>
+</refentry>

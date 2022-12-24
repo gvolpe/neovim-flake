@@ -18,6 +18,7 @@ in
 
     name = mkOption {
       type = types.enum [ "catppuccin" "nightfox" "onedark" "tokyonight" ];
+      default = "onedark";
       description = ''Name of theme to use: "catppuccin" "nightfox" "onedark" "tokyonight"'';
     };
 
