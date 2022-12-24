@@ -40,7 +40,7 @@ in
 
     mapClearHighlight = mkOption {
       type = types.bool;
-      description = "Map the <C-z> key to clear highlight search";
+      description = "Map the `C-z` key to clear highlight search";
     };
 
     mapLeaderSpace = mkOption {

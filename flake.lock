@@ -363,6 +363,22 @@
         "type": "indirect"
       }
     },
+    "nmd": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1661175901,
+        "narHash": "sha256-/LPQVzuZj6OoqITjjEBCgiUjsOIC47YRcvEDgFXqrag=",
+        "owner": "nix-prefab",
+        "repo": "nmd",
+        "rev": "e423a04a0995a1d834da3109ee76fd1054b540b1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-prefab",
+        "repo": "nmd",
+        "type": "github"
+      }
+    },
     "null-ls": {
       "flake": false,
       "locked": {
@@ -722,6 +738,7 @@
         "mind-nvim": "mind-nvim",
         "nightfox": "nightfox",
         "nixpkgs": "nixpkgs",
+        "nmd": "nmd",
         "null-ls": "null-ls",
         "nvim-autopairs": "nvim-autopairs",
         "nvim-bufferline": "nvim-bufferline",
