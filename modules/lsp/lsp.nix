@@ -345,6 +345,9 @@ in
             end,
             settings = {
               ['nil'] = {
+                formatting = {
+                  command = {"${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt"}
+                },
                 diagnostics = {
                   ignored = { "uri_literal" },
                   excludedFiles = { }
