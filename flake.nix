@@ -347,7 +347,7 @@
           inherit pkgs neovimBuilder;
         };
 
-        docs = with import ./docs { inherit pkgs; lib = pkgs.lib; nmdSrc = inputs.nmd; }; {
+        docbook = with import ./docs { inherit pkgs; lib = pkgs.lib; nmdSrc = inputs.nmd; }; {
           html = manual.html;
           manPages = manPages;
           json = options.json;
@@ -381,7 +381,7 @@
         };
 
         packages = rec {
-          inherit docs;
+          docs = docbook.html;
           default = neovim-ide;
           metals = pkgs.metals;
           neovim-ide = neovim-ide-full;
