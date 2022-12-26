@@ -194,6 +194,11 @@
       flake = false;
     };
 
+    rosepine = {
+      url = github:rose-pine/neovim;
+      flake = false;
+    };
+
     tokyonight = {
       url = github:folke/tokyonight.nvim;
       flake = false;
@@ -321,6 +326,7 @@
           "promise-async"
           "mind-nvim"
           "vim-plantuml"
+          "rosepine"
         ];
 
         lib = import ./lib { inherit pkgs inputs plugins; };

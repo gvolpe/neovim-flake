@@ -760,6 +760,7 @@
         "plenary-nvim": "plenary-nvim",
         "promise-async": "promise-async",
         "registers": "registers",
+        "rosepine": "rosepine",
         "rust-tools": "rust-tools",
         "sqls-nvim": "sqls-nvim",
         "telescope": "telescope",
@@ -772,6 +773,22 @@
         "vim-scala": "vim-scala",
         "vim-vsnip": "vim-vsnip",
         "which-key": "which-key"
+      }
+    },
+    "rosepine": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1670083800,
+        "narHash": "sha256-STNiJqQvyKtnxaYwXkedUIVoFgpr88sckNZG2pn3oIA=",
+        "owner": "rose-pine",
+        "repo": "neovim",
+        "rev": "7610f245821e98232e7ee8dcbf3364725807187d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rose-pine",
+        "repo": "neovim",
+        "type": "github"
       }
     },
     "rust-tools": {

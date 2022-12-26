@@ -17,9 +17,9 @@ in
     };
 
     name = mkOption {
-      type = types.enum [ "catppuccin" "nightfox" "onedark" "tokyonight" ];
+      type = types.enum [ "catppuccin" "nightfox" "onedark" "rose-pine" "tokyonight" ];
       default = "onedark";
-      description = ''Name of theme to use: "catppuccin" "nightfox" "onedark" "tokyonight"'';
+      description = ''Name of theme to use: "catppuccin" "nightfox" "onedark" "rose-pine" "tokyonight"'';
     };
 
     style = mkOption {
@@ -28,9 +28,10 @@ in
           tn = enum' "tokyonight" [ "day" "night" "storm" ];
           od = enum' "onedark" [ "dark" "darker" "cool" "deep" "warm" "warmer" ];
           nf = enum' "nightfox" [ "nightfox" "carbonfox" "duskfox" "terafox" "nordfox" ];
+          rp = enum' "rose-pine" [ "main" "moon" "dawn" ];
           cp = types.enum [ "frappe" "latte" "macchiato" "mocha" ];
         in
-        tn (od (nf cp));
+        tn (od (nf (rp cp)));
       description = ''Theme style: "storm", darker variant "night", and "day"'';
     };
 
@@ -57,6 +58,7 @@ in
         (withPlugins (cfg.name == "nightfox") [ nightfox ]) ++
         (withPlugins (cfg.name == "onedark") [ onedark ]) ++
         (withPlugins (cfg.name == "tokyonight") [ tokyonight ]) ++
+        (withPlugins (cfg.name == "rose-pine") [ rosepine ]) ++
         (withPlugins (cfg.name == "catppuccin") [ catppuccin ])
       );
 
@@ -90,6 +92,16 @@ in
             transparent_background = ${if cfg.transparency then "true" else "false"},
           })
           vim.cmd [[colorscheme catppuccin]]
+        ''
+        }
+
+        ${writeIf (cfg.name == "rose-pine") ''
+          -- Rose Pine theme
+          require('rose-pine').setup {
+            darkvariant = "${cfg.style}",
+            dim_nc_background = "${transparency}",
+          }
+          vim.cmd [[colorscheme rose-pine]]
         ''
         }
       '';

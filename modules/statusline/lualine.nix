@@ -56,6 +56,8 @@ in
           "catppuccin"
           "tokyonight"
           "nightfox"
+          "rose-pine"
+          "rose-pine-alt"
         ]
       );
       description = "Theme for lualine";
