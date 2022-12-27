@@ -10,13 +10,14 @@ body
 {
     font-family: "Nimbus Sans L", sans-serif;
     font-size: 1em;
-    background: white;
+    background: #282d3f;
     margin: 2em 1em 2em 1em;
+    color: white;
 }
 
 h1, h2, h3, h4
 {
-    color: #005aa0;
+    color: #CBCCD6;
 }
 
 h1 /* title */
@@ -94,7 +95,7 @@ div.refsection h3
 
 div.example
 {
-    border: 1px solid #b0b0b0;
+    border: 1px solid #4F4F4F;
     padding: 6px 6px;
     margin-left: 1.5em;
     margin-right: 1.5em;
@@ -120,12 +121,12 @@ div.example pre
 
 pre.screen, pre.programlisting
 {
-    border: 1px solid #b0b0b0;
+    border: 1px solid #4F4F4F;
     padding: 3px 3px;
     margin-left: 0.5em;
     margin-right: 0.5em;
 
-    background: #f4f4f8;
+    background: #0B0B07;
     font-family: monospace;
     border-radius: 0.4em;
     box-shadow: 0.4em 0.4em 0.5em #e0e0e0;
@@ -150,9 +151,9 @@ div.example pre.programlisting
     margin-right: 1.5em;
     margin-bottom: 1em;
     padding: 0.3em 0.3em 0.3em 0.3em;
-    background: #fffff5;
+    background: #0e1118;
     border-radius: 0.4em;
-    box-shadow: 0.4em 0.4em 0.5em #e0e0e0;
+    box-shadow: 0.4em 0.4em 0.5em #4B536F; 
 }
 
 div.note, div.warning
@@ -180,7 +181,7 @@ div.note h3 + p, div.warning h3 + p
 
 div.note h3
 {
-    color: blue;
+    color: #EEB813; /* orange */
     font-size: 100%;
 }
 
@@ -196,8 +197,8 @@ div.navfooter *
 
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
-a:link { color: #0048b3; }
-a:visited { color: #002a6a; }
+a:link { color: #afb1c2; }
+a:visited { color: #2a759d; }
 
 
 /***************************************************************************
@@ -222,7 +223,7 @@ div.toc dl
 
 tt, code
 {
-    color: #400000;
+    color: #EE667C; /* red/pink'ish */
 }
 
 .term
@@ -248,13 +249,13 @@ div.glosslist dt
 
 .varname
 {
-    color: #400000;
+    color: #FFBFBF;
 }
 
 span.command strong
 {
     font-weight: normal;
-    color: #400000;
+    color: #ffbfbf;
 }
 
 div.calloutlist table
@@ -265,16 +266,16 @@ div.calloutlist table
 table
 {
     border-collapse: collapse;
-    box-shadow: 0.4em 0.4em 0.5em #e0e0e0;
+    box-shadow: 0.4em 0.4em 0.5em #1F1F1F;
 }
 
 table.simplelist
 {
     text-align: left;
-    color: #005aa0;
+    color: #161923;
     border: 0;
     padding: 5px;
-    background: #fffff5;
+    background: #00000A;
     font-weight: normal;
     font-style: italic;
     box-shadow: none;
