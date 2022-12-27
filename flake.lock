@@ -364,19 +364,23 @@
       }
     },
     "nmd": {
-      "flake": false,
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
       "locked": {
-        "lastModified": 1666190571,
-        "narHash": "sha256-Z1hc7M9X6L+H83o9vOprijpzhTfOBjd0KmUTnpHAVjA=",
-        "owner": "rycee",
+        "lastModified": 1672164365,
+        "narHash": "sha256-CzYvUrNkyJTOD6yZKOUfkbFIBanR9pIkzE2vF7iYKSY=",
+        "owner": "gvolpe",
         "repo": "nmd",
-        "rev": "b75d312b4f33bd3294cd8ae5c2ca8c6da2afc169",
-        "type": "gitlab"
+        "rev": "e30a62bdfbc856317c8d8ecd74ccca93eb394ae9",
+        "type": "github"
       },
       "original": {
-        "owner": "rycee",
+        "owner": "gvolpe",
         "repo": "nmd",
-        "type": "gitlab"
+        "type": "github"
       }
     },
     "null-ls": {

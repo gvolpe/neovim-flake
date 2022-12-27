@@ -7,8 +7,9 @@
 
     # Nix module docs generator
     nmd = {
-      url = gitlab:rycee/nmd;
-      flake = false;
+      #url = git+file:///home/gvolpe/workspace/nmd;
+      url = github:gvolpe/nmd;
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # LSP plugins
@@ -333,6 +334,7 @@
 
         pluginOverlay = lib.buildPluginOverlay;
         metalsOverlay = lib.metalsOverlay;
+        nmdOverlay = inputs.nmd.overlays.default;
 
         libOverlay = f: p: {
           lib = p.lib.extend (_: _: {
@@ -343,7 +345,7 @@
         pkgs = import nixpkgs {
           inherit system;
           config = { allowUnfree = true; };
-          overlays = [ libOverlay pluginOverlay metalsOverlay ];
+          overlays = [ libOverlay pluginOverlay metalsOverlay nmdOverlay ];
         };
 
         metalsBuilder = lib.metalsBuilder;
@@ -353,7 +355,7 @@
           inherit pkgs neovimBuilder;
         };
 
-        docbook = with import ./docs { inherit pkgs; lib = pkgs.lib; nmdSrc = inputs.nmd; }; {
+        docbook = with import ./docs { inherit pkgs; lib = pkgs.lib; }; {
           html = manual.html;
           manPages = manPages;
           json = options.json;

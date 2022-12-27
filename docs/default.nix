@@ -1,8 +1,6 @@
-{ pkgs, lib, nmdSrc }:
+{ pkgs, lib, nmd ? pkgs.nmd }:
 
 let
-  nmd = import nmdSrc { inherit lib pkgs; };
-
   # Make sure the used package is scrubbed to avoid actually instantiating derivations.
   scrubbedPkgsModule = {
     imports = [{
@@ -37,6 +35,7 @@ let
     modulesDocs = [ modulesDocs ];
     documentsDirectory = ./.;
     documentType = "book";
+    theme = "night-owl";
     chunkToc = ''
       <toc>
         <d:tocentry xmlns:d="http://docbook.org/ns/docbook" linkend="book-neovim-flake-manual"><?dbhtml filename="index.html"?>
@@ -47,8 +46,6 @@ let
   };
 in
 {
-  inherit nmdSrc;
-
   options = {
     json = modulesDocs.json.override {
       path = "share/doc/neovim-flake/options.json";
