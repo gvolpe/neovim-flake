@@ -6,11 +6,8 @@
     flake-utils.url = github:numtide/flake-utils;
 
     # Nix module docs generator
-    nmd = {
-      #url = git+file:///home/gvolpe/workspace/nmd;
-      url = github:gvolpe/nmd;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nmd.url = github:gvolpe/nmd;
+    #nmd.url = git+file:///home/gvolpe/workspace/nmd;
 
     # LSP plugins
     nvim-lspconfig = {
@@ -351,7 +348,7 @@
         metalsBuilder = lib.metalsBuilder;
         neovimBuilder = lib.neovimBuilder;
 
-        neovim-ide-full = import ./lib/neovim-ide-full.nix {
+        default-ide = pkgs.callPackage ./lib/ide.nix {
           inherit pkgs neovimBuilder;
         };
 
@@ -377,7 +374,7 @@
         };
 
         overlays.default = f: p: {
-          inherit metalsBuilder neovimBuilder neovim-ide-full;
+          inherit metalsBuilder neovimBuilder;
           neovimPlugins = pkgs.neovimPlugins;
         };
 
@@ -388,11 +385,19 @@
           ];
         };
 
-        packages = rec {
+        packages = {
+          default = default-ide.full;
+
           docs = docbook.html;
-          default = neovim-ide;
           metals = pkgs.metals;
-          neovim-ide = neovim-ide-full;
+
+          # Main languages enabled
+          ide = default-ide.full;
+
+          # Only Scala with different themes
+          scala = default-ide.scala;
+          scala-rose-pine = default-ide.scala-rose-pine;
+          scala-tokyo-night = default-ide.scala-tokyo-night;
         };
       }
     );

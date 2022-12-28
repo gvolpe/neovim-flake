@@ -1,8 +1,9 @@
-{ pkgs, neovimBuilder, ... }:
+{ pkgs, lib, neovimBuilder, ... }:
 
-# configuration with sane defaults to use directly via nix run
-neovimBuilder {
-  config = {
+let
+  deepMerge = lib.attrsets.recursiveUpdate;
+
+  cfg = {
     vim = {
       viAlias = false;
       vimAlias = true;
@@ -32,11 +33,11 @@ neovimBuilder {
           type = "nil";
         };
         rust.enable = false;
-        ts = true;
-        smithy = true;
-        dhall = true;
-        elm = true;
-        haskell = true;
+        ts = false;
+        smithy = false;
+        dhall = false;
+        elm = false;
+        haskell = false;
         sql = false;
         python = false;
         clang = false;
@@ -119,5 +120,60 @@ neovimBuilder {
       hop.enable = true;
       todo.enable = true;
     };
+  };
+
+  langs = {
+    vim.lsp = {
+      ts = true;
+      smithy = true;
+      dhall = true;
+      elm = true;
+      haskell = true;
+    };
+  };
+
+  rose-pine = {
+    vim = {
+      statusline.lualine = {
+        enable = true;
+        theme = "rose-pine";
+      };
+      theme = {
+        enable = true;
+        name = "rose-pine";
+        style = "moon";
+        transparency = false;
+      };
+    };
+  };
+
+  tokyo-night = {
+    vim = {
+      statusline.lualine = {
+        enable = true;
+        theme = "tokyonight";
+      };
+      theme = {
+        enable = true;
+        name = "tokyonight";
+        style = "storm";
+        transparency = false;
+      };
+    };
+  };
+in
+{
+  full = neovimBuilder {
+    config = deepMerge cfg langs;
+  };
+
+  scala = neovimBuilder { config = cfg; };
+
+  scala-rose-pine = neovimBuilder {
+    config = deepMerge cfg rose-pine;
+  };
+
+  scala-tokyo-night = neovimBuilder {
+    config = deepMerge cfg tokyo-night;
   };
 }

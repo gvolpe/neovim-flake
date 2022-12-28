@@ -364,17 +364,12 @@
       }
     },
     "nmd": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
       "locked": {
-        "lastModified": 1672164365,
-        "narHash": "sha256-CzYvUrNkyJTOD6yZKOUfkbFIBanR9pIkzE2vF7iYKSY=",
+        "lastModified": 1672240039,
+        "narHash": "sha256-lmct89fYDOr9YdWVvdJgklv/7WttRSiDAkoi2cvvAW4=",
         "owner": "gvolpe",
         "repo": "nmd",
-        "rev": "e30a62bdfbc856317c8d8ecd74ccca93eb394ae9",
+        "rev": "a59e840c2e8d54415485f349760e1350cb80d911",
         "type": "github"
       },
       "original": {

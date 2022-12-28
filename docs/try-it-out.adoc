@@ -8,3 +8,16 @@ $ nix run github:gvolpe/neovim-flake
 ----
 
 By default, LSP support is enabled for Scala, Dhall, Elm, Nix, Haskell, and Smithy.
+
+=== Scala
+
+Those only interested in Scala LSP support can try the more lightweight versions.
+
+[source,console]
+----
+$ nix run github:gvolpe/neovim-flake#scala
+$ nix run github:gvolpe/neovim-flake#scala-rose-pine
+$ nix run github:gvolpe/neovim-flake#scala-tokyo-night
+----
+
+The default theme is `onedark` with transparency enabled, but there are other flavors.
