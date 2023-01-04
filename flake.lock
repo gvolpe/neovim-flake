@@ -873,16 +873,15 @@
     "tree-sitter-scala": {
       "flake": false,
       "locked": {
-        "lastModified": 1671554505,
-        "narHash": "sha256-Id25vMHJyV/zHM1le5pvCmWUuK5C2LIZD5ptJXvQZdY=",
-        "owner": "eed3si9n",
+        "lastModified": 1672824146,
+        "narHash": "sha256-agi8ufWJfE34RoJYKr4vs9EDfz9ND3EKoMxZQa2KuJ8=",
+        "owner": "tree-sitter",
         "repo": "tree-sitter-scala",
-        "rev": "4f066d6db7f3d4206c0b2335a1e7e0ffbf7cd2c9",
+        "rev": "678ada0c51dfdd1d2c63a9908309034d1b1e4555",
         "type": "github"
       },
       "original": {
-        "owner": "eed3si9n",
-        "ref": "fork-integration",
+        "owner": "tree-sitter",
         "repo": "tree-sitter-scala",
         "type": "github"
       }

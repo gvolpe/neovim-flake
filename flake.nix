@@ -267,7 +267,7 @@
     ts-build.url = github:pta2002/build-ts-grammar.nix;
 
     tree-sitter-scala = {
-      url = github:eed3si9n/tree-sitter-scala/fork-integration;
+      url = github:tree-sitter/tree-sitter-scala;
       flake = false;
     };
   };
