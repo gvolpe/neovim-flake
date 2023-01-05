@@ -352,6 +352,8 @@
           inherit pkgs neovimBuilder;
         };
 
+        searchdocs = pkgs.callPackage ./docs/search { };
+
         docbook = with import ./docs { inherit pkgs; lib = pkgs.lib; }; {
           html = manual.html;
           manPages = manPages;
@@ -388,7 +390,12 @@
         packages = {
           default = default-ide.full;
 
+          # Documentation
           docs = docbook.html;
+          docs-json = searchdocs.json;
+          docs-search = searchdocs.html;
+
+          # CI package
           metals = pkgs.metals;
 
           # Main languages enabled
