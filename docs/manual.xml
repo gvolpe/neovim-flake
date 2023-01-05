@@ -9,7 +9,7 @@
   <xi:include href="try-it-out.xml" />
   <xi:include href="hm-module.xml" />
   <appendix xml:id="ch-options">
-    <title>Configuration Options</title>
+    <title>Configuration options</title>
     <xi:include href="./nmd-result/neovim-flake-options.xml" />
   </appendix>
 </book>

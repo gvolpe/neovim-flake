@@ -3,6 +3,7 @@
 
 :nvim-metals: https://github.com/scalameta/nvim-metals
 :nix-config: https://github.com/gvolpe/nix-config
+:searchable-options: https://gvolpe.com/neovim-flake/search.html
 
 The Home Manager module allows us to customize the different `vim` options. To use it, we first add the input flake.
 
@@ -43,7 +44,7 @@ Then we should be able to use the given module. E.g.
 }
 ----
 
-All the settings are documented in <<ch-options>>.
+Besides the classic <<ch-options>>, you can also use the {searchable-options}[searchable module options].
 
 For the Scala module, the `metals` binary can be easily overridden with the provided builder. E.g.
 
