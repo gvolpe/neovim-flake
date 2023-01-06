@@ -1,3 +1,4 @@
+# Adapted from https://github.com/pinpox/nixos licensed under GPL-3
 { busybox, jq, lib, mustache-go, nixosOptionsDoc, path, runCommandLocal, writeTextFile }:
 
 let
@@ -10,12 +11,7 @@ let
 
   opts = (nixosOptionsDoc { options = eval.options; }).optionsJSON;
 
-  templateMarkdown = writeTextFile {
-    name = "markdown";
-    text = builtins.readFile ./templates/markdown.mustache;
-  };
-
-  templateHTML = writeTextFile {
+  htmlTemplate = writeTextFile {
     name = "html";
     text = builtins.readFile ./templates/html.mustache;
   };
@@ -35,17 +31,10 @@ in
     > $out
   '';
 
-  markdown = runCommandLocal "options.md" { inherit opts; } ''
-    cat $opts/share/doc/nixos/options.json | \
-    ${jq}/bin/jq '${jqargs}' | \
-    ${mustache-go}/bin/mustache ${templateMarkdown} \
-    > $out
-  '';
-
   html = runCommandLocal "options.html" { inherit opts; } ''
     cat $opts/share/doc/nixos/options.json | \
     ${jq}/bin/jq '${jqargs}' | \
-    ${mustache-go}/bin/mustache ${templateHTML} \
+    ${mustache-go}/bin/mustache ${htmlTemplate} \
     > $out
   '';
 }

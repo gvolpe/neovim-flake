@@ -1,4 +1,4 @@
-
+// Adapted from https://github.com/pinpox/nixos licensed under GPL-3
 $(document).ready(function(){
 	$.getJSON("result", function(data){
 
@@ -17,4 +17,3 @@ $(document).ready(function(){
 		console.log("An error has occurred.");
 	});
 });
-
