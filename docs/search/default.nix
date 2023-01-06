@@ -20,33 +20,31 @@ let
     text = builtins.readFile ./templates/html.mustache;
   };
 
-  # there's more likely a smarter way to do this with jq...
-  replaceNixStore =
-    "${busybox}/bin/sed 's~.*/nix/store/.*source/~\"https://github.com/gvolpe/neovim-flake/blob/main/~'";
+  jqargs = ''
+    .| with_entries( select(.key|startswith("vim") ) ) | [to_entries[]] | {options: .} |
+    .options[].value.declarations[] |= {
+      "module": sub("^/nix/store.*-source(?<path>.*)";"<\(.path)>"),
+      "url": sub("^/nix/store.*-source/(?<path>.*)";"https://github.com/gvolpe/neovim-flake/blob/main/\(.path)")
+    }
+  '';
 in
 {
   json = runCommandLocal "options.json" { inherit opts; } ''
     cat $opts/share/doc/nixos/options.json | \
-    ${jq}/bin/jq '.| with_entries( select(.key|startswith("vim") ) )' | \
-    ${replaceNixStore} | \
-    ${jq}/bin/jq \
+    ${jq}/bin/jq '${jqargs}' \
     > $out
   '';
 
   markdown = runCommandLocal "options.md" { inherit opts; } ''
     cat $opts/share/doc/nixos/options.json | \
-    ${jq}/bin/jq '.| with_entries( select(.key|startswith("vim") ) ) | [to_entries[]] | {options: .}' | \
-    ${replaceNixStore} | \
-    ${jq}/bin/jq | \
+    ${jq}/bin/jq '${jqargs}' | \
     ${mustache-go}/bin/mustache ${templateMarkdown} \
     > $out
   '';
 
   html = runCommandLocal "options.html" { inherit opts; } ''
     cat $opts/share/doc/nixos/options.json | \
-    ${jq}/bin/jq '.| with_entries( select(.key|startswith("vim") ) ) | [to_entries[]] | {options: .}' | \
-    ${replaceNixStore} | \
-    ${jq}/bin/jq | \
+    ${jq}/bin/jq '${jqargs}' | \
     ${mustache-go}/bin/mustache ${templateHTML} \
     > $out
   '';
