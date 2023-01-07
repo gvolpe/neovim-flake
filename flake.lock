@@ -873,11 +873,11 @@
     "tree-sitter-scala": {
       "flake": false,
       "locked": {
-        "lastModified": 1672824146,
-        "narHash": "sha256-agi8ufWJfE34RoJYKr4vs9EDfz9ND3EKoMxZQa2KuJ8=",
+        "lastModified": 1673092007,
+        "narHash": "sha256-S6jtyFYsk1JX9Fdulf38jaFIgWSDczovE37OI4cYfLs=",
         "owner": "tree-sitter",
         "repo": "tree-sitter-scala",
-        "rev": "678ada0c51dfdd1d2c63a9908309034d1b1e4555",
+        "rev": "1cf780f946d9bab58149ceb1dc211356f028faea",
         "type": "github"
       },
       "original": {
