@@ -8,19 +8,19 @@ with builtins;
 let
   inherit (prev.vimUtils) buildVimPluginFrom2Nix;
 
-  tree-sitter-scala-master = inputs.ts-build.lib.buildGrammar pkgs {
+  tree-sitter-scala = inputs.ts-build.lib.buildGrammar prev {
     language = "scala";
-    version = inputs.tree-sitter-scala.version;
+    version = "${inputs.tree-sitter-scala.version}-${inputs.tree-sitter-scala.rev}";
     source = inputs.tree-sitter-scala;
   };
 
   ts = prev.tree-sitter.override {
-    extraGrammars = { inherit tree-sitter-scala-master; };
+    extraGrammars = { inherit tree-sitter-scala; };
   };
 
   treesitterGrammars = ts.withPlugins (p: [
+    tree-sitter-scala
     p.tree-sitter-c
-    p.tree-sitter-scala-master
     p.tree-sitter-nix
     p.tree-sitter-elm
     p.tree-sitter-haskell
@@ -66,7 +66,18 @@ let
       '
   '';
 
-  nvimTreesitterHook = ''
+  # for some reason, it requires to be copied manually
+  scalaHighlightsHook = ''
+    cp ${inputs.tree-sitter-scala}/queries/highlights.scm $out/queries/scala/highlights.scm
+  '';
+
+  tsPreFixupHook = ''
+    ${scalaHighlightsHook}
+
+    ${smithyParserHook}
+  '';
+
+  tsPostPatchHook = ''
     rm -r parser
     ln -s ${treesitterGrammars} parser
     mkdir -p $out/queries/smithy
@@ -80,10 +91,10 @@ let
       src = builtins.getAttr name inputs;
       preFixup = ''
         ${writeIf (name == "nvim-lspconfig") smithyLspHook}
-        ${writeIf (name == "nvim-treesitter") smithyParserHook}
+        ${writeIf (name == "nvim-treesitter") tsPreFixupHook}
       '';
       postPatch = ''
-        ${writeIf (name == "nvim-treesitter") nvimTreesitterHook}
+        ${writeIf (name == "nvim-treesitter") tsPostPatchHook}
       '';
     };
 
