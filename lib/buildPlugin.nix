@@ -10,7 +10,7 @@ let
 
   tree-sitter-scala-master = inputs.ts-build.lib.buildGrammar pkgs {
     language = "scala";
-    version = "master";
+    version = inputs.tree-sitter-scala.version;
     source = inputs.tree-sitter-scala;
   };
 
