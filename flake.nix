@@ -339,10 +339,18 @@
           });
         };
 
+        tsOverlay = f: p: {
+          tree-sitter-scala-master = inputs.ts-build.lib.buildGrammar p {
+            language = "scala";
+            version = "${inputs.tree-sitter-scala.version}-${inputs.tree-sitter-scala.rev}";
+            source = inputs.tree-sitter-scala;
+          };
+        };
+
         pkgs = import nixpkgs {
           inherit system;
           config = { allowUnfree = true; };
-          overlays = [ libOverlay pluginOverlay metalsOverlay nmdOverlay ];
+          overlays = [ libOverlay pluginOverlay metalsOverlay nmdOverlay tsOverlay ];
         };
 
         metalsBuilder = lib.metalsBuilder;
@@ -397,6 +405,8 @@
 
           # CI package
           metals = pkgs.metals;
+          ts-scala = pkgs.tree-sitter-scala-master;
+          nvim-treesitter = pkgs.neovimPlugins.nvim-treesitter;
 
           # Main languages enabled
           ide = default-ide.full;

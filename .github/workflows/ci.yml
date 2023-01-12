@@ -37,3 +37,9 @@ jobs:
 
       - name: "Build Metals overlay 🔧"
         run: nix run .#metals -- -version
+
+      - name: "Build tree-sitter-scala from master 🔧"
+        run: nix build .#ts-scala -L
+
+      - name: "Build nvim-treesitter from master 🔧"
+        run: nix build .#nvim-treesitter -L

@@ -8,18 +8,12 @@ with builtins;
 let
   inherit (prev.vimUtils) buildVimPluginFrom2Nix;
 
-  tree-sitter-scala = inputs.ts-build.lib.buildGrammar prev {
-    language = "scala";
-    version = "${inputs.tree-sitter-scala.version}-${inputs.tree-sitter-scala.rev}";
-    source = inputs.tree-sitter-scala;
-  };
-
   ts = prev.tree-sitter.override {
-    extraGrammars = { inherit tree-sitter-scala; };
+    extraGrammars = { tree-sitter-scala = final.tree-sitter-scala-master; };
   };
 
   treesitterGrammars = ts.withPlugins (p: [
-    tree-sitter-scala
+    p.tree-sitter-scala
     p.tree-sitter-c
     p.tree-sitter-nix
     p.tree-sitter-elm
@@ -66,13 +60,13 @@ let
       '
   '';
 
-  # for some reason, it requires to be copied manually
-  scalaHighlightsHook = ''
-    cp ${inputs.tree-sitter-scala}/queries/highlights.scm $out/queries/scala/highlights.scm
+  # sync queries of tree-sitter-scala and nvim-treesitter
+  scalaQueriesHook = ''
+    cp ${inputs.tree-sitter-scala}/queries/* $out/queries/scala/
   '';
 
   tsPreFixupHook = ''
-    ${scalaHighlightsHook}
+    ${scalaQueriesHook}
 
     ${smithyParserHook}
   '';
