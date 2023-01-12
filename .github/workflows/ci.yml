@@ -26,15 +26,6 @@ jobs:
           name: gvolpe-nixos
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
-      - name: "Build NeoVim flake ❄️"
-        run: nix build .#ide
-
-      - name: "Build NeoVim Scala ❄️"
-        run: |
-          nix build .#scala
-          nix build .#scala-rose-pine
-          nix build .#scala-tokyo-night
-
       - name: "Build Metals overlay 🔧"
         run: nix run .#metals -- -version
 
@@ -43,3 +34,12 @@ jobs:
 
       - name: "Build nvim-treesitter from master 🔧"
         run: nix build .#nvim-treesitter -L
+
+      - name: "Build NeoVim flake ❄️"
+        run: nix build .#ide
+
+      - name: "Build NeoVim Scala ❄️"
+        run: |
+          nix build .#scala
+          nix build .#scala-rose-pine
+          nix build .#scala-tokyo-night
