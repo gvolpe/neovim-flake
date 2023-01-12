@@ -411,6 +411,9 @@
           # Main languages enabled
           ide = default-ide.full;
 
+          # Only Haskell (quite heavy)
+          haskell = default-ide.haskell;
+
           # Only Scala with different themes
           scala = default-ide.scala;
           scala-rose-pine = default-ide.scala-rose-pine;

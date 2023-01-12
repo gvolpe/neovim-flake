@@ -128,6 +128,11 @@ let
       smithy = true;
       dhall = true;
       elm = true;
+    };
+  };
+
+  haskell-lsp = {
+    vim.lsp = {
       haskell = true;
     };
   };
@@ -165,6 +170,10 @@ in
 {
   full = neovimBuilder {
     config = deepMerge cfg langs;
+  };
+
+  haskell = neovimBuilder {
+    config = deepMerge cfg haskell-lsp;
   };
 
   scala = neovimBuilder { config = cfg; };
