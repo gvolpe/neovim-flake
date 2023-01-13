@@ -96,9 +96,12 @@ If you have your own NeoVim configuration, you can still leverage `nvim-treesitt
 [source,nix]
 ----
 {
-  home.packages = [
-    pkgs.neovimPlugins.nvim-treesitter
-  ];
+  programs.neovim = {
+    enable = true;
+    plugins = [
+      pkgs.neovimPlugins.nvim-treesitter
+    ];
+  };
 }
 ----
 
@@ -107,9 +110,12 @@ Or more directly without the overlay.
 [source,nix]
 ----
 {
-  home.packages = [
-    inputs.neovim-flake.packages.${system}.nvim-treesitter
-  ];
+  programs.neovim = {
+    enable = true;
+    plugins = [
+      inputs.neovim-flake.packages.${system}.nvim-treesitter
+    ];
+  };
 }
 ----
 
