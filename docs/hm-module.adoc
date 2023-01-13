@@ -119,4 +119,4 @@ Or more directly without the overlay.
 }
 ----
 
-The `ts-scala` only builds `tree-sitter-scala` from `master`, but it wouldn't be as useful for your own configuration because `nvim-treesitter` requires a few tweaks.
+The `ts-scala` package only builds `tree-sitter-scala` from `master`, but it wouldn't be as useful for your own configuration because `nvim-treesitter` requires a few tweaks.
