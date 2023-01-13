@@ -4,6 +4,7 @@
 :nvim-metals: https://github.com/scalameta/nvim-metals
 :nix-config: https://github.com/gvolpe/nix-config
 :searchable-options: https://gvolpe.com/neovim-flake/search.html
+:ts-grammars: https://github.com/gvolpe/neovim-flake/blob/main/lib/buildPlugin.nix#L15
 
 The Home Manager module allows us to customize the different `vim` options. To use it, we first add the input flake.
 
@@ -118,5 +119,7 @@ Or more directly without the overlay.
   };
 }
 ----
+
+You can see all the enabled grammars for this package {ts-grammars}[here].
 
 The `ts-scala` package only builds `tree-sitter-scala` from `master`, but it wouldn't be as useful for your own configuration because `nvim-treesitter` requires a few tweaks.
