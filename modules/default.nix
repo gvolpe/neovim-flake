@@ -24,5 +24,6 @@
     ./todo
     ./mind
     ./plantuml
+    ./fx
   ];
 }

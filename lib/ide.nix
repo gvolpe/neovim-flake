@@ -44,6 +44,7 @@ let
         go = false;
       };
       plantuml.enable = false;
+      fx.automaton.enable = true;
       visuals = {
         enable = true;
         nvimWebDevicons.enable = true;

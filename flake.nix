@@ -226,6 +226,12 @@
       flake = false;
     };
 
+    # Fx
+    cellular-automaton = {
+      url = github:Eandrju/cellular-automaton.nvim;
+      flake = false;
+    };
+
     # Key binding help
     which-key = {
       url = github:folke/which-key.nvim;
@@ -325,6 +331,7 @@
           "mind-nvim"
           "vim-plantuml"
           "rosepine"
+          "cellular-automaton"
         ];
 
         lib = import ./lib { inherit pkgs inputs plugins; };

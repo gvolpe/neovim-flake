@@ -32,6 +32,22 @@
         "type": "github"
       }
     },
+    "cellular-automaton": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1670272436,
+        "narHash": "sha256-YFJ8TxxZH1ce+GCaogSJDLRT1gmGgh+KukKnzDFZWY8=",
+        "owner": "Eandrju",
+        "repo": "cellular-automaton.nvim",
+        "rev": "15b0fed53d8f7e58e88eae8fb8c3a9537fe90bd1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Eandrju",
+        "repo": "cellular-automaton.nvim",
+        "type": "github"
+      }
+    },
     "cmp-buffer": {
       "flake": false,
       "locked": {
@@ -718,6 +734,7 @@
       "inputs": {
         "bufdelete-nvim": "bufdelete-nvim",
         "catppuccin": "catppuccin",
+        "cellular-automaton": "cellular-automaton",
         "cmp-buffer": "cmp-buffer",
         "cmp-nvim-lsp": "cmp-nvim-lsp",
         "cmp-path": "cmp-path",
