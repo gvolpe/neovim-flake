@@ -82,4 +82,35 @@ To use `metalsBuilder`, you need to add the following overlay.
 }
 ----
 
-Have a look at my {nix-config}[nix-config] for a full example.
+You can have a look at my {nix-config}[nix-config] for a full example.
+
+=== Packages
+
+Besides the full-fledged IDE and HM modules, there are a few packages exposed that may prove useful to your use case.
+
+- `ts-scala`: tree-sitter-scala version that tracks the latest master changes.
+- `nvim-treesitter`: latest nvim-treesitter ensuring compatibility with `tree-sitter-scala`.
+
+If you have your own NeoVim configuration, you can still leverage `nvim-treesitter` by first adding the overlay, and then using the following package.
+
+[source,nix]
+----
+{
+  home.packages = [
+    pkgs.neovimPlugins.nvim-treesitter
+  ];
+}
+----
+
+Or more directly without the overlay.
+
+[source,nix]
+----
+{
+  home.packages = [
+    inputs.neovim-flake.packages.${system}.nvim-treesitter
+  ];
+}
+----
+
+The `ts-scala` only builds `tree-sitter-scala` from `master`, but it wouldn't be as useful for your own configuration because `nvim-treesitter` requires a few tweaks.
