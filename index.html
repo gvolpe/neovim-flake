@@ -42,11 +42,17 @@ $ nix run github:gvolpe/neovim-flake#scala-tokyo-night</pre><p>The default theme
 </li><li class="listitem">
 <code class="literal">nvim-treesitter</code>: latest nvim-treesitter ensuring compatibility with <code class="literal">tree-sitter-scala</code>.
 </li></ul></div><p>If you have your own NeoVim configuration, you can still leverage <code class="literal">nvim-treesitter</code> by first adding the overlay, and then using the following package.</p><pre class="programlisting nix">{
-  home.packages = [
-    pkgs.neovimPlugins.nvim-treesitter
-  ];
+  programs.neovim = {
+    enable = true;
+    plugins = [
+      pkgs.neovimPlugins.nvim-treesitter
+    ];
+  };
 }</pre><p>Or more directly without the overlay.</p><pre class="programlisting nix">{
-  home.packages = [
-    inputs.neovim-flake.packages.${system}.nvim-treesitter
-  ];
+  programs.neovim = {
+    enable = true;
+    plugins = [
+      inputs.neovim-flake.packages.${system}.nvim-treesitter
+    ];
+  };
 }</pre><p>The <code class="literal">ts-scala</code> only builds <code class="literal">tree-sitter-scala</code> from <code class="literal">master</code>, but it wouldn’t be as useful for your own configuration because <code class="literal">nvim-treesitter</code> requires a few tweaks.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="options.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"> </td><td width="40%" align="right" valign="top"> Appendix A. Configuration options</td></tr></table></div></body></html>
