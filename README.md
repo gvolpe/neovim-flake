@@ -1,6 +1,6 @@
 # neovim-flake
 
-Nix flake for [neovim](https://neovim.io/) with configuration options
+Nix flake for [neovim](https://neovim.io/) with configuration options highly focused on Scala 3.
 
 ![screenshot-1](./docs/screenshot-1.png)
 
