@@ -2,7 +2,9 @@
 
 Nix flake for [neovim](https://neovim.io/) with configuration options
 
-![screenshot](./docs/screenshot.png)
+![screenshot-1](./docs/screenshot-1.png)
+
+![screenshot-2](./docs/screenshot-2.png)
 
 ## Documentation
 
