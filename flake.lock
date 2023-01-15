@@ -206,6 +206,22 @@
         "type": "github"
       }
     },
+    "hlargs": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1673779804,
+        "narHash": "sha256-Vrn/4Q/pfsVI443zppXARo1XpLgflDubLB9BjYJwZW8=",
+        "ref": "refs/heads/scala3-support",
+        "rev": "490dfb4d77c85fe7b1fc8ad55a49f2aa55589e0f",
+        "revCount": 76,
+        "type": "git",
+        "url": "file:///home/gvolpe/workspace/hlargs.nvim"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/gvolpe/workspace/hlargs.nvim"
+      }
+    },
     "hop": {
       "flake": false,
       "locked": {
@@ -744,6 +760,7 @@
         "flake-utils": "flake-utils",
         "gitsigns-nvim": "gitsigns-nvim",
         "glow-nvim": "glow-nvim",
+        "hlargs": "hlargs",
         "hop": "hop",
         "indent-blankline": "indent-blankline",
         "kommentary": "kommentary",

@@ -63,6 +63,10 @@
       url = github:scalameta/nvim-metals;
       flake = false;
     };
+    hlargs = {
+      url = git+file:///home/gvolpe/workspace/hlargs.nvim;
+      flake = false;
+    };
 
     # Copying/Registers
     registers = {
@@ -332,6 +336,7 @@
           "vim-plantuml"
           "rosepine"
           "cellular-automaton"
+          "hlargs"
         ];
 
         lib = import ./lib { inherit pkgs inputs plugins; };

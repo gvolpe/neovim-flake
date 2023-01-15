@@ -9,6 +9,7 @@ with lib;
       fold = mkDefault true;
       autotagHtml = mkDefault false;
       context.enable = mkDefault false;
+      hlargs.enable = mkDefault false;
     };
   };
 }

@@ -85,6 +85,7 @@ let
         enable = true;
         autotagHtml = true;
         context.enable = true;
+        hlargs.enable = true;
       };
       scala = {
         highlightMode = "treesitter";
@@ -129,6 +130,7 @@ let
       smithy = true;
       dhall = true;
       elm = true;
+      rust.enable = true;
     };
   };
 

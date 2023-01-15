@@ -3,6 +3,7 @@
 {
   imports = [
     ./treesitter.nix
+    ./hlargs.nix
     ./context.nix
     ./config.nix
   ];
