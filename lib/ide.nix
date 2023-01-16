@@ -26,7 +26,6 @@ let
         scala = {
           enable = true;
           metals = pkgs.metals;
-          type = "nvim-metals";
         };
         nix = {
           enable = true;

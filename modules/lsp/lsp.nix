@@ -39,11 +39,6 @@ in
         default = pkgs.metals;
         description = "The Metals package to use. Default pkgs.metals.";
       };
-      type = mkOption {
-        type = types.enum [ "nvim-lspconfig" "nvim-metals" ];
-        default = "nvim-metals";
-        description = "Whether to use `nvim-lspconfig` or the more featureful `nvim-metals`";
-      };
     };
 
     smithy = mkEnableOption "Smithy Language LSP";
@@ -75,7 +70,7 @@ in
         [ nvim-lspconfig null-ls ] ++
         (withPlugins (config.vim.autocomplete.enable && (config.vim.autocomplete.type == "nvim-cmp")) [ cmp-nvim-lsp ]) ++
         (withPlugins cfg.sql [ sqls-nvim ]) ++
-        (withPlugins (cfg.scala.enable && cfg.scala.type == "nvim-metals") [ nvim-metals ]) ++
+        (withPlugins cfg.scala.enable [ nvim-metals ]) ++
         (withPlugins cfg.folds [ promise-async nvim-ufo ]) ++
         (withPlugins cfg.rust.enable [ crates-nvim rust-tools ]);
 
@@ -109,7 +104,7 @@ in
           ''
         }
 
-        ${writeIf (cfg.scala.enable && cfg.scala.type == "nvim-metals") ''
+        ${writeIf cfg.scala.enable ''
             " Scala nvim-metals config
             nnoremap <silent> <leader>ws  <cmd>lua require'metals'.worksheet_hover()<CR>
             nnoremap <silent> <leader>a   <cmd>lua require'metals'.open_all_diagnostics()<CR>
@@ -434,25 +429,7 @@ in
           }
         ''}
 
-        ${writeIf (cfg.scala.enable && cfg.scala.type == "nvim-lspconfig") ''
-          -- Scala Metals config
-          lspconfig.metals.setup {
-            cmd = { "${cfg.scala.metals}/bin/metals" };
-            capabilities = capabilities;
-            on_attach = default_on_attach;
-            init_options = {
-              compilerOptions = {
-                snippetAutoIndent = false
-              },
-              isHttpEnabled = true,
-              statusBarProvider = "show-message"
-            };
-            message_level = 4;
-            root_dir = lspconfig.util.root_pattern("build.sbt", "build.sc", "build.gradle", "pom.xml");
-          }
-        ''}
-
-        ${writeIf (cfg.scala.enable && cfg.scala.type == "nvim-metals") ''
+        ${writeIf cfg.scala.enable ''
           -- Scala nvim-metals config
           metals_config = require('metals').bare_config()
           metals_config.capabilities = capabilities
