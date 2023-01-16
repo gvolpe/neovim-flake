@@ -401,7 +401,7 @@
 
         overlays.default = f: p: {
           inherit metalsBuilder neovimBuilder;
-          neovimPlugins = pkgs.neovimPlugins;
+          inherit (pkgs) neovim-nightly neovimPlugins;
         };
 
         nixosModules.hm = {
