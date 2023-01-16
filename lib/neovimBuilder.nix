@@ -3,7 +3,7 @@
 { config }:
 
 let
-  myNeovimUnwrapped = pkgs.neovim-unwrapped;
+  vim = vimOptions.config.vim;
 
   vimOptions = lib.evalModules {
     modules = [
@@ -13,10 +13,8 @@ let
 
     specialArgs = { inherit pkgs; };
   };
-
-  vim = vimOptions.config.vim;
 in
-pkgs.wrapNeovim myNeovimUnwrapped {
+pkgs.wrapNeovim vim.neovim.package {
   viAlias = vim.viAlias;
   vimAlias = vim.vimAlias;
   configure = {

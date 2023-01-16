@@ -5,6 +5,11 @@
     nixpkgs.url = github:nixos/nixpkgs/nixpkgs-unstable;
     flake-utils.url = github:numtide/flake-utils;
 
+    # Temporary pin: https://github.com/nix-community/neovim-nightly-overlay/issues/164
+    nixpkgs-neovim.url = github:nixos/nixpkgs?rev=fad51abd42ca17a60fc1d4cb9382e2d79ae31836;
+    neovim-nightly-flake.url = "github:neovim/neovim?dir=contrib";
+    neovim-nightly-flake.inputs.nixpkgs.follows = "nixpkgs-neovim";
+
     # Nix module docs generator
     nmd.url = github:gvolpe/nmd;
     #nmd.url = git+file:///home/gvolpe/workspace/nmd;
@@ -354,10 +359,14 @@
           };
         };
 
+        neovimOverlay = f: p: {
+          neovim-nightly = inputs.neovim-nightly-flake.packages.${system}.neovim;
+        };
+
         pkgs = import nixpkgs {
           inherit system;
           config = { allowUnfree = true; };
-          overlays = [ libOverlay pluginOverlay metalsOverlay nmdOverlay tsOverlay ];
+          overlays = [ libOverlay pluginOverlay metalsOverlay neovimOverlay nmdOverlay tsOverlay ];
         };
 
         metalsBuilder = lib.metalsBuilder;

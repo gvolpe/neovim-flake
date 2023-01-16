@@ -2,28 +2,29 @@
 
 {
   imports = [
-    ./completion
-    ./comments
-    ./theme
-    ./core
-    ./basic
-    ./statusline
-    ./tabline
-    ./filetree
-    ./visuals
-    ./lsp
-    ./scala
-    ./treesitter
     ./autopairs
-    ./snippets
-    ./keys
-    ./markdown
-    ./telescope
+    ./basic
+    ./comments
+    ./completion
+    ./core
+    ./filetree
+    ./fx
     ./git
     ./hop
-    ./todo
+    ./keys
+    ./lsp
+    ./markdown
     ./mind
+    ./neovim
     ./plantuml
-    ./fx
+    ./scala
+    ./snippets
+    ./statusline
+    ./tabline
+    ./telescope
+    ./theme
+    ./todo
+    ./treesitter
+    ./visuals
   ];
 }
