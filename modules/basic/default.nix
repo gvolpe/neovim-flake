@@ -181,7 +181,7 @@ in
         in
         mls // mch;
 
-      vim.configRC = ''
+      vim.startConfigRC = ''
         " Settings that are set for everything
         set encoding=utf-8
         set mouse=${cfg.mouseSupport}

@@ -74,6 +74,13 @@ in
         (withPlugins cfg.folds [ promise-async nvim-ufo ]) ++
         (withPlugins cfg.rust.enable [ crates-nvim rust-tools ]);
 
+      vim.nnoremap =
+        if (cfg.scala.enable) then
+          {
+            "<silent> <leader>ws" = "<cmd>lua require'metals'.worksheet_hover()<CR>";
+            "<silent> <leader>a" = "<cmd>lua require'metals'.open_all_diagnostics()<CR>";
+          } else { };
+
       vim.configRC = ''
         ${writeIf cfg.rust.enable ''
             function! MapRustTools()
@@ -103,13 +110,6 @@ in
             let g:c_syntax_for_h = 1
           ''
         }
-
-        ${writeIf cfg.scala.enable ''
-            " Scala nvim-metals config
-            nnoremap <silent> <leader>ws  <cmd>lua require'metals'.worksheet_hover()<CR>
-            nnoremap <silent> <leader>a   <cmd>lua require'metals'.open_all_diagnostics()<CR>
-          ''
-        }
       '';
 
       vim.luaConfigRC = ''
@@ -121,7 +121,7 @@ in
           vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lgt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lgn', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lgp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-          
+        
           -- Alternative keybinding for code actions for when code-action-menu does not work as expected.
           vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 
@@ -141,7 +141,7 @@ in
 
         local ls_sources = {
           ${writeIf cfg.python
-          ''
+        ''
             null_ls.builtins.formatting.black.with({
               command = "${pkgs.black}/bin/black",
             }),
@@ -151,7 +151,7 @@ in
           --  null_ls.builtins.code_actions.gitsigns,
           --''}
           ${writeIf cfg.sql
-          ''
+        ''
             null_helpers.make_builtin({
               method = null_methods.internal.FORMATTING,
               filetypes = { "sql" },
@@ -175,7 +175,7 @@ in
           ''}
 
           ${writeIf cfg.ts
-          ''
+        ''
             null_ls.builtins.diagnostics.eslint,
             null_ls.builtins.formatting.prettier,
           ''}
@@ -462,7 +462,7 @@ in
         ''}
 
         ${writeIf cfg.nix.enable
-        ''
+      ''
           -- Nix formatter
           null_ls.builtins.formatting.alejandra.with({
             command = "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt";

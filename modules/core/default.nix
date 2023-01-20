@@ -32,6 +32,12 @@ in
       default = true;
     };
 
+    startConfigRC = mkOption {
+      description = "start of vimrc contents";
+      type = types.lines;
+      default = "";
+    };
+
     configRC = mkOption {
       description = "vimrc contents";
       type = types.lines;
@@ -159,7 +165,11 @@ in
     in
     {
       vim.configRC = ''
+        " Start of vim.configRC
+        ${cfg.startConfigRC}
+
         ${concatStringsSep "\n" globalsScript}
+
         " Lua config from vim.luaConfigRC
         ${wrapLuaConfig
           (concatStringsSep "\n" [cfg.startLuaConfigRC cfg.luaConfigRC])}
