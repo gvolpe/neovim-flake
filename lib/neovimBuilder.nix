@@ -18,7 +18,7 @@ pkgs.wrapNeovim vim.neovim.package {
   viAlias = vim.viAlias;
   vimAlias = vim.vimAlias;
   configure = {
-    customRC = vim.configRC;
+    customRC = vim.finalConfigRC;
 
     packages.myVimPackage = {
       start = builtins.filter (f: f != null) vim.startPlugins;

@@ -74,12 +74,10 @@ in
         (withPlugins cfg.folds [ promise-async nvim-ufo ]) ++
         (withPlugins cfg.rust.enable [ crates-nvim rust-tools ]);
 
-      vim.nnoremap =
-        if (cfg.scala.enable) then
-          {
-            "<silent> <leader>ws" = "<cmd>lua require'metals'.worksheet_hover()<CR>";
-            "<silent> <leader>a" = "<cmd>lua require'metals'.open_all_diagnostics()<CR>";
-          } else { };
+      vim.nnoremap = withAttrSet cfg.scala.enable {
+        "<silent> <leader>ws" = "<cmd>lua require'metals'.worksheet_hover()<CR>";
+        "<silent> <leader>a" = "<cmd>lua require'metals'.open_all_diagnostics()<CR>";
+      };
 
       vim.configRC = ''
         ${writeIf cfg.rust.enable ''

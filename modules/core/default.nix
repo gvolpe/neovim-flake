@@ -38,6 +38,13 @@ in
       default = "";
     };
 
+    finalConfigRC = mkOption {
+      description = "built vimrc contents";
+      type = types.lines;
+      internal = true;
+      default = "";
+    };
+
     configRC = mkOption {
       description = "vimrc contents";
       type = types.lines;
@@ -164,31 +171,36 @@ in
       tnoremap = mapVimBinding "tnoremap" config.vim.tnoremap;
     in
     {
-      vim.configRC = ''
-        " Start of vim.configRC
+      vim.finalConfigRC = ''
+        " Basic configuration
         ${cfg.startConfigRC}
 
+        " Global scripts
         ${concatStringsSep "\n" globalsScript}
 
-        " Lua config from vim.luaConfigRC
-        ${wrapLuaConfig
-          (concatStringsSep "\n" [cfg.startLuaConfigRC cfg.luaConfigRC])}
-          ${builtins.concatStringsSep "\n" nmap}
-          ${builtins.concatStringsSep "\n" imap}
-          ${builtins.concatStringsSep "\n" vmap}
-          ${builtins.concatStringsSep "\n" xmap}
-          ${builtins.concatStringsSep "\n" smap}
-          ${builtins.concatStringsSep "\n" cmap}
-          ${builtins.concatStringsSep "\n" omap}
-          ${builtins.concatStringsSep "\n" tmap}
-          ${builtins.concatStringsSep "\n" nnoremap}
-          ${builtins.concatStringsSep "\n" inoremap}
-          ${builtins.concatStringsSep "\n" vnoremap}
-          ${builtins.concatStringsSep "\n" xnoremap}
-          ${builtins.concatStringsSep "\n" snoremap}
-          ${builtins.concatStringsSep "\n" cnoremap}
-          ${builtins.concatStringsSep "\n" onoremap}
-          ${builtins.concatStringsSep "\n" tnoremap}
+        " Config RC
+        ${cfg.configRC}
+
+        " Lua configuration
+        ${wrapLuaConfig (concatStringsSep "\n" [cfg.startLuaConfigRC cfg.luaConfigRC])}
+
+        " Keybindings
+        ${builtins.concatStringsSep "\n" nmap}
+        ${builtins.concatStringsSep "\n" imap}
+        ${builtins.concatStringsSep "\n" vmap}
+        ${builtins.concatStringsSep "\n" xmap}
+        ${builtins.concatStringsSep "\n" smap}
+        ${builtins.concatStringsSep "\n" cmap}
+        ${builtins.concatStringsSep "\n" omap}
+        ${builtins.concatStringsSep "\n" tmap}
+        ${builtins.concatStringsSep "\n" nnoremap}
+        ${builtins.concatStringsSep "\n" inoremap}
+        ${builtins.concatStringsSep "\n" vnoremap}
+        ${builtins.concatStringsSep "\n" xnoremap}
+        ${builtins.concatStringsSep "\n" snoremap}
+        ${builtins.concatStringsSep "\n" cnoremap}
+        ${builtins.concatStringsSep "\n" onoremap}
+        ${builtins.concatStringsSep "\n" tnoremap}
       '';
     };
 }
