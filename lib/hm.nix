@@ -3,7 +3,7 @@
 
 let
   cfg = config.programs.neovim-ide;
-  neo = pkgs.neovimBuilder { config = cfg.settings; };
+  set = pkgs.neovimBuilder { config = cfg.settings; };
 in
 with lib; {
   meta.maintainers = [ maintainers.gvolpe ];
@@ -45,6 +45,6 @@ with lib; {
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ neo ];
+    home.packages = [ set.neovim ];
   };
 }
