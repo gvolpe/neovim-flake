@@ -14,15 +14,45 @@ let
     specialArgs = { inherit pkgs; };
   };
 in
-pkgs.wrapNeovim vim.neovim.package {
-  viAlias = vim.viAlias;
-  vimAlias = vim.vimAlias;
-  configure = {
-    customRC = vim.finalConfigRC;
+rec {
+  luaRC = pkgs.writeTextFile {
+    name = "init.lua";
+    text = ''
+      ${vim.startLuaConfigRC}
+      ${vim.luaConfigRC}
+    '';
+  };
 
-    packages.myVimPackage = {
-      start = builtins.filter (f: f != null) vim.startPlugins;
-      opt = vim.optPlugins;
+  neovimRC = pkgs.writeTextFile {
+    name = "init.vim";
+    text = ''
+      ${vim.finalConfigRC}
+
+      ${vim.finalKeybindings}
+    '';
+  };
+
+  finalConfigRC = ''
+    ${vim.finalConfigRC}
+
+    " Lua configuration
+    lua << EOF
+    ${luaRC.text}
+    EOF
+
+    ${vim.finalKeybindings}
+  '';
+
+  neovim = pkgs.wrapNeovim vim.neovim.package {
+    viAlias = vim.viAlias;
+    vimAlias = vim.vimAlias;
+    configure = {
+      customRC = finalConfigRC;
+
+      packages.myVimPackage = {
+        start = builtins.filter (f: f != null) vim.startPlugins;
+        opt = vim.optPlugins;
+      };
     };
   };
 }

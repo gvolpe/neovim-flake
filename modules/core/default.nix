@@ -6,12 +6,6 @@ with builtins;
 let
   cfg = config.vim;
 
-  wrapLuaConfig = luaConfig: ''
-    lua << EOF
-    ${luaConfig}
-    EOF
-  '';
-
   mkMappingOption = it:
     mkOption ({
       default = { };
@@ -40,6 +34,13 @@ in
 
     finalConfigRC = mkOption {
       description = "built vimrc contents";
+      type = types.lines;
+      internal = true;
+      default = "";
+    };
+
+    finalKeybindings = mkOption {
+      description = "built Keybindings in vimrc contents";
       type = types.lines;
       internal = true;
       default = "";
@@ -180,10 +181,9 @@ in
 
         " Config RC
         ${cfg.configRC}
+      '';
 
-        " Lua configuration
-        ${wrapLuaConfig (concatStringsSep "\n" [cfg.startLuaConfigRC cfg.luaConfigRC])}
-
+      vim.finalKeybindings = ''
         " Keybindings
         ${builtins.concatStringsSep "\n" nmap}
         ${builtins.concatStringsSep "\n" imap}

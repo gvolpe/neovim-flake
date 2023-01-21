@@ -412,7 +412,7 @@
         };
 
         packages = {
-          default = default-ide.full;
+          default = default-ide.full.neovim;
 
           # Documentation
           docs = docbook.html;
@@ -425,15 +425,25 @@
           nvim-treesitter = pkgs.neovimPlugins.nvim-treesitter;
 
           # Main languages enabled
-          ide = default-ide.full;
+          ide = default-ide.full.neovim;
 
           # Only Haskell (quite heavy)
-          haskell = default-ide.haskell;
+          haskell = default-ide.haskell.neovim;
 
           # Only Scala with different themes
-          scala = default-ide.scala;
-          scala-rose-pine = default-ide.scala-rose-pine;
-          scala-tokyo-night = default-ide.scala-tokyo-night;
+          scala = default-ide.scala.neovim;
+          scala-rose-pine = default-ide.scala-rose-pine.neovim;
+          scala-tokyo-night = default-ide.scala-tokyo-night.neovim;
+
+          # Neovim configuration files
+          ide-neovim-rc = default-ide.full.neovimRC;
+          haskell-neovim-rc = default-ide.haskell.neovimRC;
+          scala-neovim-rc = default-ide.scala.neovimRC;
+
+          # Lua configuration files
+          ide-lua-rc = default-ide.full.luaRC;
+          haskell-lua-rc = default-ide.haskell.luaRC;
+          scala-lua-rc = default-ide.scala.luaRC;
         };
       }
     );
