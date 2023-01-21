@@ -123,3 +123,16 @@ Or more directly without the overlay.
 You can see all the enabled grammars for this package {ts-grammars}[here].
 
 The `ts-scala` package only builds `tree-sitter-scala` from `master`, but it wouldn't be as useful for your own configuration because `nvim-treesitter` requires a few tweaks.
+
+=== Configuration files
+
+Furthermore, the generated `neovimRC` and `luaRC` files for every flavor of Neovim exposed by this flake are also available as derivations for better visibility.
+
+- `ide-lua-rc`
+- `ide-neovim-rc`
+- `haskell-lua-rc`
+- `haskell-neovim-rc`
+- `scala-lua-rc`
+- `scala-neovim-rc`
+
+These could also be useful to debug when plugins don't work as expected.
