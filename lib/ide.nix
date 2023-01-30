@@ -12,7 +12,6 @@ let
       customPlugins = with pkgs.vimPlugins; [
         multiple-cursors
         vim-repeat
-        vim-surround
       ];
       lsp = {
         enable = true;
@@ -97,6 +96,9 @@ let
         type = "nerdcommenter";
       };
       shortcuts = {
+        enable = true;
+      };
+      surround = {
         enable = true;
       };
       telescope = {

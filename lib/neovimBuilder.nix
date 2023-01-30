@@ -13,6 +13,11 @@ let
 
     specialArgs = { inherit pkgs; };
   };
+
+  # Source: https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/programs/neovim.nix
+  runtime' = lib.filter (f: f.enable) (lib.attrValues vim.runtime);
+
+  runtime = pkgs.linkFarm "neovim-runtime" (map (x: { name = "etc/${x.target}"; path = x.source; }) runtime');
 in
 rec {
   luaRC = pkgs.writeTextFile {
@@ -41,6 +46,8 @@ rec {
     EOF
 
     ${vim.finalKeybindings}
+
+    set runtimepath^=${runtime}/etc
   '';
 
   neovim = pkgs.wrapNeovim vim.neovim.package {

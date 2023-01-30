@@ -624,6 +624,22 @@
         "type": "github"
       }
     },
+    "nvim-surround": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1672610875,
+        "narHash": "sha256-P38VSHz2kXd3CsBHeazDnKuRVFygcnIDXk0yFcekJbo=",
+        "owner": "kylechui",
+        "repo": "nvim-surround",
+        "rev": "ad56e6234bf42fb7f7e4dccc7752e25abd5ec80e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kylechui",
+        "repo": "nvim-surround",
+        "type": "github"
+      }
+    },
     "nvim-tree-lua": {
       "flake": false,
       "locked": {
@@ -822,6 +838,7 @@
         "nvim-lspconfig": "nvim-lspconfig",
         "nvim-metals": "nvim-metals",
         "nvim-neoclip": "nvim-neoclip",
+        "nvim-surround": "nvim-surround",
         "nvim-tree-lua": "nvim-tree-lua",
         "nvim-treesitter": "nvim-treesitter",
         "nvim-treesitter-context": "nvim-treesitter-context",

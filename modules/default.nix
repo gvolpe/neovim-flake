@@ -20,6 +20,7 @@
     ./scala
     ./snippets
     ./statusline
+    ./surround
     ./tabline
     ./telescope
     ./theme

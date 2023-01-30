@@ -132,6 +132,62 @@ in
 
     tmap =
       mkMappingOption { description = "Defines 'Terminal mode' mappings"; };
+
+    # Source: https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/programs/neovim.nix
+    runtime = mkOption {
+      default = { };
+      example = literalExpression ''
+        { "ftplugin/c.vim".text = "setlocal omnifunc=v:lua.vim.lsp.omnifunc"; }
+      '';
+      description = lib.mdDoc ''
+        Set of files that have to be linked in {file}`runtime`.
+      '';
+
+      type = with types; attrsOf (submodule (
+        { name, config, ... }:
+        {
+          options = {
+
+            enable = mkOption {
+              type = types.bool;
+              default = true;
+              description = lib.mdDoc ''
+                Whether this /etc file should be generated.  This
+                option allows specific /etc files to be disabled.
+              '';
+            };
+
+            target = mkOption {
+              type = types.str;
+              description = lib.mdDoc ''
+                Name of symlink.  Defaults to the attribute
+                name.
+              '';
+            };
+
+            text = mkOption {
+              default = null;
+              type = types.nullOr types.lines;
+              description = lib.mdDoc "Text of the file.";
+            };
+
+            source = mkOption {
+              type = types.path;
+              description = lib.mdDoc "Path of the source file.";
+            };
+
+          };
+
+          config = {
+            target = mkDefault name;
+            source = mkIf (config.text != null) (
+              let name' = "neovim-runtime" + baseNameOf name;
+              in mkDefault (pkgs.writeText name' config.text)
+            );
+          };
+        }
+      ));
+    };
   };
 
   config =

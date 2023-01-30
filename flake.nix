@@ -14,6 +14,12 @@
     nmd.url = github:gvolpe/nmd;
     #nmd.url = git+file:///home/gvolpe/workspace/nmd;
 
+    # Text objects
+    nvim-surround = {
+      url = github:kylechui/nvim-surround;
+      flake = false;
+    };
+
     # LSP plugins
     nvim-lspconfig = {
       url = github:neovim/nvim-lspconfig;
@@ -79,7 +85,7 @@
       flake = false;
     };
 
-    # Folds 
+    # Folds
     nvim-ufo = {
       url = github:kevinhwang91/nvim-ufo;
       flake = false;
@@ -337,6 +343,7 @@
           "vim-plantuml"
           "rosepine"
           "cellular-automaton"
+          "nvim-surround"
         ];
 
         lib = import ./lib { inherit pkgs inputs plugins; };
