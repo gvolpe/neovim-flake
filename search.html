@@ -2560,6 +2560,157 @@
 							</div>
 						</div>
 					</div>
+					<div class="nixoption block" id="vim.runtime">
+						<div class="level">
+							<div class="level-left">
+								<div class="level-item">
+									<h3 class="title is-3"> <a href="#vim.runtime"># </a> vim.runtime  </h3>
+								</div>
+							</div>
+							<div class="level-right">
+								<div class="level-item">
+									<span class="tag is-medium is-info">attribute set of (submodule)</span>
+								</div>
+							</div>
+						</div>
+
+						<p class="subtitle"> Set of files that have to be linked in &lt;filename&gt;runtime&lt;/filename&gt;.
+ </p>
+
+						<div class="block">
+							<p class="block"><strong>Default:</strong> <code>{ }</code> </p>
+							<p class="block"><strong>Example:</strong> <code>{ &#34;ftplugin/c.vim&#34;.text = &#34;setlocal omnifunc=v:lua.vim.lsp.omnifunc&#34;; }
+</code> </p>
+
+							<h4 class="title is-4">Declarations</h4>
+
+							<div class="block">
+								<ul>
+                  <li> <a href="https://github.com/gvolpe/neovim-flake/blob/main/modules/core" target="_blank"> <code> &lt;/modules/core&gt; </code> </a> </li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="nixoption block" id="vim.runtime.&lt;name&gt;.enable">
+						<div class="level">
+							<div class="level-left">
+								<div class="level-item">
+									<h3 class="title is-3"> <a href="#vim.runtime.&lt;name&gt;.enable"># </a> vim.runtime.&lt;name&gt;.enable  </h3>
+								</div>
+							</div>
+							<div class="level-right">
+								<div class="level-item">
+									<span class="tag is-medium is-info">boolean</span>
+								</div>
+							</div>
+						</div>
+
+						<p class="subtitle"> Whether this /etc file should be generated.  This
+option allows specific /etc files to be disabled.
+ </p>
+
+						<div class="block">
+							<p class="block"><strong>Default:</strong> <code>true</code> </p>
+							<p class="block"><strong>Example:</strong> <code></code> </p>
+
+							<h4 class="title is-4">Declarations</h4>
+
+							<div class="block">
+								<ul>
+                  <li> <a href="https://github.com/gvolpe/neovim-flake/blob/main/modules/core" target="_blank"> <code> &lt;/modules/core&gt; </code> </a> </li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="nixoption block" id="vim.runtime.&lt;name&gt;.source">
+						<div class="level">
+							<div class="level-left">
+								<div class="level-item">
+									<h3 class="title is-3"> <a href="#vim.runtime.&lt;name&gt;.source"># </a> vim.runtime.&lt;name&gt;.source  </h3>
+								</div>
+							</div>
+							<div class="level-right">
+								<div class="level-item">
+									<span class="tag is-medium is-info">path</span>
+								</div>
+							</div>
+						</div>
+
+						<p class="subtitle"> Path of the source file. </p>
+
+						<div class="block">
+							<p class="block"><strong>Default:</strong> <code></code> </p>
+							<p class="block"><strong>Example:</strong> <code></code> </p>
+
+							<h4 class="title is-4">Declarations</h4>
+
+							<div class="block">
+								<ul>
+                  <li> <a href="https://github.com/gvolpe/neovim-flake/blob/main/modules/core" target="_blank"> <code> &lt;/modules/core&gt; </code> </a> </li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="nixoption block" id="vim.runtime.&lt;name&gt;.target">
+						<div class="level">
+							<div class="level-left">
+								<div class="level-item">
+									<h3 class="title is-3"> <a href="#vim.runtime.&lt;name&gt;.target"># </a> vim.runtime.&lt;name&gt;.target  </h3>
+								</div>
+							</div>
+							<div class="level-right">
+								<div class="level-item">
+									<span class="tag is-medium is-info">string</span>
+								</div>
+							</div>
+						</div>
+
+						<p class="subtitle"> Name of symlink.  Defaults to the attribute
+name.
+ </p>
+
+						<div class="block">
+							<p class="block"><strong>Default:</strong> <code></code> </p>
+							<p class="block"><strong>Example:</strong> <code></code> </p>
+
+							<h4 class="title is-4">Declarations</h4>
+
+							<div class="block">
+								<ul>
+                  <li> <a href="https://github.com/gvolpe/neovim-flake/blob/main/modules/core" target="_blank"> <code> &lt;/modules/core&gt; </code> </a> </li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="nixoption block" id="vim.runtime.&lt;name&gt;.text">
+						<div class="level">
+							<div class="level-left">
+								<div class="level-item">
+									<h3 class="title is-3"> <a href="#vim.runtime.&lt;name&gt;.text"># </a> vim.runtime.&lt;name&gt;.text  </h3>
+								</div>
+							</div>
+							<div class="level-right">
+								<div class="level-item">
+									<span class="tag is-medium is-info">null or strings concatenated with &#34;\n&#34;</span>
+								</div>
+							</div>
+						</div>
+
+						<p class="subtitle"> Text of the file. </p>
+
+						<div class="block">
+							<p class="block"><strong>Default:</strong> <code>null</code> </p>
+							<p class="block"><strong>Example:</strong> <code></code> </p>
+
+							<h4 class="title is-4">Declarations</h4>
+
+							<div class="block">
+								<ul>
+                  <li> <a href="https://github.com/gvolpe/neovim-flake/blob/main/modules/core" target="_blank"> <code> &lt;/modules/core&gt; </code> </a> </li>
+								</ul>
+							</div>
+						</div>
+					</div>
 					<div class="nixoption block" id="vim.scala.highlightMode">
 						<div class="level">
 							<div class="level-left">
@@ -3484,6 +3635,35 @@
 							<div class="block">
 								<ul>
                   <li> <a href="https://github.com/gvolpe/neovim-flake/blob/main/modules/statusline/lualine.nix" target="_blank"> <code> &lt;/modules/statusline/lualine.nix&gt; </code> </a> </li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="nixoption block" id="vim.surround.enable">
+						<div class="level">
+							<div class="level-left">
+								<div class="level-item">
+									<h3 class="title is-3"> <a href="#vim.surround.enable"># </a> vim.surround.enable  </h3>
+								</div>
+							</div>
+							<div class="level-right">
+								<div class="level-item">
+									<span class="tag is-medium is-info">boolean</span>
+								</div>
+							</div>
+						</div>
+
+						<p class="subtitle"> Enable nvim-surround plugin </p>
+
+						<div class="block">
+							<p class="block"><strong>Default:</strong> <code>true</code> </p>
+							<p class="block"><strong>Example:</strong> <code></code> </p>
+
+							<h4 class="title is-4">Declarations</h4>
+
+							<div class="block">
+								<ul>
+                  <li> <a href="https://github.com/gvolpe/neovim-flake/blob/main/modules/surround" target="_blank"> <code> &lt;/modules/surround&gt; </code> </a> </li>
 								</ul>
 							</div>
 						</div>
