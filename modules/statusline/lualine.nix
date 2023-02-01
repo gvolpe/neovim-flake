@@ -19,7 +19,7 @@ in
     };
 
     theme = mkOption {
-      type = types.enum (
+      type = types.enum
         [
           "auto"
           "16color"
@@ -58,8 +58,7 @@ in
           "nightfox"
           "rose-pine"
           "rose-pine-alt"
-        ]
-      );
+        ];
       description = "Theme for lualine";
     };
 

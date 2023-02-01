@@ -52,7 +52,7 @@ in
     };
   };
 
-  manPages = docs.manPages;
+  inherit (docs) manPages;
 
   manual = { inherit (docs) html htmlOpenTool; };
 

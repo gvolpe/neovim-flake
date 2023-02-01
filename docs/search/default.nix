@@ -9,7 +9,7 @@ let
     modules = map (x: ../../modules + "/${x}") (builtins.attrNames (builtins.readDir ../../modules));
   };
 
-  opts = (nixosOptionsDoc { options = eval.options; }).optionsJSON;
+  opts = (nixosOptionsDoc { inherit (eval) options; }).optionsJSON;
 
   htmlTemplate = writeTextFile {
     name = "html";

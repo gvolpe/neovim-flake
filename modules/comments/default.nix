@@ -20,20 +20,18 @@ in
     };
   };
 
-  config = mkIf cfg.enable (
-    {
-      vim.startPlugins = [ pkgs.neovimPlugins.${cfg.type} ];
+  config = mkIf cfg.enable {
+    vim.startPlugins = [ pkgs.neovimPlugins.${cfg.type} ];
 
-      vim.luaConfigRC = ''
-        ${writeIf (cfg.type == "kommentary") ''
-          -- Kommentary config
-          require('kommentary.config').setup();
-          require('kommentary.config').configure_language("nix", {
-              single_line_comment_string = "#",
-          })
-          ''
-        }
-      '';
-    }
-  );
+    vim.luaConfigRC = ''
+      ${writeIf (cfg.type == "kommentary") ''
+        -- Kommentary config
+        require('kommentary.config').setup();
+        require('kommentary.config').configure_language("nix", {
+            single_line_comment_string = "#",
+        })
+        ''
+      }
+    '';
+  };
 }

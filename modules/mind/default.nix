@@ -29,7 +29,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable ({
+  config = mkIf cfg.enable {
     vim.startPlugins = [ pkgs.neovimPlugins.mind-nvim ];
 
     vim.nnoremap = {
@@ -53,5 +53,5 @@ in
         }
       })
     '';
-  });
+  };
 }

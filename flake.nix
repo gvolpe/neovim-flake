@@ -348,8 +348,9 @@
 
         lib = import ./lib { inherit pkgs inputs plugins; };
 
+        inherit (lib) metalsBuilder metalsOverlay neovimBuilder;
+
         pluginOverlay = lib.buildPluginOverlay;
-        metalsOverlay = lib.metalsOverlay;
         nmdOverlay = inputs.nmd.overlays.default;
 
         libOverlay = f: p: {
@@ -376,20 +377,16 @@
           overlays = [ libOverlay pluginOverlay metalsOverlay neovimOverlay nmdOverlay tsOverlay ];
         };
 
-        metalsBuilder = lib.metalsBuilder;
-        neovimBuilder = lib.neovimBuilder;
-
         default-ide = pkgs.callPackage ./lib/ide.nix {
           inherit pkgs neovimBuilder;
         };
 
         searchdocs = pkgs.callPackage ./docs/search { };
 
-        docbook = with import ./docs { inherit pkgs; lib = pkgs.lib; }; {
-          html = manual.html;
-          manPages = manPages;
-          json = options.json;
-          jsonModuleMaintainers = jsonModuleMaintainers;
+        docbook = with import ./docs { inherit pkgs; inherit (pkgs) lib; }; {
+          inherit manPages jsonModuleMaintainers;
+          inherit (manual) html;
+          inherit (options) json;
         };
       in
       rec {
@@ -427,9 +424,9 @@
           docs-search = searchdocs.html;
 
           # CI package
-          metals = pkgs.metals;
           ts-scala = pkgs.tree-sitter-scala-master;
-          nvim-treesitter = pkgs.neovimPlugins.nvim-treesitter;
+          inherit (pkgs) metals;
+          inherit (pkgs.neovimPlugins) nvim-treesitter;
 
           # Main languages enabled
           ide = default-ide.full.neovim;

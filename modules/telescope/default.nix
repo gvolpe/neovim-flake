@@ -11,7 +11,7 @@ in
     enable = mkEnableOption "enable telescope";
   };
 
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     vim.startPlugins = with pkgs.neovimPlugins; [
       telescope
     ];

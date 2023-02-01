@@ -5,9 +5,9 @@
 
   writeIf = cond: msg: if cond then msg else "";
 
-  withPlugins = cond: plugins: if (cond) then plugins else [ ];
+  withPlugins = cond: plugins: if cond then plugins else [ ];
 
-  withAttrSet = cond: attrSet: if (cond) then attrSet else { };
+  withAttrSet = cond: attrSet: if cond then attrSet else { };
 
   metalsBuilder = import ./metalsBuilder.nix { inherit pkgs; };
 

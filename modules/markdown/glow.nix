@@ -17,7 +17,7 @@ in
     };
   };
 
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     vim.startPlugins =
       withPlugins cfg.glow.enable [ pkgs.neovimPlugins.glow-nvim ];
 

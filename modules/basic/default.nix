@@ -127,136 +127,134 @@ in
     };
   };
 
-  config = (
-    {
-      vim.colourTerm = mkDefault true;
-      vim.disableArrows = true;
-      vim.hideSearchHighlight = mkDefault false;
-      vim.scrollOffset = mkDefault 8;
-      vim.wordWrap = mkDefault true;
-      vim.syntaxHighlighting = mkDefault true;
-      vim.mapClearHighlight = mkDefault true;
-      vim.mapLeaderSpace = mkDefault true;
-      vim.useSystemClipboard = mkDefault true;
-      vim.mouseSupport = mkDefault "v";
-      vim.lineNumberMode = mkDefault "relNumber";
-      vim.preventJunkFiles = mkDefault false;
-      vim.tabWidth = mkDefault 2;
-      vim.autoIndent = mkDefault true;
-      vim.cmdHeight = mkDefault 1;
-      vim.updateTime = mkDefault 300;
-      vim.showSignColumn = mkDefault true;
-      vim.bell = mkDefault "none";
-      vim.mapTimeout = mkDefault 500;
-      vim.splitBelow = mkDefault true;
-      vim.splitRight = mkDefault true;
-      vim.spellCheck.markdown = mkDefault true;
+  config = {
+    vim.colourTerm = mkDefault true;
+    vim.disableArrows = true;
+    vim.hideSearchHighlight = mkDefault false;
+    vim.scrollOffset = mkDefault 8;
+    vim.wordWrap = mkDefault true;
+    vim.syntaxHighlighting = mkDefault true;
+    vim.mapClearHighlight = mkDefault true;
+    vim.mapLeaderSpace = mkDefault true;
+    vim.useSystemClipboard = mkDefault true;
+    vim.mouseSupport = mkDefault "v";
+    vim.lineNumberMode = mkDefault "relNumber";
+    vim.preventJunkFiles = mkDefault false;
+    vim.tabWidth = mkDefault 2;
+    vim.autoIndent = mkDefault true;
+    vim.cmdHeight = mkDefault 1;
+    vim.updateTime = mkDefault 300;
+    vim.showSignColumn = mkDefault true;
+    vim.bell = mkDefault "none";
+    vim.mapTimeout = mkDefault 500;
+    vim.splitBelow = mkDefault true;
+    vim.splitRight = mkDefault true;
+    vim.spellCheck.markdown = mkDefault true;
 
-      vim.startPlugins = [ pkgs.neovimPlugins.plenary-nvim ] ++ cfg.customPlugins;
+    vim.startPlugins = [ pkgs.neovimPlugins.plenary-nvim ] ++ cfg.customPlugins;
 
-      vim.nmap =
-        if (cfg.disableArrows)
-        then {
-          "<up>" = "<nop>";
-          "<down>" = "<nop>";
-          "<left>" = "<nop>";
-          "<right>" = "<nop>";
-        }
-        else { };
+    vim.nmap =
+      if cfg.disableArrows
+      then {
+        "<up>" = "<nop>";
+        "<down>" = "<nop>";
+        "<left>" = "<nop>";
+        "<right>" = "<nop>";
+      }
+      else { };
 
-      vim.imap =
-        if (cfg.disableArrows)
-        then {
-          "<up>" = "<nop>";
-          "<down>" = "<nop>";
-          "<left>" = "<nop>";
-          "<right>" = "<nop>";
-        }
-        else { };
+    vim.imap =
+      if cfg.disableArrows
+      then {
+        "<up>" = "<nop>";
+        "<down>" = "<nop>";
+        "<left>" = "<nop>";
+        "<right>" = "<nop>";
+      }
+      else { };
 
-      vim.nnoremap =
-        let
-          mls = if (cfg.mapLeaderSpace) then { "<space>" = "<nop>"; } else { };
-          mch = if (cfg.mapClearHighlight) then { "<C-z>" = ":nohlsearch<CR>"; } else { };
-        in
-        mls // mch;
+    vim.nnoremap =
+      let
+        mls = if cfg.mapLeaderSpace then { "<space>" = "<nop>"; } else { };
+        mch = if cfg.mapClearHighlight then { "<C-z>" = ":nohlsearch<CR>"; } else { };
+      in
+      mls // mch;
 
-      vim.startConfigRC = ''
-        " Settings that are set for everything
-        set encoding=utf-8
-        set mouse=${cfg.mouseSupport}
-        set tabstop=${toString cfg.tabWidth}
-        set shiftwidth=${toString cfg.tabWidth}
-        set softtabstop=${toString cfg.tabWidth}
-        set expandtab
-        set cmdheight=${toString cfg.cmdHeight}
-        set updatetime=${toString cfg.updateTime}
-        set shortmess+=c
-        set tm=${toString cfg.mapTimeout}
-        set hidden
-        ${writeIf cfg.splitBelow ''
-          set splitbelow
-        ''}
-        ${writeIf cfg.splitRight ''
-          set splitright
-        ''}
-        ${writeIf cfg.showSignColumn ''
-          set signcolumn=yes
-        ''}
-        ${writeIf cfg.autoIndent ''
-          set autoindent
-        ''}
+    vim.startConfigRC = ''
+      " Settings that are set for everything
+      set encoding=utf-8
+      set mouse=${cfg.mouseSupport}
+      set tabstop=${toString cfg.tabWidth}
+      set shiftwidth=${toString cfg.tabWidth}
+      set softtabstop=${toString cfg.tabWidth}
+      set expandtab
+      set cmdheight=${toString cfg.cmdHeight}
+      set updatetime=${toString cfg.updateTime}
+      set shortmess+=c
+      set tm=${toString cfg.mapTimeout}
+      set hidden
+      ${writeIf cfg.splitBelow ''
+        set splitbelow
+      ''}
+      ${writeIf cfg.splitRight ''
+        set splitright
+      ''}
+      ${writeIf cfg.showSignColumn ''
+        set signcolumn=yes
+      ''}
+      ${writeIf cfg.autoIndent ''
+        set autoindent
+      ''}
 
-        ${writeIf cfg.preventJunkFiles ''
-          set noswapfile
-          set nobackup
-          set nowritebackup
-        ''}
-        ${writeIf (cfg.bell == "none") ''
-          set noerrorbells
-          set novisualbell
-        ''}
-        ${writeIf (cfg.bell == "on") ''
-          set novisualbell
-        ''}
-        ${writeIf (cfg.bell == "visual") ''
-          set noerrorbells
-        ''}
-        ${writeIf (cfg.lineNumberMode == "relative") ''
-          set relativenumber
-        ''}
-        ${writeIf (cfg.lineNumberMode == "number") ''
-          set number
-        ''}
-        ${writeIf (cfg.lineNumberMode == "relNumber") ''
-          set number relativenumber
-        ''}
-        ${writeIf cfg.useSystemClipboard ''
-          set clipboard+=unnamedplus
-        ''}
-        ${writeIf cfg.mapLeaderSpace ''
-          let mapleader=" "
-          let maplocalleader=" "
-        ''}
-        ${writeIf cfg.syntaxHighlighting ''
-          syntax on
-        ''}
-        ${writeIf (cfg.wordWrap == false) ''
-          set nowrap
-        ''}
-        ${writeIf cfg.hideSearchHighlight ''
-          set nohlsearch
-          set incsearch
-        ''}
-        ${writeIf cfg.colourTerm ''
-          set termguicolors
-          set t_Co=256
-        ''}
-        ${writeIf cfg.spellCheck.markdown ''
-          " Spell check for markdown files
-          au BufNewFile,BufRead *.md set spell
-        ''}
-      '';
-    }
-  );
+      ${writeIf cfg.preventJunkFiles ''
+        set noswapfile
+        set nobackup
+        set nowritebackup
+      ''}
+      ${writeIf (cfg.bell == "none") ''
+        set noerrorbells
+        set novisualbell
+      ''}
+      ${writeIf (cfg.bell == "on") ''
+        set novisualbell
+      ''}
+      ${writeIf (cfg.bell == "visual") ''
+        set noerrorbells
+      ''}
+      ${writeIf (cfg.lineNumberMode == "relative") ''
+        set relativenumber
+      ''}
+      ${writeIf (cfg.lineNumberMode == "number") ''
+        set number
+      ''}
+      ${writeIf (cfg.lineNumberMode == "relNumber") ''
+        set number relativenumber
+      ''}
+      ${writeIf cfg.useSystemClipboard ''
+        set clipboard+=unnamedplus
+      ''}
+      ${writeIf cfg.mapLeaderSpace ''
+        let mapleader=" "
+        let maplocalleader=" "
+      ''}
+      ${writeIf cfg.syntaxHighlighting ''
+        syntax on
+      ''}
+      ${writeIf (!cfg.wordWrap) ''
+        set nowrap
+      ''}
+      ${writeIf cfg.hideSearchHighlight ''
+        set nohlsearch
+        set incsearch
+      ''}
+      ${writeIf cfg.colourTerm ''
+        set termguicolors
+        set t_Co=256
+      ''}
+      ${writeIf cfg.spellCheck.markdown ''
+        " Spell check for markdown files
+        au BufNewFile,BufRead *.md set spell
+      ''}
+    '';
+  };
 }

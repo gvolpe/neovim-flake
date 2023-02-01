@@ -23,8 +23,8 @@ let
         trouble.enable = true;
         lspSignature.enable = true;
         scala = {
+          inherit (pkgs) metals;
           enable = true;
-          metals = pkgs.metals;
         };
         nix = {
           enable = true;

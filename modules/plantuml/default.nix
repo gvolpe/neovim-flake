@@ -15,12 +15,12 @@ in
     };
   };
 
-  config = mkIf cfg.enable ({
+  config = mkIf cfg.enable {
     vim.startPlugins = [ pkgs.neovimPlugins.vim-plantuml ];
 
     vim.configRC =
       writeIf cfg.enable ''
         let g:plantuml_set_makeprg=0
       '';
-  });
+  };
 }

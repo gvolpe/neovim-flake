@@ -14,7 +14,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable (
+  config = mkIf cfg.enable
     {
       vim.startPlugins = [ pkgs.neovimPlugins.nvim-surround ];
 
@@ -51,6 +51,5 @@ in
           }
         })
       '';
-    }
-  );
+    };
 }

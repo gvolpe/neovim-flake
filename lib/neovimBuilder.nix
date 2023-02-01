@@ -3,7 +3,7 @@
 { config }:
 
 let
-  vim = vimOptions.config.vim;
+  inherit (vimOptions.config) vim;
 
   vimOptions = lib.evalModules {
     modules = [
@@ -51,8 +51,7 @@ rec {
   '';
 
   neovim = pkgs.wrapNeovim vim.neovim.package {
-    viAlias = vim.viAlias;
-    vimAlias = vim.vimAlias;
+    inherit (vim) viAlias vimAlias;
     configure = {
       customRC = finalConfigRC;
 

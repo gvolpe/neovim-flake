@@ -1,0 +1,7 @@
+disabled = [
+  "empty_pattern",
+  "repeated_keys",
+  "unquoted_uri"
+]
+nix_version = '2.4'
+ignore = ['.direnv']

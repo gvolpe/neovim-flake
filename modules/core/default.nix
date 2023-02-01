@@ -192,12 +192,12 @@ in
 
   config =
     let
-      filterNonNull = mappings: filterAttrs (name: value: value != null) mappings;
+      filterNonNull = filterAttrs (name: value: value != null);
       globalsScript =
         mapAttrsFlatten (name: value: "let g:${name}=${toJSON value}")
           (filterNonNull cfg.globals);
 
-      matchCtrl = it: match "Ctrl-(.)(.*)" it;
+      matchCtrl = match "Ctrl-(.)(.*)";
       mapKeyBinding = it:
         let
           groups = matchCtrl it;
