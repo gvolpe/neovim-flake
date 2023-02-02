@@ -61,12 +61,13 @@ let
   '';
 
   # sync queries of tree-sitter-scala and nvim-treesitter
-  scalaQueriesHook = ''
-    cp ${inputs.tree-sitter-scala}/queries/* $out/queries/scala/
+  queriesHook = ''
+    cp ${inputs.tree-sitter-scala}/queries/scala/* $out/queries/scala/
+    cp ${ts.builtGrammars.tree-sitter-smithy}/queries/highlights.scm $out/queries/smithy/highlights.scm
   '';
 
   tsPreFixupHook = ''
-    ${scalaQueriesHook}
+    ${queriesHook}
 
     ${smithyParserHook}
   '';
@@ -74,8 +75,6 @@ let
   tsPostPatchHook = ''
     rm -r parser
     ln -s ${treesitterGrammars} parser
-    mkdir -p $out/queries/smithy
-    cp ${ts.builtGrammars.tree-sitter-smithy}/queries/highlights.scm $out/queries/smithy/highlights.scm
   '';
 
   buildPlug = name:
