@@ -69,6 +69,7 @@ let
         transparency = true;
       };
       autopairs.enable = true;
+      neoclip.enable = true;
       autocomplete = {
         enable = true;
         type = "nvim-cmp";
@@ -139,6 +140,10 @@ let
     };
   };
 
+  nightly = {
+    vim.neovim.package = pkgs.neovim-nightly;
+  };
+
   rose-pine = {
     vim = {
       statusline.lualine = {
@@ -179,6 +184,10 @@ in
   };
 
   scala = neovimBuilder { config = cfg; };
+
+  scala-nightly = neovimBuilder {
+    config = deepMerge cfg nightly;
+  };
 
   scala-rose-pine = neovimBuilder {
     config = deepMerge cfg rose-pine;

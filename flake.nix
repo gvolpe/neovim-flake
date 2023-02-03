@@ -14,9 +14,25 @@
     nmd.url = github:gvolpe/nmd;
     #nmd.url = git+file:///home/gvolpe/workspace/nmd;
 
+    # Custom tree-sitter grammar
+    ts-build.url = github:pta2002/build-ts-grammar.nix;
+
+    tree-sitter-scala = {
+      url = github:tree-sitter/tree-sitter-scala;
+      flake = false;
+    };
+
+    # Neovim plugins
+
     # Text objects
     nvim-surround = {
       url = github:kylechui/nvim-surround;
+      flake = false;
+    };
+
+    # Copying/Registers
+    nvim-neoclip = {
+      url = github:AckslD/nvim-neoclip.lua;
       flake = false;
     };
 
@@ -72,16 +88,6 @@
     };
     nvim-metals = {
       url = github:scalameta/nvim-metals;
-      flake = false;
-    };
-
-    # Copying/Registers
-    registers = {
-      url = github:tversteeg/registers.nvim;
-      flake = false;
-    };
-    nvim-neoclip = {
-      url = github:AckslD/nvim-neoclip.lua;
       flake = false;
     };
 
@@ -268,23 +274,9 @@
       flake = false;
     };
 
-    # Scala 3 highlights (treesitter doesn't yet support it)
-    vim-scala = {
-      url = github:gvolpe/vim-scala;
-      flake = false;
-    };
-
     # Plant UML syntax highlights
     vim-plantuml = {
       url = github:aklt/plantuml-syntax;
-      flake = false;
-    };
-
-    # custom tree-sitter grammar
-    ts-build.url = github:pta2002/build-ts-grammar.nix;
-
-    tree-sitter-scala = {
-      url = github:tree-sitter/tree-sitter-scala;
       flake = false;
     };
   };
@@ -292,59 +284,22 @@
   outputs = inputs @ { self, nixpkgs, flake-utils, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        # Plugin must be same as input name
-        plugins = [
-          "nvim-treesitter-context"
-          "gitsigns-nvim"
-          "plenary-nvim"
-          "nvim-lspconfig"
-          "nvim-treesitter"
-          "lspsaga"
-          "lspkind"
-          "nvim-lightbulb"
-          "lsp-signature"
-          "nvim-tree-lua"
-          "nvim-bufferline"
-          "lualine"
-          "nvim-compe"
-          "nvim-autopairs"
-          "nvim-ts-autotag"
-          "nvim-web-devicons"
-          "tokyonight"
-          "nightfox"
-          "catppuccin"
-          "bufdelete-nvim"
-          "nvim-cmp"
-          "cmp-nvim-lsp"
-          "cmp-buffer"
-          "cmp-vsnip"
-          "cmp-path"
-          "cmp-treesitter"
-          "crates-nvim"
-          "vim-vsnip"
-          "nvim-code-action-menu"
-          "trouble"
-          "null-ls"
-          "which-key"
-          "indent-blankline"
-          "nvim-cursorline"
-          "sqls-nvim"
-          "glow-nvim"
-          "telescope"
-          "rust-tools"
-          "onedark"
-          "kommentary"
-          "hop"
-          "nvim-metals"
-          "todo-comments"
-          "nvim-ufo"
-          "promise-async"
-          "mind-nvim"
-          "vim-plantuml"
-          "rosepine"
-          "cellular-automaton"
-          "nvim-surround"
-        ];
+        plugins =
+          let
+            f = xs: pkgs.lib.attrsets.filterAttrs (k: v: !builtins.elem k xs);
+
+            nonPluginInputNames = [
+              "self"
+              "nixpkgs"
+              "flake-utils"
+              "nixpkgs-neovim"
+              "neovim-nightly-flake"
+              "nmd"
+              "ts-build"
+              "tree-sitter-scala"
+            ];
+          in
+          builtins.attrNames (f nonPluginInputNames inputs);
 
         lib = import ./lib { inherit pkgs inputs plugins; };
 
@@ -436,6 +391,7 @@
 
           # Only Scala with different themes
           scala = default-ide.scala.neovim;
+          scala-nightly = default-ide.scala-nightly.neovim;
           scala-rose-pine = default-ide.scala-rose-pine.neovim;
           scala-tokyo-night = default-ide.scala-tokyo-night.neovim;
 

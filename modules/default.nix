@@ -15,6 +15,7 @@
     ./lsp
     ./markdown
     ./mind
+    ./neoclip
     ./neovim
     ./plantuml
     ./scala

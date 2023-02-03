@@ -75,7 +75,7 @@ in
 
     vim.nnoremap = withAttrSet cfg.scala.enable {
       "<silent> <leader>ws" = "<cmd>lua require'metals'.worksheet_hover()<CR>";
-      "<silent> <leader>a" = "<cmd>lua require'metals'.open_all_diagnostics()<CR>";
+      "<silent> <leader>ad" = "<cmd>lua require'metals'.open_all_diagnostics()<CR>";
     };
 
     vim.configRC = ''

@@ -22,6 +22,13 @@ $ nix run github:gvolpe/neovim-flake#scala-tokyo-night
 
 The default theme is `onedark` with transparency enabled, but there are other flavors.
 
+You may also try Neovim nightly version.
+
+[source,console]
+----
+$ nix run github:gvolpe/neovim-flake#scala-nightly
+----
+
 === Haskell
 
 Those only interested in Haskell LSP support can try the exclusive version.

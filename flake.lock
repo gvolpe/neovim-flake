@@ -611,11 +611,11 @@
     "nvim-neoclip": {
       "flake": false,
       "locked": {
-        "lastModified": 1673318732,
-        "narHash": "sha256-dkonuajW5WIAb0SjIgNV3/VrwEe/ffyvrkGkRJ7/kQA=",
+        "lastModified": 1673910599,
+        "narHash": "sha256-Yi/6mODdS2Ote5/zumzcUzkhDbQ3m9jUvxT+jZ/+UqA=",
         "owner": "AckslD",
         "repo": "nvim-neoclip.lua",
-        "rev": "e112a0bfaf137bcc0df361a4bad98bc21657ae2c",
+        "rev": "5b9286a40ea2020352280caeb713515badb03d99",
         "type": "github"
       },
       "original": {
@@ -784,22 +784,6 @@
         "type": "github"
       }
     },
-    "registers": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1671111037,
-        "narHash": "sha256-puQwsmi07lLgBDvo7lqHH+sr4ePzgrStD+4Zqya6VUg=",
-        "owner": "tversteeg",
-        "repo": "registers.nvim",
-        "rev": "667ae447d2c7efb64461a2c58f5311d1248cdb5f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "tversteeg",
-        "repo": "registers.nvim",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "bufdelete-nvim": "bufdelete-nvim",
@@ -848,7 +832,6 @@
         "onedark": "onedark",
         "plenary-nvim": "plenary-nvim",
         "promise-async": "promise-async",
-        "registers": "registers",
         "rosepine": "rosepine",
         "rust-tools": "rust-tools",
         "sqls-nvim": "sqls-nvim",
@@ -859,7 +842,6 @@
         "trouble": "trouble",
         "ts-build": "ts-build",
         "vim-plantuml": "vim-plantuml",
-        "vim-scala": "vim-scala",
         "vim-vsnip": "vim-vsnip",
         "which-key": "which-key"
       }
@@ -1024,22 +1006,6 @@
       "original": {
         "owner": "aklt",
         "repo": "plantuml-syntax",
-        "type": "github"
-      }
-    },
-    "vim-scala": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1641291049,
-        "narHash": "sha256-lUj+6DGyCvWyu/fIz15saQoIWkG/w6HAmjCG7VmVOvk=",
-        "owner": "gvolpe",
-        "repo": "vim-scala",
-        "rev": "7379894b48df6b677788a75b8f04632e717102a8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "gvolpe",
-        "repo": "vim-scala",
         "type": "github"
       }
     },
