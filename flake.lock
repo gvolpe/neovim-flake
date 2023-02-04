@@ -839,6 +839,7 @@
         "todo-comments": "todo-comments",
         "tokyonight": "tokyonight",
         "tree-sitter-scala": "tree-sitter-scala",
+        "tree-sitter-typescript": "tree-sitter-typescript",
         "trouble": "trouble",
         "ts-build": "ts-build",
         "vim-plantuml": "vim-plantuml",
@@ -955,6 +956,22 @@
       "original": {
         "owner": "tree-sitter",
         "repo": "tree-sitter-scala",
+        "type": "github"
+      }
+    },
+    "tree-sitter-typescript": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1674574592,
+        "narHash": "sha256-cpOAtfvlffS57BrXaoa2xa9NUYw0AsHxVI8PrcpgZCQ=",
+        "owner": "tree-sitter",
+        "repo": "tree-sitter-typescript",
+        "rev": "5d20856f34315b068c41edaee2ac8a100081d259",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tree-sitter",
+        "repo": "tree-sitter-typescript",
         "type": "github"
       }
     },
