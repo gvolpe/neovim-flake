@@ -302,6 +302,7 @@
               "nmd"
               "ts-build"
               "tree-sitter-scala"
+              "tree-sitter-typescript"
             ];
           in
           builtins.attrNames (f nonPluginInputNames inputs);
