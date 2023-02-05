@@ -287,135 +287,142 @@
   };
 
   outputs = inputs @ { self, nixpkgs, flake-utils, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        plugins =
-          let
-            f = xs: pkgs.lib.attrsets.filterAttrs (k: v: !builtins.elem k xs);
+    let
+      lib = pkgs: import ./lib { inherit pkgs inputs; plugins = [ ]; };
 
-            nonPluginInputNames = [
-              "self"
-              "nixpkgs"
-              "flake-utils"
-              "nixpkgs-neovim"
-              "neovim-nightly-flake"
-              "nmd"
-              "ts-build"
-              "tree-sitter-scala"
-            ];
-          in
-          builtins.attrNames (f nonPluginInputNames inputs);
-
-        lib = import ./lib { inherit pkgs inputs plugins; };
-
-        inherit (lib) metalsBuilder metalsOverlay neovimBuilder;
-
-        pluginOverlay = lib.buildPluginOverlay;
-        nmdOverlay = inputs.nmd.overlays.default;
-
-        libOverlay = f: p: {
-          lib = p.lib.extend (_: _: {
-            inherit (lib) mkVimBool withAttrSet withPlugins writeIf;
-          });
-        };
-
-        tsOverlay = f: p: {
-          tree-sitter-scala-master = inputs.ts-build.lib.buildGrammar p {
-            language = "scala";
-            version = "${inputs.tree-sitter-scala.version}-${inputs.tree-sitter-scala.rev}";
-            source = inputs.tree-sitter-scala;
-          };
-
-          tree-sitter-tsx-master = inputs.ts-build.lib.buildGrammar p {
-            language = "tsx";
-            version = "${inputs.tree-sitter-typescript.version}-${inputs.tree-sitter-typescript.rev}";
-            source = inputs.tree-sitter-typescript;
-          };
-        };
-
-        neovimOverlay = f: p: {
-          neovim-nightly = inputs.neovim-nightly-flake.packages.${system}.neovim;
-        };
-
-        pkgs = import nixpkgs {
-          inherit system;
-          config = { allowUnfree = true; };
-          overlays = [ libOverlay pluginOverlay metalsOverlay neovimOverlay nmdOverlay tsOverlay ];
-        };
-
-        default-ide = pkgs.callPackage ./lib/ide.nix {
-          inherit pkgs neovimBuilder;
-        };
-
-        searchdocs = pkgs.callPackage ./docs/search { };
-
-        docbook = with import ./docs { inherit pkgs; inherit (pkgs) lib; }; {
-          inherit manPages jsonModuleMaintainers;
-          inherit (manual) html;
-          inherit (options) json;
-        };
-      in
-      rec {
-        apps = rec {
-          nvim = {
-            type = "app";
-            program = "${packages.default}/bin/nvim";
-          };
-
-          default = nvim;
-        };
-
-        devShells.default = pkgs.mkShell {
-          buildInputs = [ packages.neovim-ide ];
-        };
-
-        overlays.default = f: p: {
-          inherit metalsBuilder neovimBuilder;
-          inherit (pkgs) neovim-nightly neovimPlugins;
-        };
-
+      normalOutput = {
         nixosModules.hm = {
           imports = [
             ./lib/hm.nix
-            { nixpkgs.overlays = [ overlays.default ]; }
+            { nixpkgs.overlays = [ (f: p: { inherit (lib p) metalsBuilder neovimBuilder; }) ]; }
           ];
         };
+      };
 
-        packages = {
-          default = default-ide.full.neovim;
+      systemOutput = flake-utils.lib.eachDefaultSystem (system:
+        let
+          plugins =
+            let
+              f = xs: pkgs.lib.attrsets.filterAttrs (k: v: !builtins.elem k xs);
 
-          # Documentation
-          docs = docbook.html;
-          docs-json = searchdocs.json;
-          docs-search = searchdocs.html;
+              nonPluginInputNames = [
+                "self"
+                "nixpkgs"
+                "flake-utils"
+                "nixpkgs-neovim"
+                "neovim-nightly-flake"
+                "nmd"
+                "ts-build"
+                "tree-sitter-scala"
+              ];
+            in
+            builtins.attrNames (f nonPluginInputNames inputs);
 
-          # CI package
-          ts-scala = pkgs.tree-sitter-scala-master;
-          inherit (pkgs) metals;
-          inherit (pkgs.neovimPlugins) nvim-treesitter;
+          lib = import ./lib { inherit pkgs inputs plugins; };
 
-          # Main languages enabled
-          ide = default-ide.full.neovim;
+          inherit (lib) metalsBuilder metalsOverlay neovimBuilder;
 
-          # Only Haskell (quite heavy)
-          haskell = default-ide.haskell.neovim;
+          pluginOverlay = lib.buildPluginOverlay;
+          nmdOverlay = inputs.nmd.overlays.default;
 
-          # Only Scala with different themes
-          scala = default-ide.scala.neovim;
-          scala-nightly = default-ide.scala-nightly.neovim;
-          scala-rose-pine = default-ide.scala-rose-pine.neovim;
-          scala-tokyo-night = default-ide.scala-tokyo-night.neovim;
+          libOverlay = f: p: {
+            lib = p.lib.extend (_: _: {
+              inherit (lib) mkVimBool withAttrSet withPlugins writeIf;
+            });
+          };
 
-          # Neovim configuration files
-          ide-neovim-rc = default-ide.full.neovimRC;
-          haskell-neovim-rc = default-ide.haskell.neovimRC;
-          scala-neovim-rc = default-ide.scala.neovimRC;
+          tsOverlay = f: p: {
+            tree-sitter-scala-master = inputs.ts-build.lib.buildGrammar p {
+              language = "scala";
+              version = "${inputs.tree-sitter-scala.version}-${inputs.tree-sitter-scala.rev}";
+              source = inputs.tree-sitter-scala;
+            };
 
-          # Lua configuration files
-          ide-lua-rc = default-ide.full.luaRC;
-          haskell-lua-rc = default-ide.haskell.luaRC;
-          scala-lua-rc = default-ide.scala.luaRC;
-        };
-      }
-    );
+            tree-sitter-tsx-master = inputs.ts-build.lib.buildGrammar p {
+              language = "tsx";
+              version = "${inputs.tree-sitter-typescript.version}-${inputs.tree-sitter-typescript.rev}";
+              source = inputs.tree-sitter-typescript;
+            };
+          };
+
+          neovimOverlay = f: p: {
+            neovim-nightly = inputs.neovim-nightly-flake.packages.${system}.neovim;
+          };
+
+          pkgs = import nixpkgs {
+            inherit system;
+            config = { allowUnfree = true; };
+            overlays = [ libOverlay pluginOverlay metalsOverlay neovimOverlay nmdOverlay tsOverlay ];
+          };
+
+          default-ide = pkgs.callPackage ./lib/ide.nix {
+            inherit pkgs neovimBuilder;
+          };
+
+          searchdocs = pkgs.callPackage ./docs/search { };
+
+          docbook = with import ./docs { inherit pkgs; inherit (pkgs) lib; }; {
+            inherit manPages jsonModuleMaintainers;
+            inherit (manual) html;
+            inherit (options) json;
+          };
+        in
+        rec {
+          apps = rec {
+            nvim = {
+              type = "app";
+              program = "${packages.default}/bin/nvim";
+            };
+
+            default = nvim;
+          };
+
+          devShells.default = pkgs.mkShell {
+            buildInputs = [ packages.neovim-ide ];
+          };
+
+          overlays.default = f: p: {
+            inherit metalsBuilder neovimBuilder;
+            inherit (pkgs) neovim-nightly neovimPlugins;
+          };
+
+          packages = {
+            default = default-ide.full.neovim;
+
+            # Documentation
+            docs = docbook.html;
+            docs-json = searchdocs.json;
+            docs-search = searchdocs.html;
+
+            # CI package
+            ts-scala = pkgs.tree-sitter-scala-master;
+            inherit (pkgs) metals;
+            inherit (pkgs.neovimPlugins) nvim-treesitter;
+
+            # Main languages enabled
+            ide = default-ide.full.neovim;
+
+            # Only Haskell (quite heavy)
+            haskell = default-ide.haskell.neovim;
+
+            # Only Scala with different themes
+            scala = default-ide.scala.neovim;
+            scala-nightly = default-ide.scala-nightly.neovim;
+            scala-rose-pine = default-ide.scala-rose-pine.neovim;
+            scala-tokyo-night = default-ide.scala-tokyo-night.neovim;
+
+            # Neovim configuration files
+            ide-neovim-rc = default-ide.full.neovimRC;
+            haskell-neovim-rc = default-ide.haskell.neovimRC;
+            scala-neovim-rc = default-ide.scala.neovimRC;
+
+            # Lua configuration files
+            ide-lua-rc = default-ide.full.luaRC;
+            haskell-lua-rc = default-ide.haskell.luaRC;
+            scala-lua-rc = default-ide.scala.luaRC;
+          };
+        }
+      );
+    in
+    systemOutput // normalOutput;
 }
