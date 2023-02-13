@@ -362,10 +362,6 @@
           default = nvim;
         };
 
-        devShells.default = pkgs.mkShell {
-          buildInputs = [ packages.neovim-ide ];
-        };
-
         overlays.default = f: p: {
           inherit metalsBuilder neovimBuilder;
           inherit (pkgs) neovim-nightly neovimPlugins;

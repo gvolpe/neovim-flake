@@ -41,5 +41,6 @@ jobs:
       - name: "Build NeoVim Scala ❄️"
         run: |
           nix build .#scala
+          nix build .#scala-nighly
           nix build .#scala-rose-pine
           nix build .#scala-tokyo-night
