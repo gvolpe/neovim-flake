@@ -2,7 +2,9 @@
   description = "Neovim Flake by Gabriel Volpe";
 
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixpkgs-unstable;
+    #nixpkgs.url = git+file:///home/gvolpe/workspace/nixpkgs;
+    #nixpkgs.url = github:nixos/nixpkgs/nixpkgs-unstable;
+    nixpkgs.url = github:gvolpe/nixpkgs?ref=tree-sitter/fix-src-value;
     flake-utils.url = github:numtide/flake-utils;
 
     neovim-nightly-flake.url = "github:neovim/neovim?dir=contrib";
