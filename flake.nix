@@ -2,20 +2,17 @@
   description = "Neovim Flake by Gabriel Volpe";
 
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixpkgs-unstable;
+    #nixpkgs.url = git+file:///home/gvolpe/workspace/nixpkgs;
+    #nixpkgs.url = github:nixos/nixpkgs/nixpkgs-unstable;
+    nixpkgs.url = github:gvolpe/nixpkgs?ref=tree-sitter/fix-src-value;
     flake-utils.url = github:numtide/flake-utils;
 
-    # Temporary pin: https://github.com/nix-community/neovim-nightly-overlay/issues/164
-    nixpkgs-neovim.url = github:nixos/nixpkgs?rev=fad51abd42ca17a60fc1d4cb9382e2d79ae31836;
-    neovim-nightly-flake.url = "github:neovim/neovim?dir=contrib";
-    neovim-nightly-flake.inputs.nixpkgs.follows = "nixpkgs-neovim";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
     # Nix module docs generator
     nmd.url = github:gvolpe/nmd;
     #nmd.url = git+file:///home/gvolpe/workspace/nmd;
-
-    # Custom tree-sitter grammar
-    ts-build.url = github:pta2002/build-ts-grammar.nix;
 
     tree-sitter-scala = {
       url = github:tree-sitter/tree-sitter-scala;
@@ -297,7 +294,6 @@
               "self"
               "nixpkgs"
               "flake-utils"
-              "nixpkgs-neovim"
               "neovim-nightly-flake"
               "nmd"
               "ts-build"
@@ -321,21 +317,21 @@
         };
 
         tsOverlay = f: p: {
-          tree-sitter-scala-master = inputs.ts-build.lib.buildGrammar p {
+          tree-sitter-scala-master = p.tree-sitter.buildGrammar {
             language = "scala";
-            version = "${inputs.tree-sitter-scala.version}-${inputs.tree-sitter-scala.rev}";
-            source = inputs.tree-sitter-scala;
+            version = inputs.tree-sitter-scala.rev;
+            src = inputs.tree-sitter-scala;
           };
 
-          tree-sitter-tsx-master = inputs.ts-build.lib.buildGrammar p {
+          tree-sitter-tsx-master = p.tree-sitter.buildGrammar {
             language = "tsx";
-            version = "${inputs.tree-sitter-typescript.version}-${inputs.tree-sitter-typescript.rev}";
-            source = inputs.tree-sitter-typescript;
+            version = inputs.tree-sitter-typescript.rev;
+            src = inputs.tree-sitter-typescript;
           };
         };
 
         neovimOverlay = f: p: {
-          neovim-nightly = inputs.neovim-nightly-flake.packages.${system}.neovim;
+          neovim-nightly = inputs.neovim-nightly-overlay.packages.${system}.neovim;
         };
 
         pkgs = import nixpkgs {
@@ -364,10 +360,6 @@
           };
 
           default = nvim;
-        };
-
-        devShells.default = pkgs.mkShell {
-          buildInputs = [ packages.neovim-ide ];
         };
 
         overlays.default = f: p: {
