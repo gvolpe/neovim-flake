@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'LICENSE'
+      - 'README.md'
+      - 'screenshot.png'
+      - '.gitignore'
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2.3.2
+
+      - name: "Install Nix ❄️"
+        uses: cachix/install-nix-action@v15
+
+      - name: "Install Cachix ❄️"
+        uses: cachix/cachix-action@v10
+        with:
+          name: gvolpe-nixos
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      - name: "Build Metals overlay 🔧"
+        run: nix run .#metals -- -version
+
+      - name: "Build tree-sitter-scala from master 🔧"
+        run: nix build .#ts-scala -L
+
+      - name: "Build nvim-treesitter from master 🔧"
+        run: nix build .#nvim-treesitter -L
+
+      - name: "Build NeoVim flake ❄️"
+        run: nix build .#ide
+
+      - name: "Build NeoVim Scala ❄️"
+        run: |
+          nix build .#scala
+          nix build .#scala-rose-pine
+          nix build .#scala-tokyo-night
