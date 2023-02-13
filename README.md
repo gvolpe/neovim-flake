@@ -1,6 +1,6 @@
 # neovim-flake
 
-![ci-badge](https://img.shields.io/static/v1?label=Built%20with&message=Garnix&color=blue&style=flat-square&logo=nixos&link=https://garnix.io)
+![ci-badge](https://img.shields.io/static/v1?label=Built%20with&message=Garnix&color=blue&style=flat&logo=nixos&link=https://garnix.io&labelColor=111212)
 
 Nix flake for [neovim](https://neovim.io/) with configuration options highly focused on Scala 3.
 
