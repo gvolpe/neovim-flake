@@ -5,10 +5,8 @@
     nixpkgs.url = github:nixos/nixpkgs/nixpkgs-unstable;
     flake-utils.url = github:numtide/flake-utils;
 
-    # Temporary pin: https://github.com/nix-community/neovim-nightly-overlay/issues/164
-    nixpkgs-neovim.url = github:nixos/nixpkgs?rev=fad51abd42ca17a60fc1d4cb9382e2d79ae31836;
     neovim-nightly-flake.url = "github:neovim/neovim?dir=contrib";
-    neovim-nightly-flake.inputs.nixpkgs.follows = "nixpkgs-neovim";
+    neovim-nightly-flake.inputs.nixpkgs.follows = "nixpkgs";
 
     # Nix module docs generator
     nmd.url = github:gvolpe/nmd;
@@ -297,7 +295,6 @@
               "self"
               "nixpkgs"
               "flake-utils"
-              "nixpkgs-neovim"
               "neovim-nightly-flake"
               "nmd"
               "ts-build"

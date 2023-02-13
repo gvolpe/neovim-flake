@@ -353,7 +353,7 @@
       "inputs": {
         "flake-utils": "flake-utils_2",
         "nixpkgs": [
-          "nixpkgs-neovim"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -401,22 +401,6 @@
         "owner": "nixos",
         "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-neovim": {
-      "locked": {
-        "lastModified": 1671983799,
-        "narHash": "sha256-Z2Ro6hFPZHkBqkVXY5/aBUzxi5xizQGvuHQ9+T5B/ks=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "fad51abd42ca17a60fc1d4cb9382e2d79ae31836",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "fad51abd42ca17a60fc1d4cb9382e2d79ae31836",
         "type": "github"
       }
     },
@@ -809,7 +793,6 @@
         "neovim-nightly-flake": "neovim-nightly-flake",
         "nightfox": "nightfox",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-neovim": "nixpkgs-neovim",
         "nmd": "nmd",
         "null-ls": "null-ls",
         "nvim-autopairs": "nvim-autopairs",
