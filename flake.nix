@@ -7,8 +7,8 @@
     nixpkgs.url = github:gvolpe/nixpkgs?ref=tree-sitter/fix-src-value;
     flake-utils.url = github:numtide/flake-utils;
 
-    neovim-nightly-flake.url = "github:neovim/neovim?dir=contrib";
-    neovim-nightly-flake.inputs.nixpkgs.follows = "nixpkgs";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
     # Nix module docs generator
     nmd.url = github:gvolpe/nmd;
@@ -331,7 +331,7 @@
         };
 
         neovimOverlay = f: p: {
-          neovim-nightly = inputs.neovim-nightly-flake.packages.${system}.neovim;
+          neovim-nightly = inputs.neovim-nightly-overlay.packages.${system}.neovim;
         };
 
         pkgs = import nixpkgs {
