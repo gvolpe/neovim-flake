@@ -174,21 +174,6 @@
         "type": "github"
       }
     },
-    "flake-utils_3": {
-      "locked": {
-        "lastModified": 1667395993,
-        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "gitsigns-nvim": {
       "flake": false,
       "locked": {
@@ -402,19 +387,6 @@
         "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
         "type": "github"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1673631141,
-        "narHash": "sha256-AprpYQ5JvLS4wQG/ghm2UriZ9QZXvAwh1HlgA/6ZEVQ=",
-        "path": "/nix/store/ci0324339l5i3x7q68vigpfcf1jicsgs-source",
-        "rev": "befc83905c965adfd33e5cae49acb0351f6e0404",
-        "type": "path"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
       }
     },
     "nmd": {
@@ -824,7 +796,6 @@
         "tree-sitter-scala": "tree-sitter-scala",
         "tree-sitter-typescript": "tree-sitter-typescript",
         "trouble": "trouble",
-        "ts-build": "ts-build",
         "vim-plantuml": "vim-plantuml",
         "vim-vsnip": "vim-vsnip",
         "which-key": "which-key"
@@ -971,25 +942,6 @@
       "original": {
         "owner": "folke",
         "repo": "trouble.nvim",
-        "type": "github"
-      }
-    },
-    "ts-build": {
-      "inputs": {
-        "flake-utils": "flake-utils_3",
-        "nixpkgs": "nixpkgs_2"
-      },
-      "locked": {
-        "lastModified": 1669771646,
-        "narHash": "sha256-IfH9zCq0+QpAB8D1ClhISfWcR59mSDsi91/2NW0RWfs=",
-        "owner": "pta2002",
-        "repo": "build-ts-grammar.nix",
-        "rev": "bba8a5b14a4632f25411dbf0fb01de69e999ce82",
-        "type": "github"
-      },
-      "original": {
-        "owner": "pta2002",
-        "repo": "build-ts-grammar.nix",
         "type": "github"
       }
     },

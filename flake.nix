@@ -12,9 +12,6 @@
     nmd.url = github:gvolpe/nmd;
     #nmd.url = git+file:///home/gvolpe/workspace/nmd;
 
-    # Custom tree-sitter grammar
-    ts-build.url = github:pta2002/build-ts-grammar.nix;
-
     tree-sitter-scala = {
       url = github:tree-sitter/tree-sitter-scala;
       flake = false;
@@ -318,16 +315,16 @@
         };
 
         tsOverlay = f: p: {
-          tree-sitter-scala-master = inputs.ts-build.lib.buildGrammar p {
+          tree-sitter-scala-master = p.tree-sitter.buildGrammar {
             language = "scala";
-            version = "${inputs.tree-sitter-scala.version}-${inputs.tree-sitter-scala.rev}";
-            source = inputs.tree-sitter-scala;
+            version = inputs.tree-sitter-scala.rev;
+            src = inputs.tree-sitter-scala;
           };
 
-          tree-sitter-tsx-master = inputs.ts-build.lib.buildGrammar p {
+          tree-sitter-tsx-master = p.tree-sitter.buildGrammar {
             language = "tsx";
-            version = "${inputs.tree-sitter-typescript.version}-${inputs.tree-sitter-typescript.rev}";
-            source = inputs.tree-sitter-typescript;
+            version = inputs.tree-sitter-typescript.rev;
+            src = inputs.tree-sitter-typescript;
           };
         };
 
