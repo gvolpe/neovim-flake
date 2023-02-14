@@ -3,8 +3,7 @@
 
   inputs = {
     #nixpkgs.url = git+file:///home/gvolpe/workspace/nixpkgs;
-    #nixpkgs.url = github:nixos/nixpkgs/nixpkgs-unstable;
-    nixpkgs.url = github:gvolpe/nixpkgs?ref=tree-sitter/fix-src-value;
+    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
     flake-utils.url = github:numtide/flake-utils;
 
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
