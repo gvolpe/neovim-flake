@@ -17,7 +17,7 @@ in
     };
 
     name = mkOption {
-      type = types.enum [ "catppuccin" "nightfox" "onedark" "rose-pine" "tokyonight" ];
+      type = types.enum [ "dracula" "catppuccin" "nightfox" "onedark" "rose-pine" "tokyonight" ];
       default = "onedark";
       description = ''Name of theme to use: "catppuccin" "nightfox" "onedark" "rose-pine" "tokyonight"'';
     };
@@ -55,6 +55,7 @@ in
       '';
 
       vim.startPlugins = with pkgs.neovimPlugins; (
+        (withPlugins (cfg.name == "dracula") [ dracula ]) ++
         (withPlugins (cfg.name == "nightfox") [ nightfox ]) ++
         (withPlugins (cfg.name == "onedark") [ onedark ]) ++
         (withPlugins (cfg.name == "tokyonight") [ tokyonight ]) ++
@@ -63,6 +64,15 @@ in
       );
 
       vim.luaConfigRC = ''
+        ${writeIf (cfg.name == "dracula") ''
+          -- dracula theme
+          require('dracula').setup {
+            transparent_bg = "${transparency}",
+          }
+
+          vim.cmd("colorscheme dracula")
+        ''
+        }
         ${writeIf (cfg.name == "nightfox") ''
           -- nightfox theme
           require('nightfox').setup {

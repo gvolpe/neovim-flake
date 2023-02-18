@@ -65,11 +65,11 @@ let
       };
       statusline.lualine = {
         enable = true;
-        theme = "onedark";
+        theme = "dracula";
       };
       theme = {
         enable = true;
-        name = "onedark";
+        name = "dracula";
         style = "deep";
         transparency = true;
       };

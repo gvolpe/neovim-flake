@@ -195,6 +195,11 @@
     };
 
     # Themes
+    dracula = {
+      url = github:Mofiqul/dracula.nvim;
+      flake = false;
+    };
+
     catppuccin = {
       url = github:catppuccin/nvim;
       flake = false;
