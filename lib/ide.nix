@@ -38,7 +38,9 @@ let
         haskell = false;
         sql = false;
         python = false;
-        clang = false;
+        cpp = {
+          enable = false;
+        };
         go = false;
       };
       plantuml.enable = false;

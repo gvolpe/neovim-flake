@@ -60,7 +60,14 @@ in
       };
     };
     python = mkEnableOption "Python LSP";
-    clang = mkEnableOption "C language LSP";
+    cpp = {
+      enable = mkEnableOption "C/C++ language LSP";
+      type = mkOption {
+        type = types.enum [ "ccls" "clangd" ];
+        default = "ccls";
+        description = "Whatever to use `ccls` or `clangd`";
+      };
+    };
     go = mkEnableOption "Go language LSP";
   };
 
@@ -101,7 +108,7 @@ in
         ''
       }
 
-      ${writeIf cfg.clang ''
+      ${writeIf cfg.cpp.enable ''
           " c syntax for header (otherwise breaks treesitter highlighting)
           " https://www.reddit.com/r/neovim/comments/orfpcd/question_does_the_c_parser_from_nvimtreesitter/
           let g:c_syntax_for_h = 1
@@ -361,12 +368,21 @@ in
         }
       ''}
 
-      ${writeIf cfg.clang ''
+      ${writeIf (cfg.cpp.enable && cfg.cpp.type == "ccls") ''
         -- CCLS (clang) config
         lspconfig.ccls.setup{
           capabilities = capabilities;
           on_attach=default_on_attach;
           cmd = {"${pkgs.ccls}/bin/ccls"}
+        }
+      ''}
+
+      ${writeIf (cfg.cpp.enable && cfg.cpp.type == "clangd") ''
+        -- clangd config
+        lspconfig.clangd.setup{
+          capabilities = capabilities;
+          on_attach=default_on_attach;
+          cmd = {"${llvmPackages_15.libclang}/bin/clangd"}
         }
       ''}
 

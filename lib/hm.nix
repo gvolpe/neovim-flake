@@ -34,7 +34,7 @@ with lib; {
             scala = true;
             sql = true;
             python = false;
-            clang = false;
+            cpp.enable = false;
             ts = false;
             go = false;
           };
