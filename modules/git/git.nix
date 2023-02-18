@@ -8,15 +8,8 @@ let
 in
 {
   options.vim.git = {
-    enable = mkOption {
-      type = types.bool;
-      description = "Enable git plugins";
-    };
-
-    gitsigns.enable = mkOption {
-      type = types.bool;
-      description = "Enable git options";
-    };
+    enable = mkEnableOption  "Enable git plugins";
+    gitsigns.enable = mkEnableOption "Enable git options";
   };
 
   config =

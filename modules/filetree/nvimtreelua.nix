@@ -8,11 +8,7 @@ let
 in
 {
   options.vim.filetree.nvimTreeLua = {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Enable nvim-tree-lua";
-    };
+    enable = mkEnableOption "Enable nvim-tree-lua";
 
     treeSide = mkOption {
       default = "left";

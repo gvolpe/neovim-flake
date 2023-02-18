@@ -371,6 +371,12 @@
           inherit (pkgs) neovim-nightly neovimPlugins;
         };
 
+        homeManagerModule = {
+          imports = [
+            ./lib/hm.nix
+            { nixpkgs.overlays = [ overlays.default ]; }
+          ];
+        };
         nixosModules.hm = {
           imports = [
             ./lib/hm.nix

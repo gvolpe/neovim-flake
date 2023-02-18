@@ -7,11 +7,7 @@ let
 in
 {
   options.vim.comments = {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
-      description = "enable comments plugin";
-    };
+    enable = mkEnableOption "Enable comments plugin";
 
     type = mkOption {
       default = "nerdcommenter";

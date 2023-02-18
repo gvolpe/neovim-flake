@@ -8,10 +8,7 @@ let
 in
 {
   options.vim.statusline.lualine = {
-    enable = mkOption {
-      type = types.bool;
-      description = "Enable lualine";
-    };
+    enable = mkEnableOption "Enable lualine";
 
     icons = mkOption {
       type = types.bool;

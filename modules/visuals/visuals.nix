@@ -8,10 +8,7 @@ let
 in
 {
   options.vim.visuals = {
-    enable = mkOption {
-      type = types.bool;
-      description = "visual enhancements";
-    };
+    enable = mkEnableOption "visual enhancements";
 
     nvimWebDevicons.enable = mkOption {
       type = types.bool;

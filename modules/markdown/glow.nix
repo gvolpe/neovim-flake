@@ -9,12 +9,7 @@ in
 {
   options.vim.markdown = {
     enable = mkEnableOption "markdown tools and plugins";
-
-    glow.enable = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Enable markdown preview in neovim with glow";
-    };
+    glow.enable = mkEnableOption "Enable markdown preview in neovim with glow";
   };
 
   config = mkIf cfg.enable {
@@ -24,7 +19,7 @@ in
     vim.luaConfigRC = writeIf cfg.glow.enable ''
       require('glow').setup({
         glow_path = "${pkgs.glow}/bin/glow",
-        border = "shadow", 
+        border = "shadow",
         pager = true,
         width = 120,
       })

@@ -8,10 +8,7 @@ let
 in
 {
   options.vim.treesitter = {
-    enable = mkOption {
-      type = types.bool;
-      description = "enable tree-sitter [nvim-treesitter]";
-    };
+    enable = mkEnableOption "enable tree-sitter [nvim-treesitter]";
 
     fold = mkOption {
       type = types.bool;

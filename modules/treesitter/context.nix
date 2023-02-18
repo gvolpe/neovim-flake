@@ -7,10 +7,7 @@ let
   cfg = config.vim.treesitter;
 in
 {
-  options.vim.treesitter.context.enable = mkOption {
-    type = types.bool;
-    description = "enable function context [nvim-treesitter-context]";
-  };
+  options.vim.treesitter.context.enable = mkEnableOption "enable function context [nvim-treesitter-context]";
 
   config = mkIf (cfg.enable && cfg.context.enable) {
     vim.startPlugins = with pkgs.neovimPlugins; [

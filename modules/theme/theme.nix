@@ -11,10 +11,7 @@ let
 in
 {
   options.vim.theme = {
-    enable = mkOption {
-      type = types.bool;
-      description = "Enable Theme";
-    };
+    enable = mkEnableOption "Enable Theme";
 
     name = mkOption {
       type = types.enum [ "dracula" "catppuccin" "nightfox" "onedark" "rose-pine" "tokyonight" ];
@@ -81,7 +78,7 @@ in
               transparent = "${transparency}",
             }
           }
-          
+
           vim.cmd("colorscheme ${cfg.style}")
         ''
         }

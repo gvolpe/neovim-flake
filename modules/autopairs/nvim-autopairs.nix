@@ -9,10 +9,7 @@ in
 {
   options.vim = {
     autopairs = {
-      enable = mkOption {
-        type = types.bool;
-        description = "enable autopairs";
-      };
+      enable = mkEnableOption "enable autopairs";
 
       type = mkOption {
         type = types.enum [ "nvim-autopairs" ];

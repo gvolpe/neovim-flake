@@ -8,11 +8,7 @@ let
 in
 {
   options.vim.mind = {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Enable Mind plugin";
-    };
+    enable = mkEnableOption "Enable Mind plugin";
 
     persistence = {
       dataDir = mkOption {

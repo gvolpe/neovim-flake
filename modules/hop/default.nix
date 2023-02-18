@@ -7,10 +7,7 @@ let
 in
 {
   options.vim.hop = {
-    enable = mkOption {
-      type = types.bool;
-      description = "Enable Hop plugin (easy motion)";
-    };
+    enable = mkEnableOption "Enable Hop plugin (easy motion)";
   };
 
   config = mkIf cfg.enable {

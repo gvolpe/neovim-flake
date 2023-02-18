@@ -7,11 +7,7 @@ let
 in
 {
   options.vim.surround = {
-    enable = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Enable nvim-surround plugin";
-    };
+    enable = mkEnableOption "Enable nvim-surround plugin";
   };
 
   config = mkIf cfg.enable

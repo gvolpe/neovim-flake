@@ -9,11 +9,7 @@ in
 {
   options.vim = {
     autocomplete = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = "enable autocomplete";
-      };
+      enable = mkEnableOption "enable autocomplete";
 
       type = mkOption {
         default = "nvim-cmp";

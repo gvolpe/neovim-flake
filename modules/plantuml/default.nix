@@ -8,11 +8,7 @@ let
 in
 {
   options.vim.plantuml = {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Enable PlantUML syntax highlights";
-    };
+    enable = mkEnableOption "Enable PlantUML syntax highlights";
   };
 
   config = mkIf cfg.enable {

@@ -8,11 +8,7 @@ in
 {
   options.vim.fx = {
     automaton = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = "Enable Cellular Automaton";
-      };
+      enable = mkEnableOption "Enable Cellular Automaton";
     };
   };
 

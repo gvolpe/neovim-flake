@@ -7,10 +7,7 @@ let
 in
 {
   options.vim.neoclip = {
-    enable = mkOption {
-      type = types.bool;
-      description = "Enable nvim-neoclip.lua plugin";
-    };
+    enable = mkEnableOption "Enable nvim-neoclip.lua plugin";
   };
 
   config = mkIf cfg.enable {
