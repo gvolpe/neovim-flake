@@ -23,6 +23,11 @@
       flake = false;
     };
 
+    tree-sitter-meson = {
+      url = github:Decodetalkers/tree-sitter-meson;
+      flake = false;
+    };
+
     tree-sitter-zig = {
       url = github:maxxnino/tree-sitter-zig;
       flake = false;
@@ -308,6 +313,7 @@
               "ts-build"
               "tree-sitter-scala"
               "tree-sitter-typescript"
+              "tree-sitter-meson"
               "tree-sitter-zig"
             ];
           in
@@ -337,6 +343,11 @@
             language = "tsx";
             version = inputs.tree-sitter-typescript.rev;
             src = inputs.tree-sitter-typescript;
+          };
+          tree-sitter-meson-master = p.tree-sitter.buildGrammar {
+            language = "meson";
+            version = inputs.tree-sitter-meson.rev;
+            src = inputs.tree-sitter-meson;
           };
           tree-sitter-zig-master = p.tree-sitter.buildGrammar {
             language = "zig";

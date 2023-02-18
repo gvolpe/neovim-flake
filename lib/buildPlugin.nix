@@ -14,12 +14,19 @@ let
       tree-sitter-tsx = final.tree-sitter-tsx-master;
       tree-sitter-typescript = final.tree-sitter-tsx-master;
       tree-sitter-zig = final.tree-sitter-zig-master;
+      tree-sitter-meson = final.tree-sitter-meson-master;
     };
   };
 
   treesitterGrammars = ts.withPlugins (p: [
     p.tree-sitter-scala
+
     p.tree-sitter-c
+    p.tree-sitter-cpp
+    p.tree-sitter-make
+    p.tree-sitter-cmake
+    p.tree-sitter-meson
+
     p.tree-sitter-nix
     p.tree-sitter-elm
     p.tree-sitter-haskell
@@ -28,14 +35,15 @@ let
     p.tree-sitter-markdown
     p.tree-sitter-comment
     p.tree-sitter-toml
-    p.tree-sitter-make
-    p.tree-sitter-tsx
-    p.tree-sitter-typescript
+
     p.tree-sitter-html
-    p.tree-sitter-javascript
     p.tree-sitter-css
-    p.tree-sitter-graphql
+    p.tree-sitter-javascript
+    p.tree-sitter-typescript
+    p.tree-sitter-tsx
+
     p.tree-sitter-json
+    p.tree-sitter-graphql
     p.tree-sitter-smithy
     p.tree-sitter-zig
   ]);
