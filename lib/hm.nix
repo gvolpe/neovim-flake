@@ -37,6 +37,7 @@ with lib; {
             cpp.enable = false;
             ts = false;
             go = false;
+            zig.enable = false;
           };
         }
       '';

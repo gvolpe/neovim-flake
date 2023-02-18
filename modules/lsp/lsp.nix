@@ -68,6 +68,14 @@ in
         description = "Whatever to use `ccls` or `clangd`";
       };
     };
+    zig = {
+      enable = mkEnableOption "Zig language LSP";
+      zls = mkOption {
+        type = types.package;
+        default = pkgs.zls;
+        description = "The zls package to use. Default pkgs.zls.";
+      };
+    };
     go = mkEnableOption "Go language LSP";
   };
 
@@ -504,6 +512,17 @@ in
             attach_keymaps(client, bufnr)
           end,
           cmd = { "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server", "--stdio" }
+        }
+      ''}
+
+      ${writeIf cfg.zig.enable ''
+        -- Zig zls config
+        lspconfig.zls.setup {
+          capabilities = capabilities;
+          on_attach = function(client, bufnr)
+            attach_keymaps(client, bufnr)
+          end,
+          cmd = { "${cfg.zig.zls}/bin/zls" }
         }
       ''}
     '';

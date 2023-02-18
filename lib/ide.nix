@@ -42,6 +42,9 @@ let
           enable = false;
         };
         go = false;
+        zig = {
+          enable = false;
+        };
       };
       plantuml.enable = false;
       fx.automaton.enable = true;
