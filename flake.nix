@@ -23,6 +23,11 @@
       flake = false;
     };
 
+    tree-sitter-zig = {
+      url = github:maxxnino/tree-sitter-zig;
+      flake = false;
+    };
+
     # Neovim plugins
 
     # Text objects
@@ -303,6 +308,7 @@
               "ts-build"
               "tree-sitter-scala"
               "tree-sitter-typescript"
+              "tree-sitter-zig"
             ];
           in
           builtins.attrNames (f nonPluginInputNames inputs);
@@ -331,6 +337,11 @@
             language = "tsx";
             version = inputs.tree-sitter-typescript.rev;
             src = inputs.tree-sitter-typescript;
+          };
+          tree-sitter-zig-master = p.tree-sitter.buildGrammar {
+            language = "zig";
+            version = inputs.tree-sitter-zig.rev;
+            src = inputs.tree-sitter-zig;
           };
         };
 
