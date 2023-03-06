@@ -139,7 +139,6 @@ in
         disable_netrw = ${boolToString cfg.disableNetRW},
         hijack_netrw = ${boolToString cfg.hijackNetRW},
         open_on_tab = ${boolToString cfg.openTreeOnNewTab},
-        open_on_setup = ${boolToString cfg.openOnSetup},
         diagnostics = {
           enable = ${boolToString cfg.lspDiagnostics},
         },
@@ -171,6 +170,14 @@ in
           },
         },
       })
+
+      ${writeIf cfg.openOnSetup ''
+        local function open_nvim_tree()
+          require("nvim-tree.api").tree.open()
+        end
+
+        vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
+      ''}
     '';
   };
 }

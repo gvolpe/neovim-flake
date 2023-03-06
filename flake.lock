@@ -638,11 +638,11 @@
     "nvim-tree-lua": {
       "flake": false,
       "locked": {
-        "lastModified": 1676766275,
-        "narHash": "sha256-6TJkXDNikMJu72LmzX2wqNkJ5uET6cExhkPsZKyWqD4=",
+        "lastModified": 1678059958,
+        "narHash": "sha256-Y5NRrlhRvaF+oip7cq9B97lXwF9CjDAgqlrrr+mT/Kg=",
         "owner": "kyazdani42",
         "repo": "nvim-tree.lua",
-        "rev": "bcb969c8692bd79a3b34658436e679f3bf784b92",
+        "rev": "bbb6d4891009de7dab05ad8fc2d39f272d7a751c",
         "type": "github"
       },
       "original": {
