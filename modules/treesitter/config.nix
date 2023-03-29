@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ lib, ... }:
 
 with lib;
 
@@ -9,6 +9,7 @@ with lib;
       fold = mkDefault true;
       autotagHtml = mkDefault false;
       context.enable = mkDefault false;
+      textobjects = mkDefault true;
     };
   };
 }

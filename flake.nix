@@ -46,6 +46,10 @@
       url = github:nvim-treesitter/nvim-treesitter;
       flake = false;
     };
+    nvim-treesitter-textobjects = {
+      url = github:nvim-treesitter/nvim-treesitter-textobjects;
+      flake = false;
+    };
     lspsaga = {
       url = github:tami5/lspsaga.nvim;
       flake = false;
