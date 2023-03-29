@@ -144,6 +144,22 @@
         "type": "github"
       }
     },
+    "dial-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1680003919,
+        "narHash": "sha256-W35nenZeBEXa/mr9hRGMBlU8u9roTn9BpfjBkVgnrVY=",
+        "owner": "monaqa",
+        "repo": "dial.nvim",
+        "rev": "0fb00f58591e6d28a8e344984403b3e390df2458",
+        "type": "github"
+      },
+      "original": {
+        "owner": "monaqa",
+        "repo": "dial.nvim",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -806,6 +822,7 @@
         "cmp-treesitter": "cmp-treesitter",
         "cmp-vsnip": "cmp-vsnip",
         "crates-nvim": "crates-nvim",
+        "dial-nvim": "dial-nvim",
         "flake-utils": "flake-utils",
         "gitsigns-nvim": "gitsigns-nvim",
         "glow-nvim": "glow-nvim",

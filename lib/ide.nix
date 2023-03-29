@@ -120,6 +120,7 @@ let
           statePath = "~/.local/share/mind.nvim/mind.json";
         };
       };
+      dial.enable = true;
       hop.enable = true;
       todo.enable = true;
     };

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ ... }:
 
 {
   imports = [
@@ -7,6 +7,7 @@
     ./comments
     ./completion
     ./core
+    ./dial
     ./filetree
     ./fx
     ./git

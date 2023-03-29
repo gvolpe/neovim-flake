@@ -284,9 +284,15 @@
       url = github:aklt/plantuml-syntax;
       flake = false;
     };
+
+    # Enhanced incr/decr functionality
+    dial-nvim = {
+      url = github:monaqa/dial.nvim;
+      flake = false;
+    };
   };
 
-  outputs = inputs @ { self, nixpkgs, flake-utils, ... }:
+  outputs = inputs @ { nixpkgs, flake-utils, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         plugins =
