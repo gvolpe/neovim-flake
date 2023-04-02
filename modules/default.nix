@@ -19,7 +19,6 @@
     ./neoclip
     ./neovim
     ./plantuml
-    ./scala
     ./snippets
     ./statusline
     ./surround

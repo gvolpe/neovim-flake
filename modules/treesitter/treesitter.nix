@@ -30,12 +30,6 @@ in
   };
 
   config = mkIf cfg.enable (
-    let
-      disabledLanguages =
-        if (config.vim.scala.highlightMode == "regex")
-        then ''{ "scala" }''
-        else "{}";
-    in
     {
       vim.startPlugins = with pkgs.neovimPlugins; (
         [ nvim-treesitter ] ++
@@ -55,12 +49,10 @@ in
           require'nvim-treesitter.configs'.setup {
             highlight = {
               enable = true,
-              disable = ${disabledLanguages},
             },
 
             incremental_selection = {
               enable = true,
-              disable = ${disabledLanguages},
               keymaps = {
                 init_selection = "gnn",
                 node_incremental = "grn",
@@ -71,7 +63,6 @@ in
 
             indent = {
               enable = true,
-              disable = ${disabledLanguages},
             },
 
             ${writeIf cfg.textobjects ''
@@ -109,7 +100,6 @@ in
             ${writeIf cfg.autotagHtml ''
             autotag = {
               enable = true,
-              disable = ${disabledLanguages},
             },
             ''}
           }

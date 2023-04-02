@@ -3,11 +3,20 @@
 
 [source,console]
 ----
-$ cachix use gvolpe-nixos # Optional: it'll save you CPU resources and time
 $ nix run github:gvolpe/neovim-flake
 ----
 
 By default, LSP support is enabled for Scala, Dhall, Elm, Nix, and Smithy.
+
+=== Binary cache
+
+To save you CPU resources and time, you can add the following binary cache to your `~/.config/nix/nix.conf`:
+
+[source,console]
+----
+substituters = https://cache.garnix.io
+trusted-public-keys = cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
+----
 
 === Scala
 
