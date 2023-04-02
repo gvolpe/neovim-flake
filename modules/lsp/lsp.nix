@@ -5,13 +5,6 @@ with builtins;
 
 let
   cfg = config.vim.lsp;
-
-  # Smithy packages
-  cs = "${pkgs.coursier}/bin/cs";
-  sls = {
-    name = "com.disneystreaming.smithy:smithy-language-server";
-    version = "0.0.20";
-  };
 in
 {
   options.vim.lsp = {
@@ -41,7 +34,27 @@ in
       };
     };
 
-    smithy = mkEnableOption "Smithy Language LSP";
+    smithy = {
+      enable = mkEnableOption "Smithy Language LSP";
+      launcher = mkOption {
+        type = types.package;
+        default = pkgs.coursier;
+        description = "The launcher of the LSP server";
+      };
+      server = {
+        name = mkOption {
+          type = types.str;
+          default = "com.disneystreaming.smithy:smithy-language-server";
+          description = "The Smithy LSP server dependency (usually a jar)";
+        };
+        version = mkOption {
+          type = types.str;
+          default = "0.0.20";
+          description = "The Smithy LSP server dependency version";
+        };
+      };
+    };
+
     sql = mkEnableOption "SQL Language LSP";
     ts = mkEnableOption "TS language LSP";
 
@@ -476,7 +489,7 @@ in
         });
       ''}
 
-      ${writeIf cfg.smithy ''
+      ${writeIf cfg.smithy.enable ''
         -- Smithy config
         vim.cmd([[au BufRead,BufNewFile *.smithy setfiletype smithy]])
 
@@ -485,7 +498,7 @@ in
           on_attach = function(client, bufnr)
             attach_keymaps(client, bufnr)
           end,
-          cmd = { '${cs}', 'launch', '${sls.name}:${sls.version}', '--' , '0' },
+          cmd = { '${cfg.smithy.launcher}/bin/cs', 'launch', '${cfg.smithy.server.name}:${cfg.smithy.server.version}', '--' , '0' },
           root_dir = lspconfig.util.root_pattern("smithy-build.json")
         }
       ''}

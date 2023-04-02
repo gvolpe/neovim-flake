@@ -32,7 +32,7 @@ let
         };
         rust.enable = false;
         ts = false;
-        smithy = false;
+        smithy.enable = false;
         dhall = false;
         elm = false;
         haskell = false;
@@ -126,7 +126,7 @@ let
   langs = {
     vim.lsp = {
       ts = true;
-      smithy = true;
+      smithy.enable = true;
       dhall = true;
       elm = true;
     };
