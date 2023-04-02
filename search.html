@@ -1951,11 +1951,11 @@
 							</div>
 						</div>
 					</div>
-					<div class="nixoption block" id="vim.lsp.smithy">
+					<div class="nixoption block" id="vim.lsp.smithy.enable">
 						<div class="level">
 							<div class="level-left">
 								<div class="level-item">
-									<h3 class="title is-3"> <a href="#vim.lsp.smithy"># </a> vim.lsp.smithy  </h3>
+									<h3 class="title is-3"> <a href="#vim.lsp.smithy.enable"># </a> vim.lsp.smithy.enable  </h3>
 								</div>
 							</div>
 							<div class="level-right">
@@ -1970,6 +1970,93 @@
 						<div class="block">
 							<p class="block"><strong>Default:</strong> <code>false</code> </p>
 							<p class="block"><strong>Example:</strong> <code>true</code> </p>
+
+							<h4 class="title is-4">Declarations</h4>
+
+							<div class="block">
+								<ul>
+                  <li> <a href="https://github.com/gvolpe/neovim-flake/blob/main/modules/lsp/lsp.nix" target="_blank"> <code> &lt;/modules/lsp/lsp.nix&gt; </code> </a> </li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="nixoption block" id="vim.lsp.smithy.launcher">
+						<div class="level">
+							<div class="level-left">
+								<div class="level-item">
+									<h3 class="title is-3"> <a href="#vim.lsp.smithy.launcher"># </a> vim.lsp.smithy.launcher  </h3>
+								</div>
+							</div>
+							<div class="level-right">
+								<div class="level-item">
+									<span class="tag is-medium is-info">package</span>
+								</div>
+							</div>
+						</div>
+
+						<p class="subtitle"> The launcher of the LSP server </p>
+
+						<div class="block">
+							<p class="block"><strong>Default:</strong> <code>&lt;derivation coursier-2.1.0-M7&gt;</code> </p>
+							<p class="block"><strong>Example:</strong> <code></code> </p>
+
+							<h4 class="title is-4">Declarations</h4>
+
+							<div class="block">
+								<ul>
+                  <li> <a href="https://github.com/gvolpe/neovim-flake/blob/main/modules/lsp/lsp.nix" target="_blank"> <code> &lt;/modules/lsp/lsp.nix&gt; </code> </a> </li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="nixoption block" id="vim.lsp.smithy.server.name">
+						<div class="level">
+							<div class="level-left">
+								<div class="level-item">
+									<h3 class="title is-3"> <a href="#vim.lsp.smithy.server.name"># </a> vim.lsp.smithy.server.name  </h3>
+								</div>
+							</div>
+							<div class="level-right">
+								<div class="level-item">
+									<span class="tag is-medium is-info">string</span>
+								</div>
+							</div>
+						</div>
+
+						<p class="subtitle"> The Smithy LSP server dependency (usually a jar) </p>
+
+						<div class="block">
+							<p class="block"><strong>Default:</strong> <code>&#34;com.disneystreaming.smithy:smithy-language-server&#34;</code> </p>
+							<p class="block"><strong>Example:</strong> <code></code> </p>
+
+							<h4 class="title is-4">Declarations</h4>
+
+							<div class="block">
+								<ul>
+                  <li> <a href="https://github.com/gvolpe/neovim-flake/blob/main/modules/lsp/lsp.nix" target="_blank"> <code> &lt;/modules/lsp/lsp.nix&gt; </code> </a> </li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="nixoption block" id="vim.lsp.smithy.server.version">
+						<div class="level">
+							<div class="level-left">
+								<div class="level-item">
+									<h3 class="title is-3"> <a href="#vim.lsp.smithy.server.version"># </a> vim.lsp.smithy.server.version  </h3>
+								</div>
+							</div>
+							<div class="level-right">
+								<div class="level-item">
+									<span class="tag is-medium is-info">string</span>
+								</div>
+							</div>
+						</div>
+
+						<p class="subtitle"> The Smithy LSP server dependency version </p>
+
+						<div class="block">
+							<p class="block"><strong>Default:</strong> <code>&#34;0.0.20&#34;</code> </p>
+							<p class="block"><strong>Example:</strong> <code></code> </p>
 
 							<h4 class="title is-4">Declarations</h4>
 
