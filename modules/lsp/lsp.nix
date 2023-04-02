@@ -481,8 +481,7 @@ in
         vim.cmd([[augroup end]])
       ''}
 
-      ${writeIf cfg.nix.enable
-    ''
+      ${writeIf cfg.nix.enable ''
         -- Nix formatter
         null_ls.builtins.formatting.alejandra.with({
           command = "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt";
