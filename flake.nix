@@ -398,6 +398,7 @@
 
           # Main languages enabled
           ide = default-ide.full.neovim;
+          nightly = default-ide.full-nightly.neovim;
 
           # Only Haskell (quite heavy)
           haskell = default-ide.haskell.neovim;

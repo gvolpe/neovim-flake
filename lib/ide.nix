@@ -174,6 +174,10 @@ let
 in
 {
   full = neovimBuilder {
+    config = deepMerge (deepMerge cfg langs) nightly;
+  };
+
+  full-nightly = neovimBuilder {
     config = deepMerge cfg langs;
   };
 
