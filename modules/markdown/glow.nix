@@ -25,7 +25,7 @@ in
       require('glow').setup({
         glow_path = "${pkgs.glow}/bin/glow",
         border = "shadow", 
-        pager = true,
+        pager = false,
         width = 120,
       })
     '';
