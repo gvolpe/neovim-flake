@@ -25,6 +25,20 @@
 
     # Neovim plugins
 
+    # AI plugins
+    nvim-chatgpt = {
+      #url = github:jackMort/ChatGPT.nvim;
+      #url = git+file:///home/gvolpe/workspace/ChatGPT.nvim;
+      url = github:gvolpe/ChatGPT.nvim;
+      flake = false;
+    };
+
+    # chatgpt plugin dependency
+    nvim-nui = {
+      url = github:MunifTanjim/nui.nvim;
+      flake = false;
+    };
+
     # Text objects
     nvim-surround = {
       url = github:kylechui/nvim-surround;

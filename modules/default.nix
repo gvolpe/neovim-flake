@@ -4,6 +4,7 @@
   imports = [
     ./autopairs
     ./basic
+    ./chatgpt
     ./comments
     ./completion
     ./core

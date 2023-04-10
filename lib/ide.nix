@@ -117,6 +117,10 @@ let
           statePath = "~/.local/share/mind.nvim/mind.json";
         };
       };
+      chatgpt = {
+        enable = false;
+        openaiApiKey = null;
+      };
       dial.enable = true;
       hop.enable = true;
       todo.enable = true;

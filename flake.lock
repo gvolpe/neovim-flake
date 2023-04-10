@@ -507,6 +507,22 @@
         "type": "github"
       }
     },
+    "nvim-chatgpt": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1681139851,
+        "narHash": "sha256-twfnoII1drsxvmUTf3JfeKGf8rvlzMeKwBrPhMy0/go=",
+        "owner": "gvolpe",
+        "repo": "ChatGPT.nvim",
+        "rev": "9b353930a879e0b19698048c7c94c90a958c61c9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gvolpe",
+        "repo": "ChatGPT.nvim",
+        "type": "github"
+      }
+    },
     "nvim-cmp": {
       "flake": false,
       "locked": {
@@ -632,6 +648,22 @@
       "original": {
         "owner": "AckslD",
         "repo": "nvim-neoclip.lua",
+        "type": "github"
+      }
+    },
+    "nvim-nui": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1680456408,
+        "narHash": "sha256-Uv/AcgDtq/eMYwZvp+ypa3pN9W9uCYOrGn8j9Bq+ew8=",
+        "owner": "MunifTanjim",
+        "repo": "nui.nvim",
+        "rev": "1f43b13d133eb4b4f53a4485379d9afa58808389",
+        "type": "github"
+      },
+      "original": {
+        "owner": "MunifTanjim",
+        "repo": "nui.nvim",
         "type": "github"
       }
     },
@@ -841,6 +873,7 @@
         "null-ls": "null-ls",
         "nvim-autopairs": "nvim-autopairs",
         "nvim-bufferline": "nvim-bufferline",
+        "nvim-chatgpt": "nvim-chatgpt",
         "nvim-cmp": "nvim-cmp",
         "nvim-code-action-menu": "nvim-code-action-menu",
         "nvim-compe": "nvim-compe",
@@ -849,6 +882,7 @@
         "nvim-lspconfig": "nvim-lspconfig",
         "nvim-metals": "nvim-metals",
         "nvim-neoclip": "nvim-neoclip",
+        "nvim-nui": "nvim-nui",
         "nvim-surround": "nvim-surround",
         "nvim-tree-lua": "nvim-tree-lua",
         "nvim-treesitter": "nvim-treesitter",
