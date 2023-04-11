@@ -683,6 +683,22 @@
         "type": "github"
       }
     },
+    "nvim-spider": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1681060671,
+        "narHash": "sha256-Q1q32udPW1OFBxbdwLErdPRgAYlYMuICMG76IQgwu2o=",
+        "owner": "chrisgrieser",
+        "repo": "nvim-spider",
+        "rev": "fcae87f8c73cc8624eacf6c5fd5de4d5e16ee0c0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chrisgrieser",
+        "repo": "nvim-spider",
+        "type": "github"
+      }
+    },
     "nvim-surround": {
       "flake": false,
       "locked": {
@@ -900,6 +916,7 @@
         "nvim-neoclip": "nvim-neoclip",
         "nvim-notify": "nvim-notify",
         "nvim-nui": "nvim-nui",
+        "nvim-spider": "nvim-spider",
         "nvim-surround": "nvim-surround",
         "nvim-tree-lua": "nvim-tree-lua",
         "nvim-treesitter": "nvim-treesitter",

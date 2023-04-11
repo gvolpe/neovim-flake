@@ -45,6 +45,11 @@
       flake = false;
     };
 
+    nvim-spider = {
+      url = github:chrisgrieser/nvim-spider;
+      flake = false;
+    };
+
     # Copying/Registers
     nvim-neoclip = {
       url = github:AckslD/nvim-neoclip.lua;

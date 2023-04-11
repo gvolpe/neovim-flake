@@ -121,6 +121,10 @@ let
         enable = false;
         openaiApiKey = null;
       };
+      spider = {
+        enable = true;
+        skipInsignificantPunctuation = true;
+      };
       dial.enable = true;
       hop.enable = true;
       notifications.enable = true;

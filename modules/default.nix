@@ -22,6 +22,7 @@
     ./notifications
     ./plantuml
     ./snippets
+    ./spider
     ./statusline
     ./surround
     ./tabline
