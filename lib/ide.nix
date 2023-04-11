@@ -123,6 +123,7 @@ let
       };
       dial.enable = true;
       hop.enable = true;
+      notifications.enable = true;
       todo.enable = true;
     };
   };

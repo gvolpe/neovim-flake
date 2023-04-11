@@ -19,6 +19,7 @@
     ./mind
     ./neoclip
     ./neovim
+    ./notifications
     ./plantuml
     ./snippets
     ./statusline

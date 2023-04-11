@@ -33,9 +33,9 @@
       flake = false;
     };
 
-    # chatgpt plugin dependency
-    nvim-nui = {
-      url = github:MunifTanjim/nui.nvim;
+    # Notifications
+    nvim-notify = {
+      url = github:rcarriga/nvim-notify;
       flake = false;
     };
 
@@ -287,12 +287,6 @@
       flake = false;
     };
 
-    # Plenary (required by crates-nvim)
-    plenary-nvim = {
-      url = github:nvim-lua/plenary.nvim;
-      flake = false;
-    };
-
     # Plant UML syntax highlights
     vim-plantuml = {
       url = github:aklt/plantuml-syntax;
@@ -302,6 +296,17 @@
     # Enhanced incr/decr functionality
     dial-nvim = {
       url = github:monaqa/dial.nvim;
+      flake = false;
+    };
+
+    # Dependencies of other plugins
+    plenary-nvim = {
+      url = github:nvim-lua/plenary.nvim;
+      flake = false;
+    };
+
+    nvim-nui = {
+      url = github:MunifTanjim/nui.nvim;
       flake = false;
     };
   };
