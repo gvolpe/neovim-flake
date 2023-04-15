@@ -71,6 +71,13 @@ let
     cp ${ts.builtGrammars.tree-sitter-smithy}/queries/highlights.scm $out/queries/smithy/highlights.scm
   '';
 
+  telescopeFixupHook = ''
+    substituteInPlace $out/scripts/vimg \
+      --replace "ueberzug layer" "${pkgs.ueberzug}/bin/ueberzug layer"
+    substituteInPlace $out/lua/telescope/_extensions/media_files.lua \
+      --replace "M.base_directory .. '/scripts/vimg'" "'$out/scripts/vimg'"
+  '';
+
   tsPreFixupHook = ''
     ${queriesHook}
 
@@ -90,6 +97,7 @@ let
       preFixup = ''
         ${writeIf (name == "nvim-lspconfig") smithyLspHook}
         ${writeIf (name == "nvim-treesitter") tsPreFixupHook}
+        ${writeIf (name == "telescope-media-files") telescopeFixupHook}
       '';
       postPatch = ''
         ${writeIf (name == "nvim-treesitter") tsPostPatchHook}

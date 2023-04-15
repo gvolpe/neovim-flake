@@ -132,6 +132,12 @@
       flake = false;
     };
 
+    telescope-media-files = {
+      #url = git+file:///home/gvolpe/workspace/telescope-media-files.nvim;
+      url = github:gvolpe/telescope-media-files.nvim;
+      flake = false;
+    };
+
     # Filetrees
     nvim-tree-lua = {
       url = github:kyazdani42/nvim-tree.lua;

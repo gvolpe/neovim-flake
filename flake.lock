@@ -932,6 +932,7 @@
         "rust-tools": "rust-tools",
         "sqls-nvim": "sqls-nvim",
         "telescope": "telescope",
+        "telescope-media-files": "telescope-media-files",
         "todo-comments": "todo-comments",
         "tokyonight": "tokyonight",
         "tree-sitter-scala": "tree-sitter-scala",
@@ -1003,6 +1004,22 @@
       "original": {
         "owner": "nvim-telescope",
         "repo": "telescope.nvim",
+        "type": "github"
+      }
+    },
+    "telescope-media-files": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1681572273,
+        "narHash": "sha256-DA4veoacCIKg9ZXjq1nKEyGKG62n/Rkm4n9TNkkYEYA=",
+        "owner": "gvolpe",
+        "repo": "telescope-media-files.nvim",
+        "rev": "f0b0220db686c54fadb07cbb93e1ecbf764628ba",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gvolpe",
+        "repo": "telescope-media-files.nvim",
         "type": "github"
       }
     },

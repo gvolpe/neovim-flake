@@ -9,12 +9,16 @@ in
 {
   options.vim.telescope = {
     enable = mkEnableOption "enable telescope";
+
+    mediaFiles = {
+      enable = mkEnableOption "enable telescope-media-files extension";
+    };
   };
 
   config = mkIf cfg.enable {
-    vim.startPlugins = with pkgs.neovimPlugins; [
-      telescope
-    ];
+    vim.startPlugins = with pkgs.neovimPlugins;
+      [ telescope ] ++
+      (withPlugins cfg.mediaFiles.enable [ telescope-media-files ]);
 
     vim.nnoremap =
       {
@@ -42,12 +46,20 @@ in
           "<leader>fld" = "<cmd> Telescope diagnostics<CR>";
         }
       ) // (
+        withAttrSet cfg.mediaFiles.enable {
+          "<leader>fi" = "<cmd> Telescope media_files<CR>";
+        }
+      ) // (
         withAttrSet config.vim.treesitter.enable {
           "<leader>fs" = "<cmd> Telescope treesitter<CR>";
         }
       );
 
     vim.luaConfigRC = ''
+      ${writeIf cfg.mediaFiles.enable ''
+      require("telescope").load_extension("media_files")
+      ''}
+
       require("telescope").setup {
         defaults = {
           vimgrep_arguments = {
@@ -64,6 +76,12 @@ in
               "${pkgs.fd}/bin/fd",
             },
           },
+        },
+        extensions = {
+          media_files = {
+            filetypes = {"png", "webp", "jpg", "jpeg"},
+            find_cmd = "${pkgs.fd}/bin/fd",
+          }
         }
       }
     '';
