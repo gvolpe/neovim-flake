@@ -122,7 +122,7 @@ let
         openaiApiKey = null;
       };
       spider = {
-        enable = true;
+        enable = false;
         skipInsignificantPunctuation = true;
       };
       dial.enable = true;
