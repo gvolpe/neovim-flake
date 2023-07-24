@@ -129,7 +129,7 @@ in
 
   config = {
     vim.colourTerm = mkDefault true;
-    vim.disableArrows = true;
+    vim.disableArrows = mkDefault true;
     vim.hideSearchHighlight = mkDefault false;
     vim.scrollOffset = mkDefault 8;
     vim.wordWrap = mkDefault true;
