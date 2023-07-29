@@ -9,6 +9,9 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
+    # nix lsp support
+    nixd.url = github:nix-community/nixd;
+
     # Nix module docs generator
     nmd.url = github:gvolpe/nmd;
     #nmd.url = git+file:///home/gvolpe/workspace/nmd;
@@ -331,6 +334,7 @@
               "flake-utils"
               "neovim-nightly-flake"
               "nmd"
+              "nixd"
               "ts-build"
               "tree-sitter-scala"
               "tree-sitter-typescript"
@@ -369,10 +373,14 @@
           neovim-nightly = inputs.neovim-nightly-overlay.packages.${system}.neovim;
         };
 
+        nixdOverlay = f: p: {
+          inherit (inputs.nixd.packages.${system}) nixd;
+        };
+
         pkgs = import nixpkgs {
           inherit system;
           config = { allowUnfree = true; };
-          overlays = [ libOverlay pluginOverlay metalsOverlay neovimOverlay nmdOverlay tsOverlay ];
+          overlays = [ libOverlay pluginOverlay metalsOverlay neovimOverlay nmdOverlay nixdOverlay tsOverlay ];
         };
 
         default-ide = pkgs.callPackage ./lib/ide.nix {

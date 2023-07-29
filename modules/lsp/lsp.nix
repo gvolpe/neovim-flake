@@ -15,9 +15,9 @@ in
     nix = {
       enable = mkEnableOption "Nix LSP";
       type = mkOption {
-        type = types.enum [ "nil" "rnix-lsp" ];
-        default = "rnix-lsp";
-        description = "Whether to use `nil` or `rnix-lsp`";
+        type = types.enum [ "nixd" "nil" "rnix-lsp" ];
+        default = "nil";
+        description = "Whether to use `nixd`, `nil` or `rnix-lsp`";
       };
     };
 
@@ -274,6 +274,17 @@ in
           capabilities = capabilities;
           on_attach=default_on_attach;
           cmd = {"${pkgs.nodePackages.pyright}/bin/pyright-langserver", "--stdio"}
+        }
+      ''}
+
+      ${writeIf (cfg.nix.enable && cfg.nix.type == "nixd") ''
+        -- Nix config
+        lspconfig.nixd.setup{
+          capabilities = capabilities;
+          on_attach = function(client, bufnr)
+            attach_keymaps(client, bufnr)
+          end,
+          cmd = {"${pkgs.nixd}/bin/nixd"}
         }
       ''}
 
