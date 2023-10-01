@@ -21,11 +21,6 @@
       flake = false;
     };
 
-    tree-sitter-typescript = {
-      url = github:tree-sitter/tree-sitter-typescript;
-      flake = false;
-    };
-
     # Neovim plugins
 
     # AI plugins
@@ -360,12 +355,6 @@
             language = "scala";
             version = inputs.tree-sitter-scala.rev;
             src = inputs.tree-sitter-scala;
-          };
-
-          tree-sitter-tsx-master = p.tree-sitter.buildGrammar {
-            language = "tsx";
-            version = inputs.tree-sitter-typescript.rev;
-            src = inputs.tree-sitter-typescript;
           };
         };
 
