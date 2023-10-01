@@ -90,7 +90,7 @@ in
               ''
             }
 
-            require("indent_blankline").setup {
+            require("ibl").setup {
               char = "${cfg.indentBlankline.listChar}",
               show_current_context = ${boolToString cfg.indentBlankline.showCurrContext},
               show_end_of_line = true,

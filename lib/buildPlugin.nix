@@ -6,13 +6,11 @@ with lib;
 with builtins;
 
 let
-  inherit (prev.vimUtils) buildVimPluginFrom2Nix;
+  inherit (prev.vimUtils) buildVimPlugin;
 
   ts = prev.tree-sitter.override {
     extraGrammars = {
       tree-sitter-scala = final.tree-sitter-scala-master;
-      tree-sitter-tsx = final.tree-sitter-tsx-master;
-      tree-sitter-typescript = final.tree-sitter-tsx-master;
     };
   };
 
@@ -89,20 +87,19 @@ let
     ln -s ${treesitterGrammars} parser
   '';
 
-  buildPlug = name:
-    buildVimPluginFrom2Nix {
-      pname = name;
-      version = "master";
-      src = builtins.getAttr name inputs;
-      preFixup = ''
-        ${writeIf (name == "nvim-lspconfig") smithyLspHook}
-        ${writeIf (name == "nvim-treesitter") tsPreFixupHook}
-        ${writeIf (name == "telescope-media-files") telescopeFixupHook}
-      '';
-      postPatch = ''
-        ${writeIf (name == "nvim-treesitter") tsPostPatchHook}
-      '';
-    };
+  buildPlug = name: buildVimPlugin {
+    pname = name;
+    version = "master";
+    src = builtins.getAttr name inputs;
+    preFixup = ''
+      ${writeIf (name == "nvim-lspconfig") smithyLspHook}
+      ${writeIf (name == "nvim-treesitter") tsPreFixupHook}
+      ${writeIf (name == "telescope-media-files") telescopeFixupHook}
+    '';
+    postPatch = ''
+      ${writeIf (name == "nvim-treesitter") tsPostPatchHook}
+    '';
+  };
 
   vimPlugins = {
     inherit (pkgs.vimPlugins) nerdcommenter;
