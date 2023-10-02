@@ -44,25 +44,6 @@ let
     EOL
   '';
 
-  # without adding `list.smithy`, highlights are ignored
-  smithyParserHook = ''
-    substituteInPlace $out/lua/nvim-treesitter/parsers.lua \
-      --replace 'list.agda = {' '
-        list.smithy = {
-          install_info = {
-            url = "https://github.com/indoorvivants/tree-sitter-smithy",
-            branch = "main",
-            files = { "src/parser.c" },
-            generate_requires_npm = true,
-          },
-          filetype = "smithy",
-          maintainers = { "@gvolpe" },
-        }
-
-        list.agda = {
-      '
-  '';
-
   # sync queries of tree-sitter-scala and nvim-treesitter
   queriesHook = ''
     cp ${inputs.tree-sitter-scala}/queries/scala/* $out/queries/scala/
@@ -78,8 +59,6 @@ let
 
   tsPreFixupHook = ''
     ${queriesHook}
-
-    ${smithyParserHook}
   '';
 
   tsPostPatchHook = ''

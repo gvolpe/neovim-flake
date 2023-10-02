@@ -6,8 +6,10 @@
     nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
     flake-utils.url = github:numtide/flake-utils;
 
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-    neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # nix lsp support
     nixd.url = github:nix-community/nixd;
@@ -330,9 +332,7 @@
               "neovim-nightly-flake"
               "nmd"
               "nixd"
-              "ts-build"
               "tree-sitter-scala"
-              "tree-sitter-typescript"
             ];
           in
           builtins.attrNames (f nonPluginInputNames inputs);

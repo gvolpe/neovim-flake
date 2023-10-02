@@ -49,8 +49,13 @@ in
         };
         version = mkOption {
           type = types.str;
-          default = "0.0.20";
+          default = "0.0.28";
           description = "The Smithy LSP server dependency version";
+        };
+        class = mkOption {
+          type = types.str;
+          default = "software.amazon.smithy.lsp.Main";
+          description = "The Smithy LSP server main class";
         };
       };
     };
@@ -433,7 +438,13 @@ in
           on_attach = function(client, bufnr)
             attach_keymaps(client, bufnr)
           end,
-          cmd = { '${cfg.smithy.launcher}/bin/cs', 'launch', '${cfg.smithy.server.name}:${cfg.smithy.server.version}', '--' , '0' },
+          cmd = {
+            '${cfg.smithy.launcher}/bin/cs', 'launch',
+            '${cfg.smithy.server.name}:${cfg.smithy.server.version}',
+            '--ttl', '1h',
+            '--main-class', '${cfg.smithy.server.class}',
+            '--', '0'
+          },
           root_dir = lspconfig.util.root_pattern("smithy-build.json")
         }
       ''}
