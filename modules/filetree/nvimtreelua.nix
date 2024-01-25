@@ -132,6 +132,9 @@ in
       "<C-F>" = ":NvimTreeToggle<CR>";
       "<C-s>" = ":NvimTreeFindFile<CR>";
       "<leader>tr" = ":NvimTreeRefresh<CR>";
+      "<leader>tp" = ":NvimTreeResize +40<CR>";
+      "<leader>ts" = ":NvimTreeResize +10<CR>";
+      "<leader>tx" = ":NvimTreeResize -10<CR>";
     };
 
     vim.luaConfigRC = ''

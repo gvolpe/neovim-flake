@@ -847,13 +847,13 @@
       "locked": {
         "lastModified": 1705818283,
         "narHash": "sha256-EKAzWIT2Qs65Il1pwgpkFsCogFViapUiSHcZgVy+QsY=",
-        "owner": "kyazdani42",
+        "owner": "nvim-tree",
         "repo": "nvim-tree.lua",
         "rev": "7bdb220d0fe604a77361e92cdbc7af1b8a412126",
         "type": "github"
       },
       "original": {
-        "owner": "kyazdani42",
+        "owner": "nvim-tree",
         "repo": "nvim-tree.lua",
         "type": "github"
       }
