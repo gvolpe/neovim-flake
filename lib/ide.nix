@@ -98,6 +98,7 @@ let
       };
       telescope = {
         enable = true;
+        tabs.enable = true;
         # NOTE: still quite buggy in some terminals
         mediaFiles.enable = false;
       };

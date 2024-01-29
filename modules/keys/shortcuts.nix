@@ -40,6 +40,9 @@ in
         "<M-<>" = "<C-w><";
         "<M->>" = "<C-w>>";
       }
+      // (withAttrSet config.vim.telescope.tabs.enable {
+        "<C-p>" = ":lua require('search').open()<CR>";
+      })
       // (withAttrSet config.vim.lsp.enable {
         "K" = "<cmd>lua vim.lsp.buf.hover()<CR>";
       })

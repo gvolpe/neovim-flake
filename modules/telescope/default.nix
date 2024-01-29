@@ -13,12 +13,17 @@ in
     mediaFiles = {
       enable = mkEnableOption "enable telescope-media-files extension";
     };
+
+    tabs = {
+      enable = mkEnableOption "enable search.nvim (enhances telescope with tab-based search)";
+    };
   };
 
   config = mkIf cfg.enable {
     vim.startPlugins = with pkgs.neovimPlugins;
       [ telescope ] ++
-      (withPlugins cfg.mediaFiles.enable [ telescope-media-files ]);
+      (withPlugins cfg.mediaFiles.enable [ telescope-media-files ]) ++
+      (withPlugins cfg.tabs.enable [ telescope-tabs ]);
 
     vim.nnoremap =
       {
