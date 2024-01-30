@@ -65,6 +65,21 @@ in
       require("telescope").load_extension("media_files")
       ''}
 
+      ${writeIf cfg.tabs.enable ''
+      local builtin = require('telescope.builtin')
+      require("search").setup({
+        append_tabs = { -- append_tabs will add the provided tabs to the default ones
+          {
+            "Commits", -- or name = "Commits"
+            builtin.git_commits, -- or tele_func = require('telescope.builtin').git_commits
+            available = function() -- optional
+              return vim.fn.isdirectory(".git") == 1
+            end
+          }
+        },
+      })
+      ''}
+
       require("telescope").setup {
         defaults = {
           vimgrep_arguments = {
