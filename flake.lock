@@ -1065,6 +1065,7 @@
         "tokyonight": "tokyonight",
         "tree-sitter-scala": "tree-sitter-scala",
         "trouble": "trouble",
+        "vim-fugitive": "vim-fugitive",
         "vim-plantuml": "vim-plantuml",
         "vim-vsnip": "vim-vsnip",
         "which-key": "which-key"
@@ -1257,6 +1258,22 @@
       "original": {
         "owner": "folke",
         "repo": "trouble.nvim",
+        "type": "github"
+      }
+    },
+    "vim-fugitive": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1711658626,
+        "narHash": "sha256-/aB2VBIqqAb6nWtEd/XloZelCT0iPXujZQVB9JuNNog=",
+        "owner": "tpope",
+        "repo": "vim-fugitive",
+        "rev": "a83135b55b018a891e0803199c3d418010a404d8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tpope",
+        "repo": "vim-fugitive",
         "type": "github"
       }
     },

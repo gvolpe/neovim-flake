@@ -269,6 +269,13 @@
       url = github:kyazdani42/nvim-web-devicons;
       flake = false;
     };
+
+    # Git
+    vim-fugitive = {
+      url = github:tpope/vim-fugitive;
+      flake = false;
+    };
+
     gitsigns-nvim = {
       url = github:lewis6991/gitsigns.nvim;
       flake = false;
