@@ -13,12 +13,12 @@ in
     vim.startPlugins = with pkgs.neovimPlugins; [ trouble ];
 
     vim.nnoremap = {
-      "<leader>xx" = "<cmd>TroubleToggle<CR>";
-      "<leader>lwd" = "<cmd>TroubleToggle workspace_diagnostics<CR>";
-      "<leader>ld" = "<cmd>TroubleToggle document_diagnostics<CR>";
-      "<leader>lr" = "<cmd>TroubleToggle lsp_references<CR>";
-      "<leader>xq" = "<cmd>TroubleToggle quickfix<CR>";
-      "<leader>xl" = "<cmd>TroubleToggle loclist<CR>";
+      "<leader>xx" = "<cmd> TroubleToggle<CR>";
+      "<leader>lwd" = "<cmd> TroubleToggle workspace_diagnostics<CR>";
+      "<leader>ld" = "<cmd> TroubleToggle document_diagnostics<CR>";
+      "<leader>lr" = "<cmd> TroubleToggle lsp_references<CR>";
+      "<leader>xq" = "<cmd> TroubleToggle quickfix<CR>";
+      "<leader>xl" = "<cmd> TroubleToggle loclist<CR>";
     };
 
     vim.luaConfigRC = ''

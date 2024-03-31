@@ -29,9 +29,9 @@ in
     vim.startPlugins = [ pkgs.neovimPlugins.todo-comments ];
 
     vim.nnoremap = {
-      "<leader>tdq" = ":TodoQuickFix<CR>";
-      "<leader>tds" = ":TodoTelescope<CR>";
-      "<leader>tdt" = ":TodoTrouble<CR>";
+      "<leader>tdq" = "<cmd> TodoQuickFix<CR>";
+      "<leader>tds" = "<cmd> TodoTelescope<CR>";
+      "<leader>tdt" = "<cmd> TodoTrouble<CR>";
     };
 
     vim.luaConfigRC = ''

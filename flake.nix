@@ -269,6 +269,15 @@
       url = github:kyazdani42/nvim-web-devicons;
       flake = false;
     };
+    noice = {
+      url = github:folke/noice.nvim;
+      flake = false;
+    };
+    # noice dependency
+    nui-nvim = {
+      url = github:MunifTanjim/nui.nvim;
+      flake = false;
+    };
 
     # Git
     vim-fugitive = {

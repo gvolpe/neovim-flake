@@ -602,6 +602,38 @@
         "type": "github"
       }
     },
+    "noice": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1711471279,
+        "narHash": "sha256-y6gHNkWVsIuwBf7MblCTKTZSqjGDxqeFeQZWexzwk94=",
+        "owner": "folke",
+        "repo": "noice.nvim",
+        "rev": "0cbe3f88d038320bdbda3c4c5c95f43a13c3aa12",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "noice.nvim",
+        "type": "github"
+      }
+    },
+    "nui-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1710740032,
+        "narHash": "sha256-Zr5CNx6BIM6naCXW8YBc/Oj1qOtWV/3tuMoaaZjoSZA=",
+        "owner": "MunifTanjim",
+        "repo": "nui.nvim",
+        "rev": "cbd2668414331c10039278f558630ed19b93e69b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "MunifTanjim",
+        "repo": "nui.nvim",
+        "type": "github"
+      }
+    },
     "null-ls": {
       "flake": false,
       "locked": {
@@ -1030,6 +1062,8 @@
         "nixd": "nixd",
         "nixpkgs": "nixpkgs_2",
         "nmd": "nmd",
+        "noice": "noice",
+        "nui-nvim": "nui-nvim",
         "null-ls": "null-ls",
         "nvim-autopairs": "nvim-autopairs",
         "nvim-bufferline": "nvim-bufferline",

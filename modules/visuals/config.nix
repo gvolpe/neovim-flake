@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ lib, ... }:
 
 with lib;
 
@@ -7,6 +7,7 @@ with lib;
     vim.visuals = {
       enable = mkDefault false;
 
+      noice.enable = mkDefault true;
       nvimWebDevicons.enable = mkDefault false;
       lspkind.enable = mkDefault false;
 

@@ -29,23 +29,23 @@ in
       ];
 
       vim.nnoremap = {
-        "<silent><leader>bn" = ":BufferLineCycleNext<CR>";
-        "<silent><leader>bp" = ":BufferLineCyclePrev<CR>";
-        "<silent><leader>bc" = ":BufferLinePick<CR>";
-        "<silent><leader>bse" = ":BufferLineSortByExtension<CR>";
-        "<silent><leader>bsd" = ":BufferLineSortByDirectory<CR>";
+        "<silent><leader>bn" = "<cmd> BufferLineCycleNext<CR>";
+        "<silent><leader>bp" = "<cmd> BufferLineCyclePrev<CR>";
+        "<silent><leader>bc" = "<cmd> BufferLinePick<CR>";
+        "<silent><leader>bse" = "<cmd> BufferLineSortByExtension<CR>";
+        "<silent><leader>bsd" = "<cmd> BufferLineSortByDirectory<CR>";
         "<silent><leader>bsi" = ":lua require'bufferline'.sort_buffers_by(function (buf_a, buf_b) return buf_a.id < buf_b.id end)<CR>";
-        "<silent><leader>bmn" = ":BufferLineMoveNext<CR>";
-        "<silent><leader>bmp" = ":BufferLineMovePrev<CR>";
-        "<silent><leader>b1" = "<Cmd>BufferLineGoToBuffer 1<CR>";
-        "<silent><leader>b2" = "<Cmd>BufferLineGoToBuffer 2<CR>";
-        "<silent><leader>b3" = "<Cmd>BufferLineGoToBuffer 3<CR>";
-        "<silent><leader>b4" = "<Cmd>BufferLineGoToBuffer 4<CR>";
-        "<silent><leader>b5" = "<Cmd>BufferLineGoToBuffer 5<CR>";
-        "<silent><leader>b6" = "<Cmd>BufferLineGoToBuffer 6<CR>";
-        "<silent><leader>b7" = "<Cmd>BufferLineGoToBuffer 7<CR>";
-        "<silent><leader>b8" = "<Cmd>BufferLineGoToBuffer 8<CR>";
-        "<silent><leader>b9" = "<Cmd>BufferLineGoToBuffer 9<CR>";
+        "<silent><leader>bmn" = "<cmd> BufferLineMoveNext<CR>";
+        "<silent><leader>bmp" = "<cmd> BufferLineMovePrev<CR>";
+        "<silent><leader>b1" = "<cmd> BufferLineGoToBuffer 1<CR>";
+        "<silent><leader>b2" = "<cmd> BufferLineGoToBuffer 2<CR>";
+        "<silent><leader>b3" = "<cmd> BufferLineGoToBuffer 3<CR>";
+        "<silent><leader>b4" = "<cmd> BufferLineGoToBuffer 4<CR>";
+        "<silent><leader>b5" = "<cmd> BufferLineGoToBuffer 5<CR>";
+        "<silent><leader>b6" = "<cmd> BufferLineGoToBuffer 6<CR>";
+        "<silent><leader>b7" = "<cmd> BufferLineGoToBuffer 7<CR>";
+        "<silent><leader>b8" = "<cmd> BufferLineGoToBuffer 8<CR>";
+        "<silent><leader>b9" = "<cmd> BufferLineGoToBuffer 9<CR>";
       };
 
       vim.luaConfigRC = ''
