@@ -26,6 +26,12 @@ in
         (withPlugins cfg.enable [ pkgs.neovimPlugins.vim-fugitive ]) ++
         (withPlugins (cfg.enable && cfg.gitsigns.enable) [ pkgs.neovimPlugins.gitsigns-nvim ]);
 
+      vim.nnoremap =
+        {
+          "<leader>gc" = ":Git commit -m '";
+          "<leader>gp" = "<cmd> Git push <CR>";
+        };
+
       vim.luaConfigRC = mkIf cfg.gitsigns.enable ''
         -- GitSigns setup
         require('gitsigns').setup {
@@ -61,12 +67,15 @@ in
                 td = { gs.toggle_deleted, "Toggle deleted" },
                 d = { gs.diffthis, "Diff current file" },
                 D = { function() gs.diffthis('~') end, "Diff file" },
-                n = { nextHunk, "Next hunk" },
-                p = { prevHunk, "Previous hunk" },
-                r = { gs.reset_hunk, "Reset hunk" },
-                s = { gs.stage_hunk, "Stage hunk" },
+                h = {
+                  name = "Hunks",
+                  n = { nextHunk, "Next hunk" },
+                  p = { prevHunk, "Previous hunk" },
+                  r = { gs.reset_hunk, "Reset hunk" },
+                  s = { gs.stage_hunk, "Stage hunk" },
+                  u = { gs.undo_stage_hunk, "Undo stage hunk" },
+                },
                 S = { gs.stage_buffer, "Stage buffer" },
-                u = { gs.undo_stage_hunk, "Undo stage hunk" },
                 R = { gs.reset_buffer, "Reset buffer" },
               },
             })
