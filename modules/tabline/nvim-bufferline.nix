@@ -5,6 +5,7 @@ with builtins;
 
 let
   cfg = config.vim.tabline.nvimBufferline;
+  keys = config.vim.keys.whichKey;
 in
 {
   options.vim.tabline.nvimBufferline = {
@@ -94,6 +95,14 @@ in
               end,
            }
         }
+
+        ${writeIf keys.enable ''
+          wk.register({
+            ["<leader>b"] = {
+              name = "Buffers",
+            },
+          })
+        ''}
       '';
     }
   );

@@ -5,6 +5,7 @@ with builtins;
 
 let
   cfg = config.vim.git;
+  keys = config.vim.keys.whichKey;
 in
 {
   options.vim.git = {
@@ -38,32 +39,46 @@ in
             end
 
             -- Navigation
-            map('n', '<leader>gn', function()
+            local function nextHunk()
               if vim.wo.diff then return ']c' end
               vim.schedule(function() gs.next_hunk() end)
               return '<Ignore>'
-            end, {expr=true})
+            end
 
-            map('n', '<leader>gp', function()
+            local function prevHunk()
               if vim.wo.diff then return '[c' end
               vim.schedule(function() gs.prev_hunk() end)
               return '<Ignore>'
-            end, {expr=true})
+            end
+
+            local function stageHunk()
+              gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} 
+            end
+            
+            local function resetHunk()
+              gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} 
+            end
 
             -- Actions
-            map('n', '<leader>gs', gs.stage_hunk)
-            map('n', '<leader>gr', gs.reset_hunk)
-            map('v', '<leader>gs', function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
-            map('v', '<leader>gr', function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
-            map('n', '<leader>gS', gs.stage_buffer)
-            map('n', '<leader>gu', gs.undo_stage_hunk)
-            map('n', '<leader>gR', gs.reset_buffer)
-            map('n', '<leader>gp', gs.preview_hunk)
-            map('n', '<leader>gb', function() gs.blame_line{full=true} end)
-            map('n', '<leader>gtb', gs.toggle_current_line_blame)
-            map('n', '<leader>gd', gs.diffthis)
-            map('n', '<leader>gD', function() gs.diffthis('~') end)
-            map('n', '<leader>gtd', gs.toggle_deleted)
+            ${writeIf keys.enable ''
+            wk.register({
+              ["<leader>g"] = {
+                name = "Gitsigns",
+                b = { function() gs.blame_line{full=true} end, "Blame (full)" },
+                tb = { gs.toggle_current_line_blame, "Toggle blame" },
+                td = { gs.toggle_deleted, "Toggle deleted" },
+                d = { gs.diffthis, "Diff current file" },
+                D = { function() gs.diffthis('~') end, "Diff file" },
+                n = { nextHunk(), "Next hunk" },
+                p = { prevHunk(), "Previous hunk" },
+                r = { resetHunk(), "Reset hunk" },
+                s = { stageHunk(), "Stage hunk" },
+                S = { gs.stage_buffer, "Stage buffer" },
+                u = { gs.undo_stage_hunk, "Undo stage hunk" },
+                R = { gs.reset_buffer, "Reset buffer" },
+              },
+            })
+            ''}
 
             -- Text object
             map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')

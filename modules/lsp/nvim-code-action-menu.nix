@@ -5,6 +5,7 @@ with builtins;
 
 let
   cfg = config.vim.lsp;
+  keys = config.vim.keys.whichKey;
 in
 {
   options.vim.lsp.nvimCodeActionMenu.enable = mkEnableOption "nvim code action menu";
@@ -17,5 +18,15 @@ in
     vim.nnoremap = {
       "<silent><leader>ac" = "<cmd> CodeActionMenu<CR>";
     };
+
+    vim.luaConfigRC = ''
+      ${writeIf keys.enable ''
+        wk.register({
+          ["<leader>a"] = {
+            name = "Code actions",
+          },
+        })
+      ''}
+    '';
   };
 }

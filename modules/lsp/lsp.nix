@@ -5,6 +5,7 @@ with builtins;
 
 let
   cfg = config.vim.lsp;
+  keys = config.vim.keys.whichKey;
 in
 {
   options.vim.lsp = {
@@ -90,11 +91,6 @@ in
       (withPlugins cfg.scala.enable [ nvim-metals ]) ++
       (withPlugins cfg.folds [ promise-async nvim-ufo ]) ++
       (withPlugins cfg.rust.enable [ crates-nvim rust-tools ]);
-
-    vim.nnoremap = withAttrSet cfg.scala.enable {
-      "<silent> <leader>ws" = "<cmd>lua require'metals'.worksheet_hover()<CR>";
-      "<silent> <leader>ad" = "<cmd>lua require'metals'.open_all_diagnostics()<CR>";
-    };
 
     vim.configRC = ''
       ${writeIf cfg.rust.enable ''
@@ -246,6 +242,24 @@ in
           capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
         ''
       };
+
+      ${writeIf keys.enable ''
+        wk.register({
+          ["<leader>l"] = {
+            name = "LSP",
+          },
+        })
+
+        ${writeIf cfg.scala.enable ''
+        wk.register({
+          ["<leader>m"] = {
+            name = "Metals",
+            w = { "<cmd>lua require'metals'.worksheet_hover()<CR>", "Worksheet hover" },
+            d = { "<cmd>lua require'metals'.open_all_diagnostics()<CR>", "Open all diagnostics" },
+          },
+        })
+        ''}
+      ''}
 
       ${writeIf cfg.rust.enable ''
         -- Rust config

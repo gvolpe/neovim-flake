@@ -4,6 +4,7 @@ with lib;
 
 let
   cfg = config.vim.comments;
+  keys = config.vim.keys.whichKey;
 in
 {
   options.vim.comments = {
@@ -32,6 +33,14 @@ in
         })
         ''
       }
+
+      ${writeIf keys.enable ''
+        wk.register({
+          ["<leader>c"] = {
+            name = "Commenter",
+          },
+        })
+      ''}
     '';
   };
 }

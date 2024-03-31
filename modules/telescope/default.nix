@@ -5,6 +5,7 @@ with builtins;
 
 let
   cfg = config.vim.telescope;
+  keys = config.vim.keys.whichKey;
 in
 {
   options.vim.telescope = {
@@ -78,6 +79,14 @@ in
           }
         },
       })
+      ''}
+
+      ${writeIf keys.enable ''
+        wk.register({
+          ["<leader>f"] = {
+            name = "Telescope",
+          },
+        })
       ''}
 
       require("telescope").setup {

@@ -17,7 +17,7 @@ in
     vim.startPlugins = [ pkgs.neovimPlugins.nvim-neoclip ];
 
     vim.nnoremap = {
-      "<leader>nc" = "<cmd> Telescope neoclip unnamed extra=star,plus<CR>";
+      "<leader>fnc" = "<cmd> Telescope neoclip unnamed extra=star,plus<CR>";
     };
 
     vim.luaConfigRC = ''

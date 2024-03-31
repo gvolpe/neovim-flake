@@ -5,6 +5,7 @@ with builtins;
 
 let
   cfg = config.vim.filetree.nvimTreeLua;
+  keys = config.vim.keys.whichKey;
 in
 {
   options.vim.filetree.nvimTreeLua = {
@@ -180,6 +181,14 @@ in
         end
 
         vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
+      ''}
+
+      ${writeIf keys.enable ''
+        wk.register({
+          ["<leader>t"] = {
+            name = "Tree & Todo",
+          },
+        })
       ''}
     '';
   };
