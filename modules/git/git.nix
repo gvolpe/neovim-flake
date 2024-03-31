@@ -51,14 +51,6 @@ in
               return '<Ignore>'
             end
 
-            local function stageHunk()
-              gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} 
-            end
-            
-            local function resetHunk()
-              gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} 
-            end
-
             -- Actions
             ${writeIf keys.enable ''
             wk.register({
@@ -69,10 +61,10 @@ in
                 td = { gs.toggle_deleted, "Toggle deleted" },
                 d = { gs.diffthis, "Diff current file" },
                 D = { function() gs.diffthis('~') end, "Diff file" },
-                n = { nextHunk(), "Next hunk" },
-                p = { prevHunk(), "Previous hunk" },
-                r = { resetHunk(), "Reset hunk" },
-                s = { stageHunk(), "Stage hunk" },
+                n = { nextHunk, "Next hunk" },
+                p = { prevHunk, "Previous hunk" },
+                r = { gs.reset_hunk, "Reset hunk" },
+                s = { gs.stage_hunk, "Stage hunk" },
                 S = { gs.stage_buffer, "Stage buffer" },
                 u = { gs.undo_stage_hunk, "Undo stage hunk" },
                 R = { gs.reset_buffer, "Reset buffer" },
