@@ -33,8 +33,9 @@ in
 
       vim.nnoremap =
         {
-          "<leader>gc" = ":Git commit -m '";
-          "<leader>gp" = "<cmd> Git push <CR>";
+          "<leader>gwc" = ":Git commit -m '";
+          "<leader>gwp" = "<cmd> Git push <CR>";
+          "<leader>gs" = "<cmd> Gvdiffsplit origin/HEAD <CR>";
         };
 
       vim.luaConfigRC = ''
@@ -80,6 +81,9 @@ in
                   r = { gs.reset_hunk, "Reset hunk" },
                   s = { gs.stage_hunk, "Stage hunk" },
                   u = { gs.undo_stage_hunk, "Undo stage hunk" },
+                },
+                w = {
+                  name = "Write",
                 },
                 S = { gs.stage_buffer, "Stage buffer" },
                 R = { gs.reset_buffer, "Reset buffer" },
