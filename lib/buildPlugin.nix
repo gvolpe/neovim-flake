@@ -14,29 +14,6 @@ let
     };
   };
 
-  treesitterGrammars = ts.withPlugins (p: [
-    p.tree-sitter-scala
-    p.tree-sitter-c
-    p.tree-sitter-nix
-    p.tree-sitter-elm
-    p.tree-sitter-haskell
-    p.tree-sitter-python
-    p.tree-sitter-rust
-    p.tree-sitter-markdown
-    p.tree-sitter-markdown-inline
-    p.tree-sitter-comment
-    p.tree-sitter-toml
-    p.tree-sitter-make
-    p.tree-sitter-tsx
-    p.tree-sitter-typescript
-    p.tree-sitter-html
-    p.tree-sitter-javascript
-    p.tree-sitter-css
-    p.tree-sitter-graphql
-    p.tree-sitter-json
-    p.tree-sitter-smithy
-  ]);
-
   smithy-lsp = pkgs.callPackage ./smithy-lspconfig.nix { };
 
   smithyLspHook = ''
@@ -62,12 +39,12 @@ let
     ${queriesHook}
   '';
 
-  tsPostPatchHook = ''
+  tsPostPatchHook = grammars: ''
     rm -r parser
-    ln -s ${treesitterGrammars} parser
+    ln -s ${grammars} parser
   '';
 
-  buildPlug = name: buildVimPlugin {
+  buildPlug = name: grammars: buildVimPlugin {
     pname = name;
     version = "master";
     src = builtins.getAttr name inputs;
@@ -77,7 +54,7 @@ let
       ${writeIf (name == "telescope-media-files") telescopeFixupHook}
     '';
     postPatch = ''
-      ${writeIf (name == "nvim-treesitter") tsPostPatchHook}
+      ${writeIf (name == "nvim-treesitter") (tsPostPatchHook grammars)}
     '';
   };
 
@@ -85,10 +62,21 @@ let
     inherit (pkgs.vimPlugins) nerdcommenter;
   };
 in
-{
+rec {
+  # override at use site with your own preferences
+  treesitterGrammars = t: t.withPlugins (p: [
+    p.tree-sitter-scala
+    p.tree-sitter-nix
+    p.tree-sitter-elm
+    p.tree-sitter-haskell
+    p.tree-sitter-markdown
+    p.tree-sitter-markdown-inline
+  ]);
+
   neovimPlugins =
     let
-      xs = listToAttrs (map (n: nameValuePair n (buildPlug n)) plugins);
+      tg = treesitterGrammars ts;
+      xs = listToAttrs (map (n: nameValuePair n (buildPlug n tg)) plugins);
     in
     xs // vimPlugins;
 }
