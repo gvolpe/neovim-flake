@@ -5,6 +5,7 @@ with builtins;
 
 let
   cfg = config.vim.visuals;
+  keys = config.vim.keys.whichKey;
 in
 {
   options.vim.visuals = {
@@ -113,6 +114,15 @@ in
         }
 
         ${writeIf cfg.noice.enable ''
+            ${writeIf keys.enable ''
+              wk.register({
+                ["<leader>n"] = {
+                  name = "Noice",
+                  d = { "<cmd> NoiceDismiss <CR>", "Dismiss notifications" },
+                },
+              })
+            ''}
+
             require("noice").setup({
               cmdline = {
                 enabled = true, -- enables the Noice cmdline UI

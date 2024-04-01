@@ -103,10 +103,7 @@ in
 
           ${writeIf keys.enable ''
           wk.register({
-            ["<leader>n"] = {
-              name = "Neogit",
-              g = { "<cmd> Neogit kind=auto<CR>", "Open neogit" },
-            },
+            ["<leader>gn"] = { "<cmd> Neogit kind=auto<CR>", "Open neogit" },
           })
           ''}
 
