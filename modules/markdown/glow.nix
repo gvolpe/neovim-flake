@@ -32,7 +32,7 @@ in
 
     vim.configRC =
       writeIf cfg.glow.enable ''
-        autocmd FileType markdown noremap <leader>p :Glow<CR>
+        autocmd FileType markdown noremap <leader>p <cmd>Glow<CR>
       '';
   };
 }
