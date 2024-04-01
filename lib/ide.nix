@@ -185,11 +185,11 @@ let
 in
 {
   full = neovimBuilder {
-    config = deepMerge (deepMerge cfg langs) nightly;
+    config = deepMerge cfg langs;
   };
 
   full-nightly = neovimBuilder {
-    config = deepMerge cfg langs;
+    config = deepMerge (deepMerge cfg langs) nightly;
   };
 
   haskell = neovimBuilder {
