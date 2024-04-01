@@ -11,20 +11,25 @@ in
   options.vim.git = {
     enable = mkOption {
       type = types.bool;
-      description = "Enable git plugins";
+      description = "Enable git plugins (vim-fugitive by default)";
     };
 
     gitsigns.enable = mkOption {
       type = types.bool;
-      description = "Enable git options";
+      description = "Enable gitsigns options";
+    };
+
+    neogit.enable = mkOption {
+      type = types.bool;
+      description = "Enable neogit options";
     };
   };
 
   config =
     mkIf cfg.enable {
-      vim.startPlugins =
-        (withPlugins cfg.enable [ pkgs.neovimPlugins.vim-fugitive ]) ++
-        (withPlugins (cfg.enable && cfg.gitsigns.enable) [ pkgs.neovimPlugins.gitsigns-nvim ]);
+      vim.startPlugins = [ pkgs.neovimPlugins.vim-fugitive ] ++
+        (withPlugins cfg.gitsigns.enable [ pkgs.neovimPlugins.gitsigns-nvim ]) ++
+        (withPlugins cfg.neogit.enable [ pkgs.neovimPlugins.neogit ]);
 
       vim.nnoremap =
         {
@@ -32,7 +37,8 @@ in
           "<leader>gp" = "<cmd> Git push <CR>";
         };
 
-      vim.luaConfigRC = mkIf cfg.gitsigns.enable ''
+      vim.luaConfigRC = ''
+        ${writeIf cfg.gitsigns.enable ''
         -- GitSigns setup
         require('gitsigns').setup {
           on_attach = function(bufnr)
@@ -85,6 +91,22 @@ in
             map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
           end
         }
+        ''}
+
+        ${writeIf cfg.neogit.enable ''
+        -- Neogit setup
+        require('neogit').setup {}
+
+          ${writeIf keys.enable ''
+          wk.register({
+            ["<leader>n"] = {
+              name = "Neogit",
+              g = { "<cmd> Neogit kind=auto<CR>", "Open neogit" },
+            },
+          })
+          ''}
+
+        ''}
       '';
     };
 }

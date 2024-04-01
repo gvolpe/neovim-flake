@@ -454,6 +454,22 @@
         "type": "github"
       }
     },
+    "neogit": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1711891167,
+        "narHash": "sha256-qU7M3McNN7LGSQHJl3/6PNDqdm/uFRkWA1/yMtDlD+s=",
+        "owner": "NeogitOrg",
+        "repo": "neogit",
+        "rev": "c0b1d4dfc8ba6371857868ca7c4d33954cf002fd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NeogitOrg",
+        "repo": "neogit",
+        "type": "github"
+      }
+    },
     "neovim-flake": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -1057,6 +1073,7 @@
         "lspsaga": "lspsaga",
         "lualine": "lualine",
         "mind-nvim": "mind-nvim",
+        "neogit": "neogit",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nightfox": "nightfox",
         "nixd": "nixd",

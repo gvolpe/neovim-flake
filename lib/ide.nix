@@ -109,6 +109,7 @@ let
       git = {
         enable = true;
         gitsigns.enable = true;
+        neogit.enable = true;
       };
       mind = {
         enable = false;

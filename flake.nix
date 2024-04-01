@@ -290,6 +290,11 @@
       flake = false;
     };
 
+    neogit = {
+      url = github:NeogitOrg/neogit;
+      flake = false;
+    };
+
     # Fx
     cellular-automaton = {
       url = github:Eandrju/cellular-automaton.nvim;
