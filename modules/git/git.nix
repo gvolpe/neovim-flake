@@ -11,7 +11,7 @@ in
   options.vim.git = {
     enable = mkOption {
       type = types.bool;
-      description = "Enable git plugins (vim-fugitive by default)";
+      description = "Enable git plugins (diffview and vim-fugitive by default)";
     };
 
     gitsigns.enable = mkOption {
@@ -27,9 +27,10 @@ in
 
   config =
     mkIf cfg.enable {
-      vim.startPlugins = [ pkgs.neovimPlugins.vim-fugitive ] ++
-        (withPlugins cfg.gitsigns.enable [ pkgs.neovimPlugins.gitsigns-nvim ]) ++
-        (withPlugins cfg.neogit.enable [ pkgs.neovimPlugins.neogit ]);
+      vim.startPlugins =
+        with pkgs.neovimPlugins; [ diffview vim-fugitive ] ++
+          (withPlugins cfg.gitsigns.enable [ gitsigns-nvim ]) ++
+          (withPlugins cfg.neogit.enable [ neogit ]);
 
       vim.nnoremap =
         {
@@ -92,7 +93,7 @@ in
             ''}
 
             -- Text object
-            map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+            map({'o', 'x'}, 'ih', '<cmd><C-U>Gitsigns select_hunk<CR>')
           end
         }
         ''}

@@ -290,6 +290,11 @@
       flake = false;
     };
 
+    diffview = {
+      url = github:sindrets/diffview.nvim;
+      flake = false;
+    };
+
     neogit = {
       url = github:NeogitOrg/neogit;
       flake = false;
