@@ -32,10 +32,9 @@ in
         "<leader>fg" = "<cmd> Telescope live_grep<CR>";
         "<leader>fb" = "<cmd> Telescope buffers<CR>";
         "<leader>fh" = "<cmd> Telescope help_tags<CR>";
-        "<leader>ft" = "<cmd> Telescope<CR>";
+        "<leader>fk" = "<cmd> Telescope marks<CR>";
 
-        "<leader>fvcw" = "<cmd> Telescope git_commits<CR>";
-        "<leader>fvcb" = "<cmd> Telescope git_bcommits<CR>";
+        "<leader>fvc" = "<cmd> Telescope git_commits<CR>";
         "<leader>fvb" = "<cmd> Telescope git_branches<CR>";
         "<leader>fvs" = "<cmd> Telescope git_status<CR>";
         "<leader>fvx" = "<cmd> Telescope git_stash<CR>";
@@ -57,7 +56,7 @@ in
         }
       ) // (
         withAttrSet config.vim.treesitter.enable {
-          "<leader>fs" = "<cmd> Telescope treesitter<CR>";
+          "<leader>fts" = "<cmd> Telescope treesitter<CR>";
         }
       );
 
@@ -75,6 +74,12 @@ in
             builtin.git_commits, -- or tele_func = require('telescope.builtin').git_commits
             available = function() -- optional
               return vim.fn.isdirectory(".git") == 1
+            end
+          },
+          {
+            name = "Scala files",
+            tele_func = function()
+              builtin.fd({ find_command = { "${pkgs.fd}/bin/fd", "-e", "scala" } })
             end
           }
         },
