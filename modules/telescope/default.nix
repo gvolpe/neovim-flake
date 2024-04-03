@@ -68,18 +68,15 @@ in
       ${writeIf cfg.tabs.enable ''
       local builtin = require('telescope.builtin')
       require("search").setup({
-        append_tabs = { -- append_tabs will add the provided tabs to the default ones
-          {
-            "Commits", -- or name = "Commits"
-            builtin.git_commits, -- or tele_func = require('telescope.builtin').git_commits
-            available = function() -- optional
-              return vim.fn.isdirectory(".git") == 1
-            end
-          },
+        append_tabs = {
           {
             name = "Scala files",
             tele_func = function()
               builtin.fd({ find_command = { "${pkgs.fd}/bin/fd", "-e", "scala" } })
+            end,
+            available = function()
+              local scalaFiles = vim.fn.glob("*.scala", ".") .. vim.fn.glob("*.sbt", ".")
+              return not (scalaFiles == "")
             end
           }
         },
