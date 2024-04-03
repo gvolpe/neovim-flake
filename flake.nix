@@ -56,6 +56,13 @@
       flake = false;
     };
 
+    # Marks/Registers
+    harpoon = {
+      #url = github:ThePrimeagen/harpoon?ref=harpoon2;
+      url = github:kimabrandt-flx/harpoon?ref=fix_marks_index;
+      flake = false;
+    };
+
     # LSP plugins
     nvim-lspconfig = {
       url = github:neovim/nvim-lspconfig;

@@ -12,6 +12,7 @@
     ./filetree
     ./fx
     ./git
+    ./harpoon
     ./hop
     ./keys
     ./lsp

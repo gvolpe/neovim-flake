@@ -127,6 +127,7 @@ let
         skipInsignificantPunctuation = true;
       };
       dial.enable = true;
+      harpoon.enable = true;
       hop.enable = true;
       notifications.enable = true;
       todo.enable = true;
