@@ -32,5 +32,6 @@
     ./todo
     ./treesitter
     ./visuals
+    ./zen
   ];
 }

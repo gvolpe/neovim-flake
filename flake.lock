@@ -1151,10 +1151,12 @@
         "tokyonight": "tokyonight",
         "tree-sitter-scala": "tree-sitter-scala",
         "trouble": "trouble",
+        "twilight": "twilight",
         "vim-fugitive": "vim-fugitive",
         "vim-plantuml": "vim-plantuml",
         "vim-vsnip": "vim-vsnip",
-        "which-key": "which-key"
+        "which-key": "which-key",
+        "zen-mode": "zen-mode"
       }
     },
     "rosepine": {
@@ -1347,6 +1349,22 @@
         "type": "github"
       }
     },
+    "twilight": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1695631985,
+        "narHash": "sha256-WFE8FZU8E8i6mX9bFl80YkIypGXOOhKvGbLrBoPce0g=",
+        "owner": "folke",
+        "repo": "twilight.nvim",
+        "rev": "8b7b50c0cb2dc781b2f4262a5ddd57571556d1e4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "twilight.nvim",
+        "type": "github"
+      }
+    },
     "vim-fugitive": {
       "flake": false,
       "locked": {
@@ -1408,6 +1426,22 @@
       "original": {
         "owner": "folke",
         "repo": "which-key.nvim",
+        "type": "github"
+      }
+    },
+    "zen-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1705847384,
+        "narHash": "sha256-G5/AskXEA0vl9GGUR8NG8PmL/HFcItZJWB+LyKd3R2k=",
+        "owner": "folke",
+        "repo": "zen-mode.nvim",
+        "rev": "78557d972b4bfbb7488e17b5703d25164ae64e6a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "zen-mode.nvim",
         "type": "github"
       }
     }

@@ -131,6 +131,7 @@ let
       hop.enable = true;
       notifications.enable = true;
       todo.enable = true;
+      zen.enable = true;
     };
   };
 

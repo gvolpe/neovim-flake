@@ -63,6 +63,17 @@
       flake = false;
     };
 
+    # Distraction-free coding
+    twilight = {
+      url = github:folke/twilight.nvim;
+      flake = false;
+    };
+
+    zen-mode = {
+      url = github:folke/zen-mode.nvim;
+      flake = false;
+    };
+
     # LSP plugins
     nvim-lspconfig = {
       url = github:neovim/nvim-lspconfig;
