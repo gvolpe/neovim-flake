@@ -79,7 +79,7 @@ in
             if cmp.visible() then
               cmp.select_prev_item()
             elseif vim.fn['vsnip#available'](-1) == 1 then
-              feedkeys("<Plug>(vsnip-jump-prev)", "")
+              feedkey("<Plug>(vsnip-jump-prev)", "")
             end
           end, { 'i', 's' })
         },

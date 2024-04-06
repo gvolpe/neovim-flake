@@ -1,7 +1,25 @@
-{ ... }:
+{ pkgs, config, lib, ... }:
 
+with lib;
+
+let
+  cfg = config.vim.snippets.vsnip;
+in
 {
-  imports = [
-    ./vsnip.nix
-  ];
+  options.vim.snippets.vsnip = {
+    enable = mkEnableOption "Enable vim-vsnip";
+    dataDir = mkOption {
+      default = builtins.toPath ../../snippets;
+      description = "Directory for the snippet files";
+      type = types.str;
+    };
+  };
+
+  config = mkIf cfg.enable {
+    vim.startPlugins = with pkgs.neovimPlugins; [ vim-vsnip ];
+
+    vim.configRC = ''
+      let g:vsnip_snippet_dir = "${cfg.dataDir}"
+    '';
+  };
 }

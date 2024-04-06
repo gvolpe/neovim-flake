@@ -90,6 +90,7 @@ let
         enable = true;
         type = "nerdcommenter";
       };
+      snippets.vsnip.enable = true;
       shortcuts = {
         enable = true;
       };
