@@ -448,6 +448,9 @@
           inherit (pkgs) neovim-nightly neovimPlugins;
         };
 
+        homeManagerModules.default = nixosModules.hm;
+
+        # deprecated: use `homeManagerModules.default` instead.
         nixosModules.hm = {
           imports = [
             ./lib/hm.nix
