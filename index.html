@@ -8,7 +8,7 @@ $ nix run github:gvolpe/neovim-flake#scala-tokyo-night</pre><p>The default theme
     inputs.nixpkgs.follows = "nixpkgs";
   };
 }</pre><p>Followed by importing the HM module.</p><pre class="programlisting nix">{
-  imports = [ neovim-flake.nixosModules.hm ];
+  imports = [ neovim-flake.homeManagerModules.default ];
 }</pre><p>Then we should be able to use the given module. E.g.</p><pre class="programlisting nix">{
   programs.neovim-ide = {
     enable = true;
