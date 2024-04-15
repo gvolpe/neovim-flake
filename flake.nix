@@ -449,15 +449,15 @@
           inherit (pkgs) neovim-nightly neovimPlugins;
         };
 
-        homeManagerModules.default = nixosModules.hm;
-
-        # deprecated: use `homeManagerModules.default` instead.
-        nixosModules.hm = {
+        homeManagerModules.default = {
           imports = [
             ./lib/hm.nix
             { nixpkgs.overlays = [ overlays.default ]; }
           ];
         };
+
+        nixosModules.hm =
+          pkgs.lib.warn "nixosModules.hm is deprecated; use homeManagerModules.default instead." homeManagerModules.default;
 
         packages = {
           default = default-ide.full.neovim;
