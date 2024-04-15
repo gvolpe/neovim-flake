@@ -2,8 +2,8 @@
   description = "Neovim Flake by Gabriel Volpe";
 
   inputs = {
-    #nixpkgs.url = git+file:///home/gvolpe/workspace/nixpkgs;
     nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
+    flake-schemas.url = github:gvolpe/flake-schemas;
     flake-utils.url = github:numtide/flake-utils;
 
     neovim-nightly-overlay = {
@@ -368,6 +368,7 @@
   };
 
   outputs = inputs @ { nixpkgs, flake-utils, ... }:
+    { inherit (inputs.flake-schemas) schemas; } //
     flake-utils.lib.eachDefaultSystem (system:
       let
         plugins =

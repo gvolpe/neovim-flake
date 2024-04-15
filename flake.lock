@@ -252,6 +252,21 @@
         "type": "github"
       }
     },
+    "flake-schemas": {
+      "locked": {
+        "lastModified": 1713165510,
+        "narHash": "sha256-pR0sT1MGGTi1+u74gssJcq83TpUfcJbbsP69qhFg1O4=",
+        "owner": "gvolpe",
+        "repo": "flake-schemas",
+        "rev": "e72d8de98fab07bd852204141d2e8b731e3f2039",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gvolpe",
+        "repo": "flake-schemas",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -1096,6 +1111,7 @@
         "crates-nvim": "crates-nvim",
         "dial-nvim": "dial-nvim",
         "diffview": "diffview",
+        "flake-schemas": "flake-schemas",
         "flake-utils": "flake-utils",
         "gitsigns-nvim": "gitsigns-nvim",
         "glow-nvim": "glow-nvim",
