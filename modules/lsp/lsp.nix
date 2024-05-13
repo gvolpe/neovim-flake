@@ -50,7 +50,7 @@ in
         };
         version = mkOption {
           type = types.str;
-          default = "0.0.28";
+          default = "0.0.30";
           description = "The Smithy LSP server dependency version";
         };
         class = mkOption {

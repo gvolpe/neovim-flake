@@ -71,6 +71,7 @@ rec {
     p.tree-sitter-haskell
     p.tree-sitter-markdown
     p.tree-sitter-markdown-inline
+    p.tree-sitter-smithy
   ]);
 
   neovimPlugins =
