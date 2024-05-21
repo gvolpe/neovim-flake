@@ -474,14 +474,16 @@
 
           # Main languages enabled
           ide = default-ide.full.neovim;
-          nightly = default-ide.full-nightly.neovim;
+          # FIXME: nightly integration is broken
+          # see: https://github.com/NixOS/nixpkgs/pull/312312
+          #nightly = default-ide.full-nightly.neovim;
 
           # Only Haskell (quite heavy)
           haskell = default-ide.haskell.neovim;
 
           # Only Scala with different themes
           scala = default-ide.scala.neovim;
-          scala-nightly = default-ide.scala-nightly.neovim;
+          #scala-nightly = default-ide.scala-nightly.neovim;
           scala-rose-pine = default-ide.scala-rose-pine.neovim;
           scala-tokyo-night = default-ide.scala-tokyo-night.neovim;
 
