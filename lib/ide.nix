@@ -41,6 +41,7 @@ let
         clang = false;
         go = false;
       };
+      hurl.enable = true;
       plantuml.enable = false;
       fx.automaton.enable = true;
       visuals = {

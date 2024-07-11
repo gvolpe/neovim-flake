@@ -405,6 +405,22 @@
         "type": "github"
       }
     },
+    "hurl-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1680833993,
+        "narHash": "sha256-giJVQ86pHmU2Ymn9/lj7DghLuPvh2nd9JMY8LPSrI6M=",
+        "owner": "samueljoli",
+        "repo": "hurl.nvim",
+        "rev": "a8cb4643246523f419f449a9366e003ddb855138",
+        "type": "github"
+      },
+      "original": {
+        "owner": "samueljoli",
+        "repo": "hurl.nvim",
+        "type": "github"
+      }
+    },
     "indent-blankline": {
       "flake": false,
       "locked": {
@@ -1133,6 +1149,7 @@
         "glow-nvim": "glow-nvim",
         "harpoon": "harpoon",
         "hop": "hop",
+        "hurl-nvim": "hurl-nvim",
         "indent-blankline": "indent-blankline",
         "kommentary": "kommentary",
         "lsp-signature": "lsp-signature",

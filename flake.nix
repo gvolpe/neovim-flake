@@ -349,6 +349,12 @@
       flake = false;
     };
 
+    # HURL syntax highlights
+    hurl-nvim = {
+      url = github:samueljoli/hurl.nvim;
+      flake = false;
+    };
+
     # Enhanced incr/decr functionality
     dial-nvim = {
       url = github:monaqa/dial.nvim;

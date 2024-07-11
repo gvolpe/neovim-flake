@@ -14,6 +14,7 @@
     ./git
     ./harpoon
     ./hop
+    ./hurl
     ./keys
     ./lsp
     ./markdown
