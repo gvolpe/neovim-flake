@@ -136,6 +136,8 @@ in
       "<leader>tp" = "<cmd> NvimTreeResize +40<CR>";
       "<leader>ts" = "<cmd> NvimTreeResize +10<CR>";
       "<leader>tx" = "<cmd> NvimTreeResize -10<CR>";
+      # See https://github.com/nvim-tree/nvim-tree.lua/pull/2790
+      "<leader>te" = "<cmd> lua require('nvim-tree.api').tree.expand_all()<CR>";
     };
 
     vim.luaConfigRC = ''
