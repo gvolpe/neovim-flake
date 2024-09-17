@@ -337,6 +337,11 @@
       flake = false;
     };
 
+    render-markdown-nvim = {
+      url = github:MeanderingProgrammer/render-markdown.nvim;
+      flake = false;
+    };
+
     # Organized notes in trees
     mind-nvim = {
       url = github:gvolpe/mind.nvim;

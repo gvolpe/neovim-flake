@@ -107,6 +107,7 @@ let
       markdown = {
         enable = true;
         glow.enable = true;
+        render.enable = true;
       };
       git = {
         enable = true;

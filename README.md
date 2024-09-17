@@ -11,7 +11,7 @@ Nix flake for [neovim](https://neovim.io/) with configuration options highly foc
 
 ## Documentation
 
-- [https://gvolpe.com/neovim-flake](https://gvolpe.com/neovim-flake).
+- [gvolpe.com/neovim-flake](https://gvolpe.com/neovim-flake)
 
 ## Credits
 
