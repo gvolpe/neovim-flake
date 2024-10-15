@@ -42,9 +42,17 @@ with lib; {
       '';
       description = "Attribute set of neovim-ide preferences.";
     };
+
+    finalPackage = mkOption {
+      type = types.package;
+      visible = false;
+      readOnly = true;
+      description = "The NeoVim package including as configured by the HM module";
+    };
   };
 
   config = mkIf cfg.enable {
     home.packages = [ set.neovim ];
+    programs.neovim-ide.finalPackage = set.neovim;
   };
 }
