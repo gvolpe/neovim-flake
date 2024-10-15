@@ -133,6 +133,7 @@ let
       harpoon.enable = true;
       hop.enable = true;
       notifications.enable = true;
+      tide.enable = true;
       todo.enable = true;
       zen.enable = true;
     };

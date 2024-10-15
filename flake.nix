@@ -63,6 +63,11 @@
       flake = false;
     };
 
+    tide = {
+      url = github:jackMort/tide.nvim;
+      flake = false;
+    };
+
     # Distraction-free coding
     twilight = {
       url = github:folke/twilight.nvim;

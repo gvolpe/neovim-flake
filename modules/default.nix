@@ -30,6 +30,7 @@
     ./tabline
     ./telescope
     ./theme
+    ./tide
     ./todo
     ./treesitter
     ./visuals

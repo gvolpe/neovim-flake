@@ -1214,6 +1214,7 @@
         "telescope": "telescope",
         "telescope-media-files": "telescope-media-files",
         "telescope-tabs": "telescope-tabs",
+        "tide": "tide",
         "todo-comments": "todo-comments",
         "tokyonight": "tokyonight",
         "tree-sitter-scala": "tree-sitter-scala",
@@ -1349,6 +1350,22 @@
       "original": {
         "owner": "FabianWirth",
         "repo": "search.nvim",
+        "type": "github"
+      }
+    },
+    "tide": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1728827703,
+        "narHash": "sha256-LbToO81yRROSbwjNTtY8hzQvO4qgAtv5iiUyjowvxhU=",
+        "owner": "jackMort",
+        "repo": "tide.nvim",
+        "rev": "0b6ccbcc026158e66c7d67f1f289812bbb3b48cf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jackMort",
+        "repo": "tide.nvim",
         "type": "github"
       }
     },
