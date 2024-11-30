@@ -6,6 +6,10 @@ with builtins;
 let
   cfg = config.vim.lsp;
   keys = config.vim.keys.whichKey;
+
+  metalsServerProperties =
+    let str = builtins.toJSON cfg.scala.metals.serverProperties;
+    in lib.strings.removePrefix "[" (lib.strings.removeSuffix "]" str);
 in
 {
   options.vim.lsp = {
@@ -28,10 +32,29 @@ in
 
     scala = {
       enable = mkEnableOption "Scala LSP (Metals)";
-      metals = mkOption {
-        type = types.package;
-        default = pkgs.metals;
-        description = "The Metals package to use. Default pkgs.metals.";
+      metals = {
+        package = mkOption {
+          type = types.package;
+          default = pkgs.metals;
+          description = "The Metals package to use. Default pkgs.metals.";
+        };
+
+        serverProperties = mkOption {
+          type = types.listOf types.str;
+          default = [
+            "-Xmx2G"
+            "-XX:+UseZGC"
+            "-XX:ZUncommitDelay=30"
+            "-XX:ZCollectionInterval=5"
+            "-XX:+IgnoreUnrecognizedVMOptions"
+          ];
+          description = "The Metals server properties.";
+          example = [
+            "-Dmetals.enable-best-effort=true"
+            "-XX:+UseStringDeduplication"
+            "-XX:+IgnoreUnrecognizedVMOptions"
+          ];
+        };
       };
     };
 
@@ -412,7 +435,7 @@ in
         metals_config.on_attach = default_on_attach
 
         metals_config.settings = {
-           metalsBinaryPath = "${cfg.scala.metals}/bin/metals",
+           metalsBinaryPath = "${cfg.scala.metals.package}/bin/metals",
            autoImportBuild = "off",
            defaultBspToBuildTool = true,
            showImplicitArguments = true,
@@ -422,6 +445,9 @@ in
            excludedPackages = {
              "akka.actor.typed.javadsl",
              "com.github.swagger.akka.javadsl"
+           },
+           serverProperties = {
+             ${metalsServerProperties}
            }
         }
 
