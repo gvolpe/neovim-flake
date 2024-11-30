@@ -139,7 +139,7 @@ in
       example = literalExpression ''
         { "ftplugin/c.vim".text = "setlocal omnifunc=v:lua.vim.lsp.omnifunc"; }
       '';
-      description = lib.mdDoc ''
+      description = ''
         Set of files that have to be linked in {file}`runtime`.
       '';
 
@@ -151,7 +151,7 @@ in
             enable = mkOption {
               type = types.bool;
               default = true;
-              description = lib.mdDoc ''
+              description = ''
                 Whether this /etc file should be generated.  This
                 option allows specific /etc files to be disabled.
               '';
@@ -159,7 +159,7 @@ in
 
             target = mkOption {
               type = types.str;
-              description = lib.mdDoc ''
+              description = ''
                 Name of symlink.  Defaults to the attribute
                 name.
               '';
@@ -168,12 +168,12 @@ in
             text = mkOption {
               default = null;
               type = types.nullOr types.lines;
-              description = lib.mdDoc "Text of the file.";
+              description = "Text of the file.";
             };
 
             source = mkOption {
               type = types.path;
-              description = lib.mdDoc "Path of the source file.";
+              description = "Path of the source file.";
             };
 
           };
