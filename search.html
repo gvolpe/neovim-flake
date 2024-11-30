@@ -2038,11 +2038,11 @@
 							</div>
 						</div>
 					</div>
-					<div class="nixoption block" id="vim.lsp.scala.metals">
+					<div class="nixoption block" id="vim.lsp.scala.metals.package">
 						<div class="level">
 							<div class="level-left">
 								<div class="level-item">
-									<h3 class="title is-3"> <a href="#vim.lsp.scala.metals"># </a> vim.lsp.scala.metals  </h3>
+									<h3 class="title is-3"> <a href="#vim.lsp.scala.metals.package"># </a> vim.lsp.scala.metals.package  </h3>
 								</div>
 							</div>
 							<div class="level-right">
@@ -2057,6 +2057,45 @@
 						<div class="block">
 							<p class="block"><strong>Default:</strong> <code>&lt;derivation metals-1.3.0&gt;</code> </p>
 							<p class="block"><strong>Example:</strong> <code></code> </p>
+
+							<h4 class="title is-4">Declarations</h4>
+
+							<div class="block">
+								<ul>
+                  <li> <a href="https://github.com/gvolpe/neovim-flake/blob/main/modules/lsp/lsp.nix" target="_blank"> <code> &lt;/modules/lsp/lsp.nix&gt; </code> </a> </li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="nixoption block" id="vim.lsp.scala.metals.serverProperties">
+						<div class="level">
+							<div class="level-left">
+								<div class="level-item">
+									<h3 class="title is-3"> <a href="#vim.lsp.scala.metals.serverProperties"># </a> vim.lsp.scala.metals.serverProperties  </h3>
+								</div>
+							</div>
+							<div class="level-right">
+								<div class="level-item">
+									<span class="tag is-medium is-info">list of string</span>
+								</div>
+							</div>
+						</div>
+
+						<p class="subtitle"> The Metals server properties. </p>
+
+						<div class="block">
+							<p class="block"><strong>Default:</strong> <code>[
+  &#34;-Xmx2G&#34;
+  &#34;-XX:+UseZGC&#34;
+  &#34;-XX:ZUncommitDelay=30&#34;
+  &#34;-XX:ZCollectionInterval=5&#34;
+  &#34;-XX:+IgnoreUnrecognizedVMOptions&#34;
+]</code> </p>
+							<p class="block"><strong>Example:</strong> <code>[
+  &#34;-Dmetals.enable-best-effort=true&#34;
+  &#34;-XX:+UseStringDeduplication&#34;
+  &#34;-XX:+IgnoreUnrecognizedVMOptions&#34;
+]</code> </p>
 
 							<h4 class="title is-4">Declarations</h4>
 
@@ -3192,7 +3231,7 @@ name.
 						<p class="subtitle"> Directory for the snippet files </p>
 
 						<div class="block">
-							<p class="block"><strong>Default:</strong> <code>&#34;/nix/store/sx76sbgl3vh5pg5njsv3lhkw9rsbgvi3-source/snippets&#34;</code> </p>
+							<p class="block"><strong>Default:</strong> <code>&#34;/nix/store/bj63142bwh1kl0cqxm282s6gvyzy8p67-source/snippets&#34;</code> </p>
 							<p class="block"><strong>Example:</strong> <code></code> </p>
 
 							<h4 class="title is-4">Declarations</h4>

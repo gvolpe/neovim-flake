@@ -25,9 +25,16 @@ $ nix run github:gvolpe/neovim-flake#scala-tokyo-night</pre><p>The default theme
     enable = true;
     scala = {
       enable = true;
-      metals = pkgs.metalsBuilder {
-        version = "0.11.8+76-22425a8b-SNAPSHOT";
-        outputHash = "[Insert hash (try nix build .#)]";
+      metals = {
+        package = pkgs.metalsBuilder {
+          version = "0.11.8+76-22425a8b-SNAPSHOT";
+          outputHash = "[Insert hash (try nix build .#)]";
+        };
+        serverProperties = [
+          "-Dmetals.enable-best-effort=true"
+          "-Xmx2G"
+          "-XX:+UseZGC"
+        ];
       };
     };
   };
