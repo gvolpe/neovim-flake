@@ -1210,6 +1210,7 @@
         "render-markdown-nvim": "render-markdown-nvim",
         "rosepine": "rosepine",
         "rust-tools": "rust-tools",
+        "snacks": "snacks",
         "sqls-nvim": "sqls-nvim",
         "telescope": "telescope",
         "telescope-media-files": "telescope-media-files",
@@ -1256,6 +1257,22 @@
       "original": {
         "owner": "simrat39",
         "repo": "rust-tools.nvim",
+        "type": "github"
+      }
+    },
+    "snacks": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1733604240,
+        "narHash": "sha256-ccD3LMg3nZ/Pvew1FsoYw2ZytxiKxi/w01/5tXQBrdk=",
+        "owner": "folke",
+        "repo": "snacks.nvim",
+        "rev": "9651a931043359fcc094ab5c67ac22554a602745",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "snacks.nvim",
         "type": "github"
       }
     },

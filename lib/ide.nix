@@ -145,6 +145,7 @@ let
       harpoon.enable = true;
       hop.enable = true;
       notifications.enable = true;
+      snacks.enable = true;
       tide.enable = true;
       todo.enable = true;
       zen.enable = true;

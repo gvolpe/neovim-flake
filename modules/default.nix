@@ -23,6 +23,7 @@
     ./neovim
     ./notifications
     ./plantuml
+    ./snacks
     ./snippets
     ./spider
     ./statusline

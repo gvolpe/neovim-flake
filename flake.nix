@@ -303,6 +303,12 @@
       flake = false;
     };
 
+    # Dashboard
+    snacks = {
+      url = github:folke/snacks.nvim;
+      flake = false;
+    };
+
     # Git
     vim-fugitive = {
       url = github:tpope/vim-fugitive;

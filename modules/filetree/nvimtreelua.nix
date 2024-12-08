@@ -40,7 +40,7 @@ in
     };
 
     openOnSetup = mkOption {
-      default = true;
+      default = false;
       description = "Open when vim is started on a directory";
       type = types.bool;
     };
