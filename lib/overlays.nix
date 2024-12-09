@@ -35,10 +35,10 @@ let
   };
 in
 [
+  libOverlay
   buildersOverlay
   pluginOverlay
   nmdOverlay
-  libOverlay
   tsOverlay
   lib.metalsOverlay
   neovimOverlay

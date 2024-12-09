@@ -439,14 +439,13 @@
         };
 
         overlays.default = f: p: {
-          inherit (lib) metalsBuilder neovimBuilder;
-          inherit (pkgs) neovim-nightly neovimPlugins;
+          inherit (pkgs) metalsBuilder neovimBuilder neovim-nightly neovimPlugins;
         };
 
         homeManagerModules.default = {
           imports = [
             ./lib/hm.nix
-            { nixpkgs.overlays = [ overlays.default ]; }
+            { nixpkgs.overlays = overlays; }
           ];
         };
 
