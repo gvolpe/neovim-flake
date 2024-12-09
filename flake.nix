@@ -156,8 +156,7 @@
     };
 
     telescope-media-files = {
-      #url = git+file:///home/gvolpe/workspace/telescope-media-files.nvim;
-      url = github:gvolpe/telescope-media-files.nvim;
+      url = github:nvim-telescope/telescope-media-files.nvim;
       flake = false;
     };
 
@@ -412,42 +411,14 @@
 
         lib = import ./lib { inherit pkgs inputs plugins; };
 
-        inherit (lib) metalsBuilder metalsOverlay neovimBuilder;
-
-        pluginOverlay = lib.buildPluginOverlay;
-        nmdOverlay = inputs.nmd.overlays.default;
-
-        libOverlay = f: p: {
-          lib = p.lib.extend (_: _: {
-            inherit (lib) mkVimBool withAttrSet withPlugins writeIf;
-          });
-        };
-
-        tsOverlay = f: p: {
-          tree-sitter-scala-master = p.tree-sitter.buildGrammar {
-            language = "scala";
-            version = inputs.tree-sitter-scala.rev;
-            src = inputs.tree-sitter-scala;
-          };
-        };
-
-        neovimOverlay = f: p: {
-          neovim-nightly = inputs.neovim-nightly-overlay.packages.${system}.neovim;
-        };
-
-        nixdOverlay = f: p: {
-          inherit (inputs.nixd.packages.${system}) nixd;
-        };
+        overlays = import ./lib/overlays.nix { inherit lib inputs system; };
 
         pkgs = import nixpkgs {
-          inherit system;
+          inherit overlays system;
           config = { allowUnfree = true; };
-          overlays = [ libOverlay pluginOverlay metalsOverlay neovimOverlay nmdOverlay nixdOverlay tsOverlay ];
         };
 
-        default-ide = pkgs.callPackage ./lib/ide.nix {
-          inherit pkgs neovimBuilder;
-        };
+        default-ide = pkgs.callPackage ./lib/ide.nix { };
 
         searchdocs = pkgs.callPackage ./docs/search { };
 
@@ -457,18 +428,18 @@
           inherit (options) json;
         };
       in
-      rec {
+      {
         apps = rec {
           nvim = {
             type = "app";
-            program = "${packages.default}/bin/nvim";
+            program = "${default-ide.full.neovim}/bin/nvim";
           };
 
           default = nvim;
         };
 
         overlays.default = f: p: {
-          inherit metalsBuilder neovimBuilder;
+          inherit (lib) metalsBuilder neovimBuilder;
           inherit (pkgs) neovim-nightly neovimPlugins;
         };
 
@@ -478,9 +449,6 @@
             { nixpkgs.overlays = [ overlays.default ]; }
           ];
         };
-
-        nixosModules.hm =
-          pkgs.lib.warn "nixosModules.hm is deprecated; use homeManagerModules.default instead." homeManagerModules.default;
 
         packages = {
           default = default-ide.full.neovim;

@@ -4,7 +4,7 @@ with lib;
 
 let
   cfg = config.vim.snacks;
-  neovim = config.vim.neovim.package;
+  version = pkgs.neovim-version config.vim.neovim.package;
 in
 {
   options.vim.snacks = {
@@ -37,7 +37,7 @@ in
               section = "terminal",
               cmd = "${pkgs.chafa}/bin/chafa ${../../img/neovim-logo.png}",
             },
-            { text = "Version: ${neovim.version}", align = "center", padding = 1 },
+            { text = "Version: ${version}", align = "center", padding = 1 },
             { section = "keys", gap = 1, padding = 1 },
           },
         },
