@@ -109,6 +109,14 @@ in
           },
         },
         extensions = {
+          media = {
+            backend = "chafa",
+            backend_options = {
+              chafa = {
+                move = true,
+              },
+            },
+          },
           media_files = {
             filetypes = {"png", "webp", "jpg", "jpeg"},
             find_cmd = "${pkgs.fd}/bin/fd",

@@ -30,7 +30,7 @@ let
 
   telescopeFixupHook = ''
     substituteInPlace $out/scripts/vimg \
-      --replace "ueberzug layer" "${pkgs.ueberzug}/bin/ueberzug layer"
+      --replace "chafa" "${pkgs.chafa}/bin/chafa"
     substituteInPlace $out/lua/telescope/_extensions/media_files.lua \
       --replace "M.base_directory .. '/scripts/vimg'" "'$out/scripts/vimg'"
   '';
