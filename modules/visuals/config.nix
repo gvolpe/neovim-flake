@@ -7,6 +7,7 @@ with lib;
     vim.visuals = {
       enable = mkDefault false;
 
+      modes.enable = mkDefault true;
       noice.enable = mkDefault true;
       nvimWebDevicons.enable = mkDefault false;
       lspkind.enable = mkDefault false;

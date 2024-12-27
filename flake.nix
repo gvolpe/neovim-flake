@@ -288,6 +288,10 @@
       url = github:lukas-reineke/indent-blankline.nvim;
       flake = false;
     };
+    modes-nvim = {
+      url = github:mvllow/modes.nvim;
+      flake = false;
+    };
     nvim-web-devicons = {
       url = github:kyazdani42/nvim-web-devicons;
       flake = false;

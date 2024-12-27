@@ -14,6 +14,30 @@ in
       description = "visual enhancements";
     };
 
+    modes = {
+      enable = mkOption {
+        type = types.bool;
+        description = "enable modes.nvim: Prismatic line decorations for the adventurous vim user";
+      };
+
+      lineOpacity = mkOption {
+        type = types.float;
+        default = 0.15;
+        description = "the opacity for cursorline and number background";
+      };
+
+      colors = {
+        insert = mkOption {
+          type = types.str;
+          default = "#27ff00";
+        };
+        visual = mkOption {
+          type = types.str;
+          default = "#8927ff";
+        };
+      };
+    };
+
     noice.enable = mkOption {
       type = types.bool;
       description = "enable the noice plugin";
@@ -72,6 +96,7 @@ in
   config = mkIf cfg.enable
     {
       vim.startPlugins = with pkgs.neovimPlugins; (
+        (withPlugins cfg.modes.enable [ modes-nvim ]) ++
         (withPlugins cfg.noice.enable [ noice nui-nvim ]) ++
         (withPlugins cfg.nvimWebDevicons.enable [ nvim-web-devicons ]) ++
         (withPlugins cfg.lspkind.enable [ lspkind ]) ++
@@ -110,6 +135,21 @@ in
 
         ${writeIf cfg.cursorWordline.enable ''
             vim.g.cursorline_timeout = ${toString cfg.cursorWordline.lineTimeout}
+          ''
+        }
+
+        ${writeIf cfg.modes.enable ''
+            require('modes').setup({
+              colors = {
+                bg = "", -- Optional bg param, defaults to Normal hl group
+                copy = "#fcd85c", -- don't care about this, interferes with which-key
+                delete = "#f05454", -- also interferes with which-key and workaroound is too slow
+                insert = "${cfg.modes.colors.insert}",
+                visual = "${cfg.modes.colors.visual}",
+              },
+              -- Set opacity for cursorline and number background
+              line_opacity = ${toString cfg.modes.lineOpacity},
+            })
           ''
         }
 
