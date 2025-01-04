@@ -30,10 +30,12 @@ in
         insert = mkOption {
           type = types.str;
           default = "#27ff00";
+          description = "the highlight color for the insert mode";
         };
         visual = mkOption {
           type = types.str;
           default = "#8927ff";
+          description = "the highlight color for the visual mode";
         };
       };
     };
