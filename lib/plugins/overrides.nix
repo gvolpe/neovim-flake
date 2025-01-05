@@ -82,6 +82,7 @@ in
     (withDeps (p == "snacks") snackSkip) ++
     (withDeps (p == "telescope-tabs") [ "search" "search.settings" "search.util" ]) ++
     (withDeps (p == "tide") [ "tide.render" "tide.api" "tide.panel" "tide" ]) ++
+    (withDeps (p == "tokyonight") [ "tokyonight.docs" "tokyonight.extra.fzf" ]) ++
     (withDeps (p == "trouble") [ "trouble.docs" ]) ++
     (withDeps (p == "which-key") [ "which-key.docs" ]);
 }
