@@ -47,21 +47,27 @@ in
     (withDeps (p == "cmp-vsnip") [ neovimPlugins.nvim-cmp ]);
 
   dependencies =
+    (withDeps (p == "crates-nvim") [ neovimPlugins.plenary-nvim ]) ++
     (withDeps (p == "diffview") [ neovimPlugins.plenary-nvim ]) ++
     (withDeps (p == "harpoon") [ neovimPlugins.plenary-nvim ]) ++
+    (withDeps (p == "mind-nvim") [ neovimPlugins.plenary-nvim ]) ++
     (withDeps (p == "neogit") [ neovimPlugins.plenary-nvim ]) ++
     (withDeps (p == "noice") [ neovimPlugins.nui-nvim ]) ++
+    (withDeps (p == "nvim-chatgpt") (with neovimPlugins; [ nui-nvim plenary-nvim telescope ])) ++
     (withDeps (p == "nvim-metals") [ neovimPlugins.plenary-nvim ]) ++
     (withDeps (p == "nvim-treesitter-textobjects") [ neovimPlugins.nvim-treesitter ]) ++
     (withDeps (p == "nvim-ufo") [ neovimPlugins.promise-async ]) ++
+    (withDeps (p == "rust-tools") [ neovimPlugins.nvim-lspconfig ]) ++
     (withDeps (p == "telescope") [ neovimPlugins.plenary-nvim ]) ++
     (withDeps (p == "todo-comments") [ neovimPlugins.plenary-nvim ]);
 
   nvimRequireCheck =
+    (withDeps (p == "crates-nvim") [ "crates" ]) ++
     (withDeps (p == "diffview") [ "diffview" ]) ++
     (withDeps (p == "harpoon") [ "harpoon" ]) ++
     (withDeps (p == "neogit") [ "neogit" ]) ++
     (withDeps (p == "noice") [ "noice" ]) ++
+    (withDeps (p == "nvim-chatgpt") [ "chatgpt" ]) ++
     (withDeps (p == "nvim-metals") [ "metals" ]) ++
     (withDeps (p == "nvim-treesitter") [ "nvim-treesitter" ]) ++
     (withDeps (p == "nvim-ufo") [ "ufo" ]) ++
