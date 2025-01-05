@@ -14,17 +14,9 @@ let
     };
   };
 
-  smithy-lsp = pkgs.callPackage ./smithy-lspconfig.nix { };
-
-  smithyLspHook = ''
-    cat >> $out/lua/lspconfig/server_configurations/smithy.lua <<EOL
-    ${smithy-lsp.lua}
-    EOL
-  '';
-
   # sync queries of tree-sitter-scala and nvim-treesitter
   queriesHook = ''
-    cp ${inputs.tree-sitter-scala}/queries/scala/* $out/queries/scala/
+    cp ${inputs.tree-sitter-scala}/queries/* $out/queries/scala/
     cp ${ts.builtGrammars.tree-sitter-smithy}/queries/highlights.scm $out/queries/smithy/highlights.scm
   '';
 
@@ -44,25 +36,38 @@ let
     ln -s ${grammars} parser
   '';
 
-  buildPlug = name: grammars: buildVimPlugin {
-    pname = name;
-    version = "master";
-    src = builtins.getAttr name inputs;
-    preFixup = ''
-      ${writeIf (name == "nvim-lspconfig") smithyLspHook}
-      ${writeIf (name == "nvim-treesitter") tsPreFixupHook}
-      ${writeIf (name == "telescope-media-files") telescopeFixupHook}
-    '';
-    postPatch = ''
-      ${writeIf (name == "nvim-treesitter") (tsPostPatchHook grammars)}
-    '';
-  };
+  plenaryPostPatchHook = ''
+    sed -Ei lua/plenary/curl.lua \
+        -e 's@(command\s*=\s*")curl(")@\1${pkgs.curl}/bin/curl\2@'
+  '';
+
+  # following https://github.com/NixOS/nixpkgs/blob/d86ae899d2909c0899e4d3b29d90d5309771e77c/pkgs/applications/editors/vim/plugins/overrides.nix#L139
+  buildPlug = name: grammars:
+    let overrides = (final.callPackage ./plugins/overrides.nix { }) { p = name; };
+    in buildVimPlugin {
+      inherit name;
+      inherit (overrides) checkInputs dependencies nvimRequireCheck nvimSkipModule;
+
+      version = "master";
+      src = lib.getAttr name inputs;
+
+      doInstallCheck = name == "diffview" || name == "plenary-nvim";
+      dontBuild = name == "nvim-metals";
+
+      preFixup = ''
+        ${writeIf (name == "nvim-treesitter") tsPreFixupHook}
+        ${writeIf (name == "telescope-media-files") telescopeFixupHook}
+      '';
+      postPatch = ''
+        ${writeIf (name == "nvim-treesitter") (tsPostPatchHook grammars)}
+        ${writeIf (name == "plenary-nvim") plenaryPostPatchHook}
+      '';
+    };
 
   vimPlugins = {
     inherit (pkgs.vimPlugins) nerdcommenter;
   };
-in
-rec {
+
   # override at use site with your own preferences
   treesitterGrammars = t: t.withPlugins (p: [
     p.tree-sitter-scala
@@ -73,6 +78,9 @@ rec {
     p.tree-sitter-markdown-inline
     p.tree-sitter-smithy
   ]);
+in
+{
+  inherit treesitterGrammars;
 
   neovimPlugins =
     let
