@@ -73,7 +73,6 @@ in
     (withDeps (p == "nvim-autopairs") [ "nvim-autopairs.completion.cmp" "nvim-autopairs.completion.compe" ]) ++
     (withDeps (p == "nvim-bufferline") [ "bufferline.commands" ]) ++
     (withDeps (p == "nvim-cmp") cmpSkip) ++
-    (withDeps (p == "nvim-lspconfig") [ "lspconfig.configs.smithy_ls" ]) ++
     (withDeps (p == "nvim-neoclip") [ "neoclip.fzf" "neoclip.telescope" ]) ++
     (withDeps (p == "nvim-notify") [ "notify.integrations.fzf" ]) ++
     (withDeps (p == "nvim-treesitter-context") [ "install_parsers" ]) ++

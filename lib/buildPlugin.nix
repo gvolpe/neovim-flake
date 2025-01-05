@@ -14,14 +14,6 @@ let
     };
   };
 
-  smithy-lsp = pkgs.callPackage ./smithy-lspconfig.nix { };
-
-  smithyLspHook = ''
-    cat >> $out/lua/lspconfig/configs/smithy_ls.lua <<EOL
-    ${smithy-lsp.lua}
-    EOL
-  '';
-
   # sync queries of tree-sitter-scala and nvim-treesitter
   queriesHook = ''
     cp ${inputs.tree-sitter-scala}/queries/* $out/queries/scala/
@@ -63,7 +55,6 @@ let
       dontBuild = name == "nvim-metals";
 
       preFixup = ''
-        ${writeIf (name == "nvim-lspconfig") smithyLspHook}
         ${writeIf (name == "nvim-treesitter") tsPreFixupHook}
         ${writeIf (name == "telescope-media-files") telescopeFixupHook}
       '';

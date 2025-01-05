@@ -476,7 +476,7 @@ in
         -- Smithy config
         vim.cmd([[au BufRead,BufNewFile *.smithy setfiletype smithy]])
 
-        lspconfig.smithy.setup {
+        lspconfig.smithy_ls.setup {
           capabilities = capabilities;
           on_attach = function(client, bufnr)
             attach_keymaps(client, bufnr)
@@ -494,7 +494,7 @@ in
 
       ${writeIf cfg.ts ''
         -- TS config
-        lspconfig.tsserver.setup {
+        lspconfig.ts_ls.setup {
           capabilities = capabilities;
           on_attach = function(client, bufnr)
             attach_keymaps(client, bufnr)
