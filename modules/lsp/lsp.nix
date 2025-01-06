@@ -267,19 +267,15 @@ in
       };
 
       ${writeIf keys.enable ''
-        wk.register({
-          ["<leader>l"] = {
-            name = "LSP",
-          },
+        wk.add({
+          { "<leader>l", group = "LSP" },
         })
 
         ${writeIf cfg.scala.enable ''
-        wk.register({
-          ["<leader>m"] = {
-            name = "Metals",
-            w = { "<cmd>lua require'metals'.worksheet_hover()<CR>", "Worksheet hover" },
-            d = { "<cmd>lua require'metals'.open_all_diagnostics()<CR>", "Open all diagnostics" },
-          },
+        wk.add({
+          { "<leader>m", group = "Metals" },
+          { "<leader>w", "<cmd>lua require'metals'.worksheet_hover()<CR>", desc = "Worksheet hover" },
+          { "<leader>d", "<cmd>lua require'metals'.open_all_diagnostics()<CR>", desc = "Open all diagnostics" },
         })
         ''}
       ''}

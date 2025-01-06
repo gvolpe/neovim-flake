@@ -157,11 +157,9 @@ in
 
         ${writeIf cfg.noice.enable ''
             ${writeIf keys.enable ''
-              wk.register({
-                ["<leader>n"] = {
-                  name = "Noice",
-                  d = { "<cmd> NoiceDismiss <CR>", "Dismiss notifications" },
-                },
+              wk.add({
+                { "<leader>n", group = "Noice" },
+                { "<leader>nd", "<cmd> NoiceDismiss <CR>", desc = "Dismiss notifications" }
               })
             ''}
 

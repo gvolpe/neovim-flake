@@ -67,7 +67,7 @@ in
 
             -- Actions
             ${writeIf keys.enable ''
-            wk.register({
+            wk.add({
               ["<leader>g"] = {
                 name = "Gitsigns",
                 b = { function() gs.blame_line{full=true} end, "Blame (full)" },
@@ -103,8 +103,8 @@ in
         require('neogit').setup {}
 
           ${writeIf keys.enable ''
-          wk.register({
-            ["<leader>gn"] = { "<cmd> Neogit kind=auto<CR>", "Open neogit" },
+          wk.add({
+            { "<leader>gn", "<cmd> Neogit kind=auto<CR>", desc = "Open neogit" },
           })
           ''}
 
