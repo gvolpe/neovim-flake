@@ -35,8 +35,10 @@ in
       }
 
       ${writeIf keys.enable ''
-        wk.add({
-          { "<leader>c", group = "Commenter" },
+        wk.register({
+          ["<leader>c"] = {
+            name = "Commenter",
+          },
         })
       ''}
     '';

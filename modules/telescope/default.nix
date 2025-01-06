@@ -84,8 +84,10 @@ in
       ''}
 
       ${writeIf keys.enable ''
-        wk.add({
-          { "<leader>f", group = "Telescope" },
+        wk.register({
+          ["<leader>f"] = {
+            name = "Telescope",
+          },
         })
       ''}
 
