@@ -21,10 +21,8 @@ in
 
     vim.luaConfigRC = ''
       ${writeIf keys.enable ''
-        wk.register({
-          ["<leader>a"] = {
-            name = "Code actions",
-          },
+        wk.add({
+          { "<leader>a", group = "Code actions" },
         })
       ''}
     '';

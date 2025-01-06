@@ -45,12 +45,10 @@ in
       ''}
 
       ${writeIf keys.enable ''
-        wk.register({
-          ["<leader>h"] = {
-            name = "Harpoon",
-            a = { "<cmd>lua require('harpoon'):list():add()<CR>", "Add" },
-            d = { "<cmd>lua require('harpoon'):list():remove()<CR>", "Del" },
-          },
+        wk.add({
+          { "<leader>h", group = "Harpoon" },
+          { "<leader>ha", "<cmd>lua require('harpoon'):list():add()<CR>", desc = "Add" },
+          { "<leader>hd", "<cmd>lua require('harpoon'):list():remove()<CR>", desc = "Del" },
         })
       ''}
     '';

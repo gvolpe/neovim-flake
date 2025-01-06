@@ -186,10 +186,8 @@ in
       ''}
 
       ${writeIf keys.enable ''
-        wk.register({
-          ["<leader>t"] = {
-            name = "Tree & Todo",
-          },
+        wk.add({
+          { "<leader>t", group = "Tree & Todo" },
         })
       ''}
     '';

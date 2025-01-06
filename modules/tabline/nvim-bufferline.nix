@@ -78,7 +78,6 @@ in
               offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "left"}},
               sort_by = 'extension',
               diagnostics = "nvim_lsp",
-              diagnostics_update_in_insert = true,
               diagnostics_indicator = function(count, level, diagnostics_dict, context)
                  local s = ""
                  for e, n in pairs(diagnostics_dict) do
@@ -96,11 +95,11 @@ in
            }
         }
 
+        vim.diagnostic.config { update_in_insert = true }
+
         ${writeIf keys.enable ''
-          wk.register({
-            ["<leader>b"] = {
-              name = "Buffers",
-            },
+          wk.add({
+            {"<leader>b", group = "Buffers" },
           })
         ''}
       '';

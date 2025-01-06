@@ -27,10 +27,8 @@ in
       require("trouble").setup {}
 
       ${writeIf keys.enable ''
-        wk.register({
-          ["<leader>x"] = {
-            name = "Troubles",
-          },
+        wk.add({
+          { "<leader>x", group = "Troubles" },
         })
       ''}
     '';
