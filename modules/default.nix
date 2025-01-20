@@ -19,6 +19,7 @@
     ./lsp
     ./markdown
     ./mind
+    ./mini
     ./neoclip
     ./neovim
     ./notifications

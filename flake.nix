@@ -40,6 +40,11 @@
     };
 
     # Text objects
+    mini-nvim = {
+      url = github:echasnovski/mini.nvim;
+      flake = false;
+    };
+
     nvim-surround = {
       url = github:kylechui/nvim-surround;
       flake = false;
