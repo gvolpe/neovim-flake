@@ -23,7 +23,7 @@ in
       description = "enable autoclose and rename html tag [nvim-ts-autotag]";
     };
 
-    textobjects = mkOption {
+    textobjects.enable = mkOption {
       type = types.bool;
       description = "enable nvim-treesitter-textobjects and its default configuration";
     };
@@ -33,7 +33,7 @@ in
     vim.startPlugins = with pkgs.neovimPlugins; (
       [ nvim-treesitter ] ++
       (withPlugins cfg.autotagHtml [ nvim-ts-autotag ]) ++
-      (withPlugins cfg.textobjects [ nvim-treesitter-textobjects ])
+      (withPlugins cfg.textobjects.enable [ nvim-treesitter-textobjects ])
     );
 
     vim.configRC = writeIf (cfg.fold && !config.vim.lsp.folds) ''
@@ -64,7 +64,7 @@ in
             enable = true,
           },
 
-          ${writeIf cfg.textobjects ''
+          ${writeIf cfg.textobjects.enable ''
           textobjects = {
             enable = true,
             swap = {

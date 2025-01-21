@@ -9,7 +9,7 @@ with lib;
       fold = mkDefault true;
       autotagHtml = mkDefault false;
       context.enable = mkDefault false;
-      textobjects = mkDefault true;
+      textobjects.enable = mkDefault false;
     };
   };
 }

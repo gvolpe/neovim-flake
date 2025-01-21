@@ -94,6 +94,7 @@ let
         enable = true;
         autotagHtml = true;
         context.enable = true;
+        textobjects.enable = false;
       };
       keys = {
         enable = true;
