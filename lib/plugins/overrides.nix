@@ -22,14 +22,22 @@ let
 
   snackSkip = [
     # Requires setup call first
+    # attempt to index global 'Snacks' (a nil value)
     "snacks.dashboard"
     "snacks.debug"
     "snacks.dim"
     "snacks.git"
+    "snacks.image.convert"
+    "snacks.image.image"
+    "snacks.image.init"
+    "snacks.image.placement"
     "snacks.indent"
     "snacks.input"
     "snacks.lazygit"
     "snacks.notifier"
+    "snacks.picker.actions"
+    "snacks.picker.config.highlights"
+    "snacks.picker.core.list"
     "snacks.scratch"
     "snacks.scroll"
     "snacks.terminal"
@@ -38,6 +46,8 @@ let
     "snacks.zen"
     # Optional trouble integration
     "trouble.sources.profiler"
+    # Plugin requires libsqlite available, create a test for it
+    "snacks.picker.util.db"
   ];
 in
 { p }: {
