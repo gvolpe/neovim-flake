@@ -12,6 +12,7 @@
     };
 
     # nix lsp support
+    nil.url = github:oxalica/nil;
     nixd.url = github:nix-community/nixd;
 
     # Nix module docs generator

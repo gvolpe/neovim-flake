@@ -332,7 +332,7 @@ in
 
       ${writeIf (cfg.nix.enable && cfg.nix.type == "nil") ''
         -- Nix config
-        lspconfig.nil_ls.setup{
+        lspconfig.nil_ls.setup {
           capabilities = capabilities;
           on_attach = function(client, bufnr)
             attach_keymaps(client, bufnr)
@@ -345,6 +345,13 @@ in
               diagnostics = {
                 ignored = { "uri_literal" },
                 excludedFiles = { }
+              },
+              nix = {
+                flake = {
+                  autoArchive = false,
+                  autoEvalInputs = false,
+                  nixpkgsInputName = "nixpkgs"
+                }
               }
             }
           };
