@@ -326,6 +326,17 @@ in
           on_attach = function(client, bufnr)
             attach_keymaps(client, bufnr)
           end,
+          settings = {
+            ['nixd'] = {
+              formatting = {
+                command = {"${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt"}
+              },
+              diagnostic = {
+                -- See values: https://github.com/nix-community/nixd/blob/590eccaa079929daa58316f5386dbcc150e2d50d/libnixf/src/Basic/diagnostic.py#L17
+                suppress = {"deprecated-url-literal"}
+              }
+            }
+          };
           cmd = {"${pkgs.nixd}/bin/nixd"}
         }
       ''}
