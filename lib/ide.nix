@@ -42,6 +42,7 @@ let
           enable = true;
           type = "nil";
         };
+        unison = true;
         rust.enable = false;
         ts = false;
         smithy.enable = false;

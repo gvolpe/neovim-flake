@@ -29,6 +29,7 @@ in
     dhall = mkEnableOption "Dhall LSP";
     elm = mkEnableOption "Elm LSP";
     haskell = mkEnableOption "Haskell LSP (hls)";
+    unison = mkEnableOption "Unison LSP";
 
     scala = {
       enable = mkEnableOption "Scala LSP (Metals)";
@@ -112,6 +113,7 @@ in
       (withPlugins config.vim.autocomplete.enable [ cmp-nvim-lsp ]) ++
       (withPlugins cfg.sql [ sqls-nvim ]) ++
       (withPlugins cfg.scala.enable [ nvim-metals ]) ++
+      (withPlugins cfg.unison [ pkgs.vimPlugins.unison ]) ++
       (withPlugins cfg.folds [ promise-async nvim-ufo ]) ++
       (withPlugins cfg.rust.enable [ crates-nvim rust-tools ]);
 
@@ -443,6 +445,17 @@ in
           on_attach = default_on_attach;
           cmd = { "${pkgs.haskell-language-server}/bin/haskell-language-server-wrapper", "--lsp" };
           root_dir = lspconfig.util.root_pattern("hie.yaml", "stack.yaml", ".cabal", "cabal.project", "package.yaml");
+        }
+      ''}
+
+      ${writeIf cfg.unison ''
+        -- Unison config
+        lspconfig.unison.setup {
+          capabilities = capabilities;
+          on_attach = default_on_attach;
+          cmd = { "nc", "localhost", "5757" };
+          filetypes = { "unison" };
+          root_dir = lspconfig.util.root_pattern("*.u");
         }
       ''}
 
