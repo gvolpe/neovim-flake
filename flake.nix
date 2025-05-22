@@ -397,6 +397,12 @@
       url = github:MunifTanjim/nui.nvim;
       flake = false;
     };
+
+    # Github actions workflows
+    nvim-gha-open = {
+      url = github:amirkarimi/open-github-action.nvim;
+      flake = false;
+    };
   };
 
   outputs = inputs @ { nixpkgs, flake-utils, ... }:

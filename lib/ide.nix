@@ -124,6 +124,7 @@ let
       };
       git = {
         enable = true;
+        gha-open.enable = true;
         gitsigns.enable = true;
         neogit.enable = true;
       };

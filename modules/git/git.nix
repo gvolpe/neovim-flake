@@ -14,6 +14,8 @@ in
       description = "Enable git plugins (diffview and vim-fugitive by default)";
     };
 
+    gha-open.enable = mkEnableOption "open-github-action plugin";
+
     gitsigns.enable = mkOption {
       type = types.bool;
       description = "Enable gitsigns options";
@@ -29,6 +31,7 @@ in
     mkIf cfg.enable {
       vim.startPlugins =
         with pkgs.neovimPlugins; [ diffview vim-fugitive ] ++
+          (withPlugins cfg.gha-open.enable [ nvim-gha-open ]) ++
           (withPlugins cfg.gitsigns.enable [ gitsigns-nvim ]) ++
           (withPlugins cfg.neogit.enable [ neogit ]);
 
@@ -108,6 +111,11 @@ in
           })
           ''}
 
+        ''}
+
+        ${writeIf cfg.gha-open.enable ''
+        -- Neogit setup
+        require('open-github-action').setup {}
         ''}
       '';
     };
