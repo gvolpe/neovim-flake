@@ -20,6 +20,7 @@ let
 in
 pkgs.metals.overrideAttrs (old: {
   inherit version;
+  __intentionallyOverridingVersion = true;
   extraJavaOpts = old.extraJavaOpts + " -Dmetals.client=nvim-lsp";
   buildInputs = [ metalsDeps ];
 })
