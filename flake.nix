@@ -458,10 +458,7 @@
         };
 
         homeManagerModules.default = {
-          imports = [
-            ./lib/hm.nix
-            { nixpkgs.overlays = overlays; }
-          ];
+          imports = [ ./lib/hm.nix ];
         };
 
         packages = {
