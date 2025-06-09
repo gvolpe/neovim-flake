@@ -3,8 +3,8 @@
 { version, outputHash }:
 
 let
-  metalsDeps = pkgs.stdenv.mkDerivation {
-    name = "metals-deps-${version}";
+  deps = pkgs.stdenv.mkDerivation {
+    name = "metals-${version}-deps";
     buildCommand = ''
       export COURSIER_CACHE=$(pwd)
       ${pkgs.coursier}/bin/cs fetch org.scalameta:metals_2.13:${version} \
@@ -19,8 +19,7 @@ let
   };
 in
 pkgs.metals.overrideAttrs (old: {
-  inherit version;
+  inherit deps version;
   __intentionallyOverridingVersion = true;
   extraJavaOpts = old.extraJavaOpts + " -Dmetals.client=nvim-lsp";
-  buildInputs = [ metalsDeps ];
 })
