@@ -64,8 +64,7 @@
 
     # Marks/Registers
     harpoon = {
-      #url = github:ThePrimeagen/harpoon?ref=harpoon2;
-      url = github:kimabrandt-flx/harpoon?ref=fix_marks_index;
+      url = github:ThePrimeagen/harpoon?ref=harpoon2;
       flake = false;
     };
 
