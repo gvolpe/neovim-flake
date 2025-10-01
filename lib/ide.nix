@@ -158,8 +158,7 @@ let
     vim.lsp = {
       ts = true;
       smithy.enable = true;
-      # FIXME: dhall is marked as broken on nixpkgs
-      dhall = false;
+      dhall = true;
       elm = true;
     };
   };

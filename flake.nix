@@ -172,8 +172,7 @@
 
     # Filetrees
     nvim-tree-lua = {
-      #url = github:nvim-tree/nvim-tree.lua;
-      url = github:ghostbuster91/nvim-tree.lua/expand_until;
+      url = github:nvim-tree/nvim-tree.lua;
       flake = false;
     };
 
