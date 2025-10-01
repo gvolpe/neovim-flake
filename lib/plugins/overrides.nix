@@ -91,6 +91,7 @@ in
     (withDeps (p == "nvim-cmp") cmpSkip) ++
     (withDeps (p == "nvim-neoclip") [ "neoclip.fzf" "neoclip.telescope" ]) ++
     (withDeps (p == "nvim-notify") [ "notify.integrations.fzf" ]) ++
+    (withDeps (p == "nvim-tree-lua") [ "nvim-tree._meta.api" "nvim-tree._meta.api_decorator" ]) ++
     (withDeps (p == "nvim-treesitter-context") [ "install_parsers" ]) ++
     (withDeps (p == "nvim-surround") [ "nvim-surround.queries" ]) ++
     (withDeps (p == "onedark") [ "barbecue.theme.onedark" "onedark.highlights" "onedark.colors" "onedark.terminal" ]) ++
