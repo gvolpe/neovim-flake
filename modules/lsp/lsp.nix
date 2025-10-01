@@ -205,8 +205,6 @@ in
       end
 
       -- Enable lspconfig
-      local lspconfig = require('lspconfig')
-
       local capabilities = vim.lsp.protocol.make_client_capabilities()
 
       ${writeIf cfg.folds ''
@@ -307,23 +305,23 @@ in
           }
         }
 
-        require('crates').setup {
-        }
+        require('crates').setup {}
         require('rust-tools').setup(rustopts)
       ''}
 
       ${writeIf cfg.python ''
         -- Python config
-        lspconfig.pyright.setup{
+        vim.lsp.config['pyright'] = {
           capabilities = capabilities;
           on_attach=default_on_attach;
           cmd = {"${pkgs.nodePackages.pyright}/bin/pyright-langserver", "--stdio"}
         }
+        vim.lsp.enable('pyright')
       ''}
 
       ${writeIf (cfg.nix.enable && cfg.nix.type == "nixd") ''
         -- Nix config
-        lspconfig.nixd.setup{
+        vim.lsp.config['nixd'] = {
           capabilities = capabilities;
           on_attach = function(client, bufnr)
             attach_keymaps(client, bufnr)
@@ -341,11 +339,12 @@ in
           };
           cmd = {"${pkgs.nixd}/bin/nixd"}
         }
+        vim.lsp.enable('nixd')
       ''}
 
       ${writeIf (cfg.nix.enable && cfg.nix.type == "nil") ''
         -- Nix config
-        lspconfig.nil_ls.setup {
+        vim.lsp.config['nil_ls'] = {
           capabilities = capabilities;
           on_attach = function(client, bufnr)
             attach_keymaps(client, bufnr)
@@ -370,31 +369,34 @@ in
           };
           cmd = {"${pkgs.nil}/bin/nil"}
         }
+        vim.lsp.enable('nil_ls')
       ''}
 
       ${writeIf (cfg.nix.enable && cfg.nix.type == "rnix-lsp") ''
         -- Nix config
-        lspconfig.rnix.setup{
+        vim.lsp.config['rnix'] = {
           capabilities = capabilities;
           on_attach = function(client, bufnr)
             attach_keymaps(client, bufnr)
           end,
           cmd = {"${pkgs.rnix-lsp}/bin/rnix-lsp"}
         }
+        vim.lsp.enable('rnix')
       ''}
 
       ${writeIf cfg.clang ''
         -- CCLS (clang) config
-        lspconfig.ccls.setup{
+        vim.lsp.config['ccls'] = {
           capabilities = capabilities;
           on_attach=default_on_attach;
           cmd = {"${pkgs.ccls}/bin/ccls"}
         }
+        vim.lsp.enable('ccls')
       ''}
 
       ${writeIf cfg.sql ''
         -- SQLS config
-        lspconfig.sqls.setup {
+        vim.lsp.config['sqls'] = {
           on_attach = function(client)
             client.server_capabilities.execute_command = true
             on_attach_keymaps(client, bufnr)
@@ -402,29 +404,32 @@ in
           end,
           cmd = {"${pkgs.sqls}/bin/sqls", "-config", string.format("%s/config.yml", vim.fn.getcwd()) }
         }
+        vim.lsp.enable('sqls')
       ''}
 
       ${writeIf cfg.go ''
         -- Go config
-        lspconfig.gopls.setup {
+        vim.lsp.config['gopls'] = {
           capabilities = capabilities;
           on_attach = default_on_attach;
           cmd = {"${pkgs.gopls}/bin/gopls", "serve"},
         }
+        vim.lsp.enable('gopls')
       ''}
 
       ${writeIf cfg.dhall ''
         -- Dhall config
-        lspconfig.dhall_lsp_server.setup {
+        vim.lsp.config['dhall_lsp_server'] = {
           capabilities = capabilities;
           on_attach = default_on_attach;
           cmd = { "${pkgs.dhall-lsp-server}/bin/dhall-lsp-server" };
         }
+        vim.lsp.enable('dhall_lsp_server')
       ''}
 
       ${writeIf cfg.elm ''
         -- Elm config
-        lspconfig.elmls.setup {
+        vim.lsp.config['elmls'] = {
           capabilities = capabilities;
           on_attach = default_on_attach;
           init_options = {
@@ -434,29 +439,32 @@ in
              elmAnalyseTrigger = "change"
           };
           cmd = { "${pkgs.elmPackages.elm-language-server}/bin/elm-language-server" };
-          root_dir = lspconfig.util.root_pattern("elm.json");
+          root_markers = { "elm.json" };
         }
+        vim.lsp.enable('elmls')
       ''}
 
       ${writeIf cfg.haskell ''
         -- Haskell config
-        lspconfig.hls.setup {
+        vim.lsp.config['hls'] = {
           capabilities = capabilities;
           on_attach = default_on_attach;
           cmd = { "${pkgs.haskell-language-server}/bin/haskell-language-server-wrapper", "--lsp" };
-          root_dir = lspconfig.util.root_pattern("hie.yaml", "stack.yaml", ".cabal", "cabal.project", "package.yaml");
+          root_markers = { "hie.yaml", "stack.yaml", ".cabal", "cabal.project", "package.yaml" };
         }
+        vim.lsp.enable('hls')
       ''}
 
       ${writeIf cfg.unison ''
         -- Unison config
-        lspconfig.unison.setup {
+        vim.lsp.config['unison'] = {
           capabilities = capabilities;
           on_attach = default_on_attach;
           cmd = { "nc", "localhost", "5757" };
           filetypes = { "unison" };
-          root_dir = lspconfig.util.root_pattern("*.u");
+          root_markers = { "*.u" };
         }
+        vim.lsp.enable('unison')
       ''}
 
       ${writeIf cfg.scala.enable ''
@@ -507,7 +515,7 @@ in
         -- Smithy config
         vim.cmd([[au BufRead,BufNewFile *.smithy setfiletype smithy]])
 
-        lspconfig.smithy_ls.setup {
+        vim.lsp.config['smithy_ls'] = {
           capabilities = capabilities;
           on_attach = function(client, bufnr)
             attach_keymaps(client, bufnr)
@@ -519,19 +527,21 @@ in
             '--main-class', '${cfg.smithy.server.class}',
             '--', '0'
           },
-          root_dir = lspconfig.util.root_pattern("smithy-build.json")
+          root_markers = { "smithy-build.json" }
         }
+        vim.lsp.enable('smithy_ls')
       ''}
 
       ${writeIf cfg.ts ''
         -- TS config
-        lspconfig.ts_ls.setup {
+        vim.lsp.config['ts_ls'] = {
           capabilities = capabilities;
           on_attach = function(client, bufnr)
             attach_keymaps(client, bufnr)
           end,
           cmd = { "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server", "--stdio" }
         }
+        vim.lsp.enable('ts_ls')
       ''}
     '';
   };
