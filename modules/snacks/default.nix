@@ -35,7 +35,7 @@ in
           sections = {
             {
               section = "terminal",
-              cmd = "${pkgs.chafa}/bin/chafa ${../../img/neovim-logo.png}",
+              cmd = "${pkgs.chafa}/bin/chafa --probe off ${../../img/neovim-logo.png}",
             },
             { text = "Version: ${version}", align = "center", padding = 1 },
             { section = "keys", gap = 1, padding = 1 },
