@@ -765,11 +765,11 @@
     },
     "nmd": {
       "locked": {
-        "lastModified": 1672240039,
-        "narHash": "sha256-lmct89fYDOr9YdWVvdJgklv/7WttRSiDAkoi2cvvAW4=",
+        "lastModified": 1759339018,
+        "narHash": "sha256-13x2gvgnnr3cJ5qp7zz7ZnUSrg0DF/sU9KiwZkML6J0=",
         "owner": "gvolpe",
         "repo": "nmd",
-        "rev": "a59e840c2e8d54415485f349760e1350cb80d911",
+        "rev": "5ecbe493e22de649e79c8e51dc5e92659940e081",
         "type": "github"
       },
       "original": {
