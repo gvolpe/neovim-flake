@@ -54,7 +54,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    vim.startPlugins = [ pkgs.neovimPlugins.tide ];
+    vim.startPlugins = with pkgs.neovimPlugins; [ nvim-nui tide ];
 
     vim.luaConfigRC = ''
       require('tide').setup({
