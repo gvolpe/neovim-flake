@@ -14,12 +14,8 @@ in
     vim.startPlugins = with pkgs.neovimPlugins; [ trouble ];
 
     vim.nnoremap = {
-      "<leader>lwd" = "<cmd> TroubleToggle workspace_diagnostics<CR>";
-      "<leader>ld" = "<cmd> TroubleToggle document_diagnostics<CR>";
-      "<leader>lr" = "<cmd> TroubleToggle lsp_references<CR>";
-      "<leader>xx" = "<cmd> TroubleToggle<CR>";
-      "<leader>xq" = "<cmd> TroubleToggle quickfix<CR>";
-      "<leader>xl" = "<cmd> TroubleToggle loclist<CR>";
+      "<leader>ltd" = "<cmd>Trouble diagnostics toggle focus=true filter.buf=0 win.type=split win.position=bottom<CR>";
+      "<leader>lts" = "<cmd>Trouble symbols toggle focus=true filter.buf=0 win.type=split win.position=bottom<CR>";
     };
 
     vim.luaConfigRC = ''
@@ -28,8 +24,8 @@ in
 
       ${writeIf keys.enable ''
         wk.register({
-          ["<leader>x"] = {
-            name = "Troubles",
+          ["<leader>lt"] = {
+            name = "Trouble",
           },
         })
       ''}
