@@ -8,11 +8,11 @@ with builtins;
 let
   inherit (prev.vimUtils) buildVimPlugin;
 
-  ts = prev.tree-sitter.override {
-    extraGrammars = {
+  ts = prev.tree-sitter.overrideAttrs (old: {
+    grammars = old.grammars.override {
       tree-sitter-scala = final.tree-sitter-scala-master;
     };
-  };
+  });
 
   # sync queries of tree-sitter-scala and nvim-treesitter
   queriesHook = ''
