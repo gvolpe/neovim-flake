@@ -33,6 +33,7 @@ let
   nixdOverlay = f: p: {
     inherit (inputs.nil.packages.${system}) nil;
     inherit (inputs.nixd.packages.${system}) nixd;
+    inherit (inputs.typenix.packages.${system}) typenix;
   };
 in
 [

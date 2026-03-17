@@ -14,6 +14,7 @@
     # nix lsp support
     nil.url = github:oxalica/nil;
     nixd.url = github:nix-community/nixd;
+    typenix.url = github:ryanrasti/typenix;
 
     # Nix module docs generator
     nmd.url = github:gvolpe/nmd;

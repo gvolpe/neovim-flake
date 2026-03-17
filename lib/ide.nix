@@ -40,7 +40,7 @@ let
         };
         nix = {
           enable = true;
-          type = "nil";
+          type = "typenix";
         };
         unison = true;
         rust.enable = false;

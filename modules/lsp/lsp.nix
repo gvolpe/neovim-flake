@@ -20,9 +20,9 @@ in
     nix = {
       enable = mkEnableOption "Nix LSP";
       type = mkOption {
-        type = types.enum [ "nixd" "nil" "rnix-lsp" ];
+        type = types.enum [ "nixd" "nil" "rnix-lsp" "typenix" ];
         default = "nil";
-        description = "Whether to use `nixd`, `nil` or `rnix-lsp`";
+        description = "Whether to use `nixd`, `nil`, `rnix-lsp` or `typenix`";
       };
     };
 
@@ -384,6 +384,25 @@ in
         vim.lsp.enable('rnix')
       ''}
 
+      ${writeIf (cfg.nix.enable && cfg.nix.type == "typenix") ''
+        -- Nix config
+        vim.lsp.config['typenix'] = {
+          capabilities = capabilities;
+          on_attach = default_on_attach;
+          filetypes = { "nix", "nixts" };
+          root_markers = { "flake.nix", ".git" };
+          cmd = {"${pkgs.typenix}/bin/typenix", "--lsp", "--stdio"};
+        }
+        vim.lsp.enable('typenix')
+
+        vim.filetype.add({
+          pattern = {
+            [".*/*.nix.d.ts"] = "nixts",
+          },
+        })
+        vim.treesitter.language.register("typescript", { "nixts" })
+      ''}
+
       ${writeIf cfg.clang ''
         -- CCLS (clang) config
         vim.lsp.config['ccls'] = {
@@ -505,10 +524,6 @@ in
         vim.cmd([[autocmd!]])
         vim.cmd([[autocmd FileType java,scala,sbt lua require('metals').initialize_or_attach(metals_config)]])
         vim.cmd([[augroup end]])
-      ''}
-
-      ${writeIf cfg.nix.enable ''
-        -- Nix formatter
       ''}
 
       ${writeIf cfg.smithy.enable ''

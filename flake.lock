@@ -657,6 +657,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_4": {
+      "locked": {
+        "lastModified": 1773597492,
+        "narHash": "sha256-hQ284SkIeNaeyud+LS0WVLX+WL2rxcVZLFEaK0e03zg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a07d4ce6bee67d7c838a8a5796e75dff9caa21ef",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nmd": {
       "locked": {
         "lastModified": 1759339018,
@@ -1214,6 +1230,7 @@
         "tree-sitter-scala": "tree-sitter-scala",
         "trouble": "trouble",
         "twilight": "twilight",
+        "typenix": "typenix",
         "vim-fugitive": "vim-fugitive",
         "vim-plantuml": "vim-plantuml",
         "vim-vsnip": "vim-vsnip",
@@ -1396,6 +1413,22 @@
         "type": "github"
       }
     },
+    "tree-sitter-nix": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1764782150,
+        "narHash": "sha256-cSiBd0XkSR8l1CF2vkThWUtMxqATwuxCNO5oy2kyOZY=",
+        "owner": "nix-community",
+        "repo": "tree-sitter-nix",
+        "rev": "eabf96807ea4ab6d6c7f09b671a88cd483542840",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "tree-sitter-nix",
+        "type": "github"
+      }
+    },
     "tree-sitter-scala": {
       "flake": false,
       "locked": {
@@ -1462,6 +1495,25 @@
       "original": {
         "owner": "folke",
         "repo": "twilight.nvim",
+        "type": "github"
+      }
+    },
+    "typenix": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_4",
+        "tree-sitter-nix": "tree-sitter-nix"
+      },
+      "locked": {
+        "lastModified": 1773282070,
+        "narHash": "sha256-lLnCbe+m2R6ONA+EYLu8bC8slMjC28wnO0Qsuic89Ww=",
+        "owner": "ryanrasti",
+        "repo": "typenix",
+        "rev": "13550ee05461121a74a6467aefc479a62026cdfc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryanrasti",
+        "repo": "typenix",
         "type": "github"
       }
     },
