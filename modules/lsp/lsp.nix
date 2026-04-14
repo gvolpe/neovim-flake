@@ -314,7 +314,7 @@ in
         vim.lsp.config['pyright'] = {
           capabilities = capabilities;
           on_attach=default_on_attach;
-          cmd = {"${pkgs.nodePackages.pyright}/bin/pyright-langserver", "--stdio"}
+          cmd = {"${pkgs.pyright}/bin/pyright-langserver", "--stdio"}
         }
         vim.lsp.enable('pyright')
       ''}
@@ -554,7 +554,7 @@ in
           on_attach = function(client, bufnr)
             attach_keymaps(client, bufnr)
           end,
-          cmd = { "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server", "--stdio" }
+          cmd = { "${pkgs.typescript-language-server}/bin/typescript-language-server", "--stdio" }
         }
         vim.lsp.enable('ts_ls')
       ''}
