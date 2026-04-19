@@ -10,7 +10,7 @@ let
       preventJunkFiles = true;
       cmdHeight = 2;
       customPlugins = with pkgs.vimPlugins; [
-        multiple-cursors
+        vim-multiple-cursors
         vim-repeat
       ];
       lsp = {
@@ -92,7 +92,7 @@ let
       };
       tabline.nvimBufferline.enable = true;
       treesitter = {
-        enable = true;
+        enable = false;
         autotagHtml = true;
         context.enable = true;
         textobjects.enable = false;
