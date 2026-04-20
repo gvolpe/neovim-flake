@@ -40,7 +40,7 @@ let
         };
         nix = {
           enable = true;
-          type = "typenix";
+          type = "nil";
         };
         unison = true;
         rust.enable = false;
@@ -147,7 +147,7 @@ let
       harpoon.enable = true;
       hop.enable = true;
       notifications.enable = true;
-      snacks.enable = true;
+      snacks.enable = false;
       tide.enable = true;
       todo.enable = true;
       zen.enable = true;
