@@ -8,7 +8,6 @@ with lib;
       enable = mkDefault false;
       fold = mkDefault false;
       autotagHtml = mkDefault false;
-      context.enable = mkDefault false;
       textobjects.enable = mkDefault false;
     };
   };

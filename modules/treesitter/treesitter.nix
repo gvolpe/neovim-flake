@@ -31,7 +31,7 @@ in
 
   config = mkIf cfg.enable {
     vim.startPlugins = with pkgs.neovimPlugins; (
-      [ nvim-treesitter ] ++
+      [ pkgs.vimPlugins.nvim-treesitter ] ++
       (withPlugins cfg.autotagHtml [ nvim-ts-autotag ]) ++
       (withPlugins cfg.textobjects.enable [ nvim-treesitter-textobjects ])
     );

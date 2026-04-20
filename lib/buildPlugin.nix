@@ -14,26 +14,11 @@ let
     };
   });
 
-  # sync queries of tree-sitter-scala and nvim-treesitter
-  queriesHook = ''
-    cp ${inputs.tree-sitter-scala}/queries/* $out/queries/scala/
-    cp ${ts.builtGrammars.tree-sitter-smithy}/queries/highlights.scm $out/queries/smithy/highlights.scm
-  '';
-
   telescopeFixupHook = ''
     substituteInPlace $out/scripts/vimg \
       --replace "chafa" "${pkgs.chafa}/bin/chafa"
     substituteInPlace $out/lua/telescope/_extensions/media_files.lua \
       --replace "M.base_directory .. '/scripts/vimg'" "'$out/scripts/vimg'"
-  '';
-
-  tsPreFixupHook = ''
-    ${queriesHook}
-  '';
-
-  tsPostPatchHook = grammars: ''
-    rm -r parser
-    ln -s ${grammars} parser
   '';
 
   plenaryPostPatchHook = ''
@@ -55,11 +40,9 @@ let
       dontBuild = name == "nvim-metals";
 
       preFixup = ''
-        ${writeIf (name == "nvim-treesitter") tsPreFixupHook}
         ${writeIf (name == "telescope-media-files") telescopeFixupHook}
       '';
       postPatch = ''
-        ${writeIf (name == "nvim-treesitter") (tsPostPatchHook grammars)}
         ${writeIf (name == "plenary-nvim") plenaryPostPatchHook}
       '';
     };
