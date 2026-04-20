@@ -10,6 +10,7 @@ in
   options.vim.snacks = {
     enable = mkOption {
       type = types.bool;
+      default = false;
       description = "Enable dashboard from the Snacks plugin";
     };
   };

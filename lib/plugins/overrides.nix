@@ -21,11 +21,15 @@ let
   ];
 
   snackSkip = [
-    # Requires setup call first
-    # attempt to index global 'Snacks' (a nil value)
     "snacks.dashboard"
     "snacks.debug"
     "snacks.dim"
+    "snacks.explorer.init"
+    "snacks.gh.actions"
+    "snacks.gh.buf"
+    "snacks.gh.init"
+    "snacks.gh.render"
+    "snacks.gh.render.init"
     "snacks.git"
     "snacks.image.convert"
     "snacks.image.image"
@@ -38,15 +42,14 @@ let
     "snacks.picker.actions"
     "snacks.picker.config.highlights"
     "snacks.picker.core.list"
+    "snacks.picker.source.gh"
+    "snacks.picker.util.diff"
     "snacks.scratch"
     "snacks.scroll"
     "snacks.terminal"
     "snacks.win"
     "snacks.words"
     "snacks.zen"
-    # Optional trouble integration
-    "trouble.sources.profiler"
-    # Plugin requires libsqlite available, create a test for it
     "snacks.picker.util.db"
   ];
 in
@@ -54,7 +57,8 @@ in
   checkInputs =
     (withDeps (p == "modes-nvim") [ neovimPlugins.nvim-cmp ]) ++
     (withDeps (p == "cmp-path") [ neovimPlugins.nvim-cmp ]) ++
-    (withDeps (p == "cmp-vsnip") [ neovimPlugins.nvim-cmp ]);
+    (withDeps (p == "cmp-vsnip") [ neovimPlugins.nvim-cmp ]) ++
+    (withDeps (p == "snacks") [ neovimPlugins.trouble ]);
 
   dependencies =
     (withDeps (p == "crates-nvim") [ neovimPlugins.plenary-nvim ]) ++
@@ -91,7 +95,34 @@ in
     (withDeps (p == "nvim-cmp") cmpSkip) ++
     (withDeps (p == "nvim-neoclip") [ "neoclip.fzf" "neoclip.telescope" ]) ++
     (withDeps (p == "nvim-notify") [ "notify.integrations.fzf" ]) ++
-    (withDeps (p == "nvim-tree-lua") [ "nvim-tree._meta.api" "nvim-tree._meta.api_decorator" ]) ++
+    (withDeps (p == "nvim-tree-lua") [
+      "nvim-tree._meta.api"
+      "nvim-tree._meta.api_decorator"
+      "nvim-tree._meta.api.decorator_example"
+      "nvim-tree._meta.classes"
+      "nvim-tree._meta.config.filters"
+      "nvim-tree._meta.config.actions"
+      "nvim-tree._meta.config.git"
+      "nvim-tree._meta.config.renderer"
+      "nvim-tree._meta.config.experimental"
+      "nvim-tree._meta.config.tab"
+      "nvim-tree._meta.config.modified"
+      "nvim-tree._meta.config.help"
+      "nvim-tree._meta.config.notify"
+      "nvim-tree._meta.config.sort"
+      "nvim-tree._meta.config.view"
+      "nvim-tree._meta.config.update_focused_file"
+      "nvim-tree._meta.config.diagnostics"
+      "nvim-tree._meta.config.log"
+      "nvim-tree._meta.config.system_open"
+      "nvim-tree._meta.config.ui"
+      "nvim-tree._meta.config.hijack_directories"
+      "nvim-tree._meta.config.trash"
+      "nvim-tree._meta.config.filesystem_watchers"
+      "nvim-tree._meta.config.live_filter"
+      "nvim-tree._meta.config.bookmarks"
+      "nvim-tree._meta.config"
+    ]) ++
     (withDeps (p == "nvim-treesitter-context") [ "install_parsers" ]) ++
     (withDeps (p == "nvim-surround") [ "nvim-surround.queries" ]) ++
     (withDeps (p == "onedark") [ "barbecue.theme.onedark" "onedark.highlights" "onedark.colors" "onedark.terminal" ]) ++

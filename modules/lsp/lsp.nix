@@ -148,6 +148,16 @@ in
       }
     '';
 
+    vim.startLuaConfigRC = ''
+      -- Register missing filetypes
+      vim.filetype.add({
+        extension = {
+          dhall = "dhall",
+          smithy = "smithy",
+        },
+      })
+    '';
+
     vim.luaConfigRC = ''
       local attach_keymaps = function(client, bufnr)
         local opts = { noremap=true, silent=true }
@@ -206,6 +216,9 @@ in
 
       -- Enable lspconfig
       local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+      -- Restore the old LspInfo command functionality
+      vim.api.nvim_create_user_command("LspInfo", "checkhealth vim.lsp", { desc = "Native LSP info replacement" })
 
       ${writeIf cfg.folds ''
         capabilities.textDocument.foldingRange = {
@@ -508,14 +521,6 @@ in
              ${metalsServerProperties}
            }
         }
-
-        metals_config.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-          vim.lsp.diagnostic.on_publish_diagnostics, {
-            virtual_text = {
-              prefix = '',
-            }
-          }
-        )
 
         -- without doing this, autocommands that deal with filetypes prohibit messages from being shown
         vim.opt_global.shortmess:remove("F")

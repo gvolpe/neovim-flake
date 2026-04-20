@@ -10,7 +10,7 @@ let
       preventJunkFiles = true;
       cmdHeight = 2;
       customPlugins = with pkgs.vimPlugins; [
-        multiple-cursors
+        vim-multiple-cursors
         vim-repeat
       ];
       lsp = {
@@ -40,7 +40,7 @@ let
         };
         nix = {
           enable = true;
-          type = "typenix";
+          type = "nil";
         };
         unison = true;
         rust.enable = false;
@@ -92,7 +92,7 @@ let
       };
       tabline.nvimBufferline.enable = true;
       treesitter = {
-        enable = true;
+        enable = false;
         autotagHtml = true;
         context.enable = true;
         textobjects.enable = false;
@@ -147,7 +147,7 @@ let
       harpoon.enable = true;
       hop.enable = true;
       notifications.enable = true;
-      snacks.enable = true;
+      snacks.enable = false;
       tide.enable = true;
       todo.enable = true;
       zen.enable = true;
