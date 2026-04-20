@@ -33,9 +33,6 @@ jobs:
       - name: "Build tree-sitter-scala from master 🔧"
         run: nix build .#ts-scala -L
 
-      - name: "Build nvim-treesitter from master 🔧"
-        run: nix build .#nvim-treesitter -L
-
       - name: "Build NeoVim flake ❄️"
         run: nix build .#ide
 
