@@ -10,6 +10,8 @@ let
   metalsServerProperties =
     let str = builtins.toJSON cfg.scala.metals.serverProperties;
     in lib.strings.removePrefix "[" (lib.strings.removeSuffix "]" str);
+
+  smithy-wrapper = pkgs.callPackage ./smithy.nix { };
 in
 {
   options.vim.lsp = {
@@ -146,16 +148,6 @@ in
           let g:c_syntax_for_h = 1
         ''
       }
-    '';
-
-    vim.startLuaConfigRC = ''
-      -- Register missing filetypes
-      vim.filetype.add({
-        extension = {
-          dhall = "dhall",
-          smithy = "smithy",
-        },
-      })
     '';
 
     vim.luaConfigRC = ''
@@ -533,21 +525,23 @@ in
 
       ${writeIf cfg.smithy.enable ''
         -- Smithy config
-        vim.cmd([[au BufRead,BufNewFile *.smithy setfiletype smithy]])
+        vim.filetype.add({
+          extension = {
+            smithy = "smithy"
+          },
+        })
 
         vim.lsp.config['smithy_ls'] = {
           capabilities = capabilities;
           on_attach = function(client, bufnr)
             attach_keymaps(client, bufnr)
           end,
-          cmd = {
-            '${cfg.smithy.launcher}/bin/cs', 'launch',
-            '${cfg.smithy.server.name}:${cfg.smithy.server.version}',
-            '--ttl', '1h',
-            '--main-class', '${cfg.smithy.server.class}',
-            '--', '0'
+          -- Run the command on a separate terminal and this works like a charm, but it hangs nvim 0.12.x if the server is started here
+          -- cmd = { '${smithy-wrapper}/bin/smithy-ls' },
+          root_markers = { "smithy-build.json" },
+          flags = {
+            debounce_text_changes = 500,
           },
-          root_markers = { "smithy-build.json" }
         }
         vim.lsp.enable('smithy_ls')
       ''}

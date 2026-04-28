@@ -5,11 +5,11 @@ with lib;
 {
   config = {
     vim.treesitter = {
-      enable = mkDefault false;
-      fold = mkDefault false;
-      autotagHtml = mkDefault false;
-      context.enable = mkDefault false;
-      textobjects.enable = mkDefault false;
+      enable = mkDefault true;
+      fold = mkDefault true;
+      autotagHtml = mkDefault true;
+      context.enable = mkDefault true;
+      textobjects.enable = mkDefault true;
     };
   };
 }

@@ -92,7 +92,7 @@ let
       };
       tabline.nvimBufferline.enable = true;
       treesitter = {
-        enable = false;
+        enable = true;
         autotagHtml = true;
         context.enable = true;
         textobjects.enable = false;
@@ -157,7 +157,7 @@ let
   langs = {
     vim.lsp = {
       ts = true;
-      smithy.enable = true;
+      smithy.enable = false;
       dhall = true;
       elm = true;
     };

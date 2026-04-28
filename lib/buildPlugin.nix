@@ -14,12 +14,6 @@ let
     };
   });
 
-  # sync queries of tree-sitter-scala and nvim-treesitter
-  queriesHook = ''
-    cp ${inputs.tree-sitter-scala}/queries/* $out/queries/scala/
-    cp ${ts.builtGrammars.tree-sitter-smithy}/queries/highlights.scm $out/queries/smithy/highlights.scm
-  '';
-
   telescopeFixupHook = ''
     substituteInPlace $out/scripts/vimg \
       --replace "chafa" "${pkgs.chafa}/bin/chafa"
@@ -27,13 +21,18 @@ let
       --replace "M.base_directory .. '/scripts/vimg'" "'$out/scripts/vimg'"
   '';
 
+  # sync nvim-treesitter queries and parsers
   tsPreFixupHook = ''
-    ${queriesHook}
-  '';
+    mkdir -p $out/queries
+    mkdir -p $out/queries/scala
+    mkdir -p $out/queries/smithy
+    cp ${inputs.tree-sitter-scala}/queries/* $out/queries/scala/
+    cp ${ts.builtGrammars.tree-sitter-smithy}/queries/highlights.scm $out/queries/smithy/highlights.scm
 
-  tsPostPatchHook = grammars: ''
-    rm -r parser
-    ln -s ${grammars} parser
+    mkdir -p $out/parser
+    cp ${ts.builtGrammars.tree-sitter-nix}/parser $out/parser/nix.so
+    cp ${ts.builtGrammars.tree-sitter-scala}/parser $out/parser/scala.so
+    cp ${ts.builtGrammars.tree-sitter-smithy}/parser $out/parser/smithy.so
   '';
 
   plenaryPostPatchHook = ''
@@ -59,7 +58,6 @@ let
         ${writeIf (name == "telescope-media-files") telescopeFixupHook}
       '';
       postPatch = ''
-        ${writeIf (name == "nvim-treesitter") (tsPostPatchHook grammars)}
         ${writeIf (name == "plenary-nvim") plenaryPostPatchHook}
       '';
     };

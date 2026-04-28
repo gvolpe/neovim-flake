@@ -44,8 +44,17 @@ in
 
     vim.luaConfigRC =
       ''
+        -- Smithy treesitter config
+        vim.api.nvim_create_autocmd("FileType", {
+          pattern = "smithy",
+          callback = function()
+            vim.treesitter.language.register('smithy', 'smithy')
+            vim.treesitter.start()
+          end,
+        })
+
         -- Treesitter config
-        require'nvim-treesitter.configs'.setup {
+        require'nvim-treesitter'.setup {
           highlight = {
             enable = true,
           },
