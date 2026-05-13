@@ -247,11 +247,6 @@
       flake = false;
     };
 
-    hop = {
-      url = github:phaazon/hop.nvim;
-      flake = false;
-    };
-
     # Themes
     catppuccin = {
       url = github:catppuccin/nvim;

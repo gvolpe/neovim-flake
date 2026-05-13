@@ -145,7 +145,6 @@ let
       };
       dial.enable = true;
       harpoon.enable = true;
-      hop.enable = true;
       notifications.enable = true;
       snacks.enable = false;
       tide.enable = true;

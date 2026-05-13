@@ -13,7 +13,6 @@
     ./fx
     ./git
     ./harpoon
-    ./hop
     ./hurl
     ./keys
     ./lsp

@@ -297,22 +297,6 @@
         "type": "github"
       }
     },
-    "hop": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1694283445,
-        "narHash": "sha256-SnuFeD/lrMxKtpBRPgIwdG0kVF7BWe02PiV7URVDASI=",
-        "owner": "phaazon",
-        "repo": "hop.nvim",
-        "rev": "1a1eceafe54b5081eae4cb91c723abd1d450f34b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "phaazon",
-        "repo": "hop.nvim",
-        "type": "github"
-      }
-    },
     "hurl-nvim": {
       "flake": false,
       "locked": {
@@ -1154,7 +1138,6 @@
         "gitsigns-nvim": "gitsigns-nvim",
         "glow-nvim": "glow-nvim",
         "harpoon": "harpoon",
-        "hop": "hop",
         "hurl-nvim": "hurl-nvim",
         "indent-blankline": "indent-blankline",
         "kommentary": "kommentary",
