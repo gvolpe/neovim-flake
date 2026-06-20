@@ -127,10 +127,6 @@
       url = github:ray-x/lsp_signature.nvim;
       flake = false;
     };
-    null-ls = {
-      url = github:jose-elias-alvarez/null-ls.nvim;
-      flake = false;
-    };
     sqls-nvim = {
       url = github:nanotee/sqls.nvim;
       flake = false;
