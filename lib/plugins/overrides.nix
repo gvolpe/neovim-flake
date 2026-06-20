@@ -56,7 +56,9 @@ in
 { p }: {
   checkInputs =
     (withDeps (p == "modes-nvim") [ neovimPlugins.nvim-cmp ]) ++
+    (withDeps (p == "cmp-buffer") [ neovimPlugins.nvim-cmp ]) ++
     (withDeps (p == "cmp-path") [ neovimPlugins.nvim-cmp ]) ++
+    (withDeps (p == "cmp-treesitter") [ neovimPlugins.nvim-cmp ]) ++
     (withDeps (p == "cmp-vsnip") [ neovimPlugins.nvim-cmp ]) ++
     (withDeps (p == "snacks") [ neovimPlugins.trouble ]);
 
