@@ -14,6 +14,7 @@
     ./git
     ./harpoon
     ./hurl
+    ./jujutsu
     ./keys
     ./lsp
     ./markdown

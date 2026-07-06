@@ -5,7 +5,6 @@ with lib;
 let
   cfg = config.vim.harpoon;
   keys = config.vim.keys.whichKey;
-  tele = config.vim.telescope;
 in
 {
   options.vim.harpoon = {

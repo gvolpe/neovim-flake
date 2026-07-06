@@ -128,6 +128,7 @@ let
         gitsigns.enable = true;
         neogit.enable = true;
       };
+      jujutsu.enable = true;
       mind = {
         enable = false;
         persistence = {
