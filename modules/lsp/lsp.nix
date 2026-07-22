@@ -26,6 +26,11 @@ in
         default = "nil";
         description = "Whether to use `nixd`, `nil`, `rnix-lsp` or `typenix`";
       };
+      formatter = mkOption {
+        type = types.str;
+        default = "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt";
+        description = "The formatter command to use with the LSP integration, e.g. 'pedantix'";
+      };
     };
 
     dhall = mkEnableOption "Dhall LSP";
@@ -334,7 +339,7 @@ in
           settings = {
             ['nixd'] = {
               formatting = {
-                command = {"${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt"}
+                command = {"${cfg.nix.formatter}"}
               },
               diagnostic = {
                 -- See values: https://github.com/nix-community/nixd/blob/590eccaa079929daa58316f5386dbcc150e2d50d/libnixf/src/Basic/diagnostic.py#L17
@@ -357,7 +362,7 @@ in
           settings = {
             ['nil'] = {
               formatting = {
-                command = {"${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt"}
+                command = {"${cfg.nix.formatter}"}
               },
               diagnostics = {
                 ignored = { "uri_literal" },
