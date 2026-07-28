@@ -23,7 +23,7 @@ Followed by importing the HM module.
 [source,nix]
 ----
 {
-  imports = [ neovim-flake.homeManagerModules.default ];
+  imports = [ neovim-flake.homeModules.default ];
 }
 ----
 

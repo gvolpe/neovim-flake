@@ -1,11 +1,12 @@
-{ lib, inputs, system }:
+{ inputs, lib, system }:
 
 let
   pluginOverlay = lib.buildPluginOverlay;
   nmdOverlay = inputs.nmd.overlays.default;
 
   buildersOverlay = f: p: {
-    inherit (lib) metalsBuilder neovimBuilder;
+    metalsBuilder = import ./metalsBuilder.nix { pkgs = p; };
+    neovimBuilder = import ./neovimBuilder.nix { pkgs = f; };
   };
 
   libOverlay = f: p: {
@@ -17,8 +18,8 @@ let
   tsOverlay = f: p: {
     tree-sitter-scala-master = p.tree-sitter.buildGrammar {
       language = "scala";
-      version = inputs.tree-sitter-scala.rev;
       src = inputs.tree-sitter-scala;
+      version = inputs.tree-sitter-scala.rev;
     };
   };
 
@@ -35,6 +36,17 @@ let
     inherit (inputs.nixd.packages.${system}) nixd;
     inherit (inputs.typenix.packages.${system}) typenix;
   };
+
+  flakeOverlay = f: p: {
+    default-ide = p.callPackage ./ide.nix { };
+    searchdocs = p.callPackage ../docs/search { };
+
+    docbook = with import ../docs { pkgs = p; lib = p.lib; }; {
+      inherit manPages jsonModuleMaintainers;
+      inherit (manual) html;
+      inherit (options) json;
+    };
+  };
 in
 [
   libOverlay
@@ -42,6 +54,7 @@ in
   pluginOverlay
   nmdOverlay
   tsOverlay
+  flakeOverlay
   lib.metalsOverlay
   neovimOverlay
   nixdOverlay

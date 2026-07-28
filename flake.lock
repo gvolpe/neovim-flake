@@ -217,17 +217,16 @@
     },
     "flake-schemas": {
       "locked": {
-        "lastModified": 1713165510,
-        "narHash": "sha256-pR0sT1MGGTi1+u74gssJcq83TpUfcJbbsP69qhFg1O4=",
-        "owner": "gvolpe",
-        "repo": "flake-schemas",
-        "rev": "e72d8de98fab07bd852204141d2e8b731e3f2039",
-        "type": "github"
+        "lastModified": 1780327564,
+        "narHash": "sha256-HiRPtA0spK+Dkgbhz/1zW9glXxNVB+L4Rj2VYmdawb8=",
+        "rev": "6cc9bd98891b1fc6bb2b8cb3277df8bc72799ca6",
+        "revCount": 149,
+        "type": "tarball",
+        "url": "https://api.flakehub.com/f/pinned/DeterminateSystems/flake-schemas/0.5.0/019e83cf-9af3-78b1-ac5b-70e68ad1efe1/source.tar.gz"
       },
       "original": {
-        "owner": "gvolpe",
-        "repo": "flake-schemas",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://flakehub.com/f/DeterminateSystems/flake-schemas/0"
       }
     },
     "flake-utils": {
