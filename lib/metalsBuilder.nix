@@ -21,5 +21,5 @@ in
 pkgs.metals.overrideAttrs (old: {
   inherit deps version;
   __intentionallyOverridingVersion = true;
-  extraJavaOpts = old.extraJavaOpts + " -Dmetals.client=nvim-lsp";
+  extraJavaOpts = (old.extraJavaOpts or "") + " -Dmetals.client=nvim-lsp";
 })
