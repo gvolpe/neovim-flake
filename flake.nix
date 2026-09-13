@@ -2,7 +2,7 @@
   description = "Neovim Flake by Gabriel Volpe";
 
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
+    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
     flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/0";
     flake-utils.url = github:numtide/flake-utils;
 

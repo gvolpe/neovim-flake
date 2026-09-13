@@ -138,7 +138,8 @@ let
       };
       chatgpt = {
         enable = false;
-        openaiApiKey = null;
+        openaiApiKeyPath = "/run/user/1000/agenix/openai-api-key";
+        #openaiApiKeyPath = config.age.secrets.open-api-key.path;
       };
       spider = {
         enable = false;
